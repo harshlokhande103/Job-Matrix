@@ -665,6 +665,375 @@ h1 .gradient {
   font-size: 24px;
 }
 
+.milestones {
+  padding: 14px 0 62px;
+  background: var(--bg);
+}
+
+.milestones-wrap {
+  width: min(1320px, calc(100% - 120px));
+}
+
+.milestones-head {
+  text-align: center;
+}
+
+.milestones-head h2 {
+  color: #0f193b;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.milestones-head p {
+  margin-top: 12px;
+  color: #536d90;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.milestones-grid {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.milestone-card {
+  background: #f3f5f8;
+  border: 1px solid #dfe4ee;
+  border-radius: 18px;
+  min-height: 220px;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: 18px 14px 16px;
+  box-shadow: 0 8px 16px rgba(20, 33, 64, 0.07);
+}
+
+.milestone-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: #dfe6f2;
+  color: #2f67dd;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+}
+
+.milestone-card h3 {
+  margin-top: 14px;
+  color: #0f193b;
+  font-size: 34px;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.milestone-card p {
+  margin-top: 6px;
+  color: #4f698d;
+  font-size: 13px;
+  letter-spacing: 1.4px;
+  font-weight: 600;
+}
+
+.india-slider {
+  padding: 10px 0 62px;
+  background: var(--bg);
+}
+
+.india-slider-wrap {
+  width: min(1160px, calc(100% - 220px));
+}
+
+.india-slider-frame {
+  position: relative;
+  height: 520px;
+  border-radius: 38px;
+  overflow: hidden;
+}
+
+.india-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.india-slide.active {
+  opacity: 1;
+}
+
+.india-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(3, 12, 34, 0.08) 0%, rgba(3, 12, 34, 0.42) 100%);
+}
+
+.india-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.india-slide h3 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  color: #ffffff;
+  font-size: 62px;
+  line-height: 1.1;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.india-slider-dots {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.india-slider-dots button {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 0;
+  background: #c9d2e2;
+  cursor: pointer;
+}
+
+.india-slider-dots button.active {
+  background: #6b89be;
+}
+
+.site-footer {
+  background: #09193f;
+  padding: 58px 0 46px;
+}
+
+.footer-wrap {
+  width: min(1380px, calc(100% - 120px));
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr 1fr;
+  gap: 52px;
+  padding-bottom: 34px;
+  border-bottom: 1px solid rgba(154, 176, 214, 0.18);
+}
+
+.footer-brand p {
+  margin-top: 0;
+  max-width: 320px;
+  color: #98add3;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.footer-logo {
+  width: 112px;
+  height: 82px;
+  overflow: hidden;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+.footer-logo-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.footer-col h3 {
+  color: #ffffff;
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.footer-col a,
+.footer-col p {
+  display: block;
+  color: #98add3;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+.footer-col a:hover {
+  color: #ffffff;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 24px;
+}
+
+.footer-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.footer-links a {
+  color: #6f86b0;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.footer-bottom p {
+  margin-top: 10px;
+  color: #6f86b0;
+  font-size: 12px;
+}
+
+.services-page .services-hero {
+  padding: 82px 0 68px;
+  border-bottom: 1px solid #dfe5ef;
+}
+
+.services-page .services-hero-wrap {
+  width: min(1120px, calc(100% - 220px));
+  margin: 0 auto;
+  text-align: center;
+}
+
+.services-page .services-hero h1 {
+  font-size: 34px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: #0f193b;
+}
+
+.services-page .services-hero p {
+  margin: 16px auto 0;
+  max-width: 760px;
+  color: #4b5f80;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.services-page .services-catalog {
+  padding: 64px 0 100px;
+  background: #e9eef6;
+}
+
+.services-page .services-catalog-wrap {
+  width: min(1180px, calc(100% - 220px));
+}
+
+.services-page .services-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.services-page .service-offer-card {
+  background: #f5f7fb;
+  border: 1px solid #dde4ef;
+  border-radius: 20px;
+  padding: 30px 30px 24px;
+}
+
+.services-page .offer-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  font-size: 34px;
+  margin-bottom: 20px;
+}
+
+.services-page .offer-icon.blue {
+  background: #e8efff;
+  color: #2f67dd;
+}
+
+.services-page .offer-icon.cyan {
+  background: #e7f6fb;
+  color: #19a6cd;
+}
+
+.services-page .offer-icon.indigo {
+  background: #ebecff;
+  color: #6270df;
+}
+
+.services-page .offer-icon.purple {
+  background: #f1e9ff;
+  color: #9460e9;
+}
+
+.services-page .service-offer-card h3 {
+  color: #0f193b;
+  font-size: 18px;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.services-page .service-offer-card p {
+  margin-top: 12px;
+  color: #4c6182;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.services-page .service-offer-card ul {
+  margin-top: 16px;
+  list-style: none;
+}
+
+.services-page .service-offer-card li {
+  position: relative;
+  padding-left: 22px;
+  color: #334f73;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.services-page .service-offer-card li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  color: #31b565;
+  font-weight: 700;
+}
+
+.services-page .service-offer-card button {
+  margin-top: 18px;
+  width: 100%;
+  min-height: 38px;
+  border: 2px solid #95a1b8;
+  border-radius: 13px;
+  background: transparent;
+  color: #2a3f60;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
 @media (max-width: 1280px) {
   .container {
     width: min(1200px, calc(100% - 48px));
@@ -813,6 +1182,96 @@ h1 .gradient {
   .mission-card p {
     max-width: 760px;
     font-size: 24px;
+  }
+
+  .milestones-wrap {
+    width: min(1200px, calc(100% - 48px));
+  }
+
+  .milestones-head h2 {
+    font-size: 46px;
+  }
+
+  .milestones-head p {
+    font-size: 20px;
+  }
+
+  .milestones-grid {
+    gap: 18px;
+  }
+
+  .milestone-card {
+    min-height: 245px;
+    border-radius: 18px;
+  }
+
+  .milestone-icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 18px;
+    font-size: 30px;
+  }
+
+  .milestone-card h3 {
+    margin-top: 16px;
+    font-size: 48px;
+  }
+
+  .milestone-card p {
+    font-size: 14px;
+    letter-spacing: 1.4px;
+  }
+
+  .india-slider-wrap {
+    width: min(1200px, calc(100% - 48px));
+  }
+
+  .india-slider-frame {
+    height: 430px;
+    border-radius: 30px;
+  }
+
+  .india-slide h3 {
+    font-size: 48px;
+  }
+
+  .footer-wrap {
+    width: min(1200px, calc(100% - 48px));
+  }
+
+  .footer-top {
+    gap: 28px;
+  }
+
+  .footer-col h3 {
+    font-size: 28px;
+  }
+
+  .footer-col a,
+  .footer-col p,
+  .footer-brand p {
+    font-size: 15px;
+  }
+
+  .footer-logo {
+    width: 102px;
+    height: 74px;
+  }
+
+  .services-page .services-hero h1 {
+    font-size: 32px;
+  }
+
+  .services-page .services-hero p {
+    font-size: 14px;
+  }
+
+  .services-page .services-catalog-wrap {
+    width: min(1200px, calc(100% - 48px));
+  }
+
+  .services-page .service-offer-card h3 {
+    font-size: 17px;
   }
 }
 
@@ -1125,5 +1584,182 @@ h1 .gradient {
     width: 34px;
     height: 34px;
     font-size: 16px;
+  }
+
+  .milestones {
+    padding: 14px 0 56px;
+  }
+
+  .milestones-wrap {
+    width: min(700px, calc(100% - 28px));
+  }
+
+  .milestones-head h2 {
+    font-size: 34px;
+  }
+
+  .milestones-head p {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  .milestones-grid {
+    margin-top: 28px;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .milestone-card {
+    min-height: 170px;
+    border-radius: 14px;
+    padding: 16px 10px;
+  }
+
+  .milestone-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    font-size: 22px;
+  }
+
+  .milestone-card h3 {
+    margin-top: 12px;
+    font-size: 36px;
+  }
+
+  .milestone-card p {
+    margin-top: 4px;
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  .india-slider {
+    padding: 0 0 50px;
+  }
+
+  .india-slider-wrap {
+    width: min(700px, calc(100% - 28px));
+  }
+
+  .india-slider-frame {
+    height: 280px;
+    border-radius: 18px;
+  }
+
+  .india-slide h3 {
+    font-size: 30px;
+  }
+
+  .india-slider-dots {
+    margin-top: 14px;
+    gap: 10px;
+  }
+
+  .india-slider-dots button {
+    width: 12px;
+    height: 12px;
+  }
+
+  .site-footer {
+    padding: 46px 0 42px;
+  }
+
+  .footer-wrap {
+    width: min(700px, calc(100% - 28px));
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-bottom: 28px;
+  }
+
+  .footer-col h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .footer-col a,
+  .footer-col p,
+  .footer-brand p {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .footer-logo {
+    width: 92px;
+    height: 66px;
+  }
+
+  .footer-brand p {
+    margin-top: 0;
+  }
+
+  .footer-bottom {
+    padding-top: 24px;
+  }
+
+  .footer-links a,
+  .footer-bottom p {
+    font-size: 13px;
+  }
+
+  .services-page .services-hero {
+    padding: 52px 0 44px;
+  }
+
+  .services-page .services-hero h1 {
+    font-size: 36px;
+  }
+
+  .services-page .services-hero p {
+    margin-top: 10px;
+    font-size: 15px;
+  }
+
+  .services-page .services-catalog {
+    padding: 38px 0 56px;
+  }
+
+  .services-page .services-catalog-wrap {
+    width: min(700px, calc(100% - 28px));
+  }
+
+  .services-page .services-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .services-page .service-offer-card {
+    border-radius: 14px;
+    padding: 18px 16px 16px;
+  }
+
+  .services-page .offer-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 13px;
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+
+  .services-page .service-offer-card h3 {
+    font-size: 26px;
+  }
+
+  .services-page .service-offer-card p {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  .services-page .service-offer-card li {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .services-page .service-offer-card button {
+    margin-top: 14px;
+    min-height: 40px;
+    font-size: 14px;
   }
 }
