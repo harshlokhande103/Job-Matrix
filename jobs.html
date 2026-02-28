@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Matrix - Services</title>
+    <title>Job Matrix - Jobs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,7 +12,7 @@
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="services-page">
+  <body class="jobs-page">
     <header class="site-header">
       <div class="container nav-wrap">
         <div class="brand">
@@ -21,8 +21,8 @@
 
         <nav class="menu" id="menu">
           <a href="index.html">Home</a>
-          <a class="active" href="services.html">Services</a>
-          <a href="jobs.html">Jobs</a>
+          <a href="services.html">Services</a>
+          <a class="active" href="jobs.html">Jobs</a>
           <a href="#">About</a>
           <a href="#">Contact</a>
         </nav>
@@ -35,79 +35,80 @@
       </div>
     </header>
 
-    <section class="services-hero">
-      <div class="container services-hero-wrap">
-        <h1>Our Expertise</h1>
-        <p>
-          Comprehensive career solutions tailored to your unique journey. From
-          your first job to executive leadership.
-        </p>
+    <section class="jobs-hero">
+      <div class="container jobs-hero-wrap">
+        <h1>Open Positions</h1>
+
+        <div class="jobs-search-bar">
+          <div class="search-input-wrap">
+            <span class="search-icon">&#128269;</span>
+            <input type="text" placeholder="Search by title, skill, or company..." />
+          </div>
+
+          <div class="jobs-select-wrap">
+            <select>
+              <option>All Types</option>
+              <option>WFO</option>
+              <option>WFH</option>
+              <option>Hybrid</option>
+              <option>Remote</option>
+            </select>
+          </div>
+
+          <button class="jobs-search-btn">Search</button>
+        </div>
       </div>
     </section>
 
-    <section class="services-catalog">
-      <div class="container services-catalog-wrap">
-        <div class="services-cards-grid">
-          <article class="service-offer-card">
-            <span class="offer-icon blue">&#128188;</span>
-            <h3>Placement Assistance</h3>
-            <p>
-              Access a diverse range of Work From Home and office-based
-              opportunities. Our end-to-end support includes job matching and
-              dedicated placement assistance.
-            </p>
-            <ul>
-              <li>Premium job access</li>
-              <li>Interview scheduling</li>
-              <li>WFH &amp; WFO Roles</li>
+    <section class="jobs-listing">
+      <div class="container jobs-listing-wrap">
+        <div class="jobs-grid">
+          <article class="job-card">
+            <div class="job-card-head">
+              <span class="job-type">Hybrid</span>
+              <span class="job-date">1/19/2026</span>
+            </div>
+
+            <h3>HR Recruiter</h3>
+            <ul class="job-meta">
+              <li>&#127970; JobConnect Consultancy</li>
+              <li>&#128205; Mumbai</li>
+              <li>&#8377; 3L - 5L PA</li>
             </ul>
-            <button>Enquire Now</button>
+            <p>End-to-end recruitment for IT and Non-IT clients.</p>
+            <button class="job-apply-btn">Apply Now</button>
           </article>
 
-          <article class="service-offer-card">
-            <span class="offer-icon cyan">&#128196;</span>
-            <h3>Resume &amp; CV Building</h3>
-            <p>
-              Professional resume creation based on industry standards to
-              improve your shortlisting chances and showcase your professional
-              value.
-            </p>
-            <ul>
-              <li>ATS optimization</li>
-              <li>Professional formatting</li>
-              <li>Profile branding</li>
+          <article class="job-card">
+            <div class="job-card-head">
+              <span class="job-type muted">Remote</span>
+              <span class="job-date">1/19/2026</span>
+            </div>
+
+            <h3>Customer Support Executive</h3>
+            <ul class="job-meta">
+              <li>&#127970; Global Connect BPO</li>
+              <li>&#128205; Remote (Pan India)</li>
+              <li>&#8377; 2.5L - 4L PA</li>
             </ul>
-            <button>Enquire Now</button>
+            <p>Handle international voice/non-voice processes. Night shift.</p>
+            <button class="job-apply-btn">Apply Now</button>
           </article>
 
-          <article class="service-offer-card">
-            <span class="offer-icon indigo">&#128172;</span>
-            <h3>Interview Preparation</h3>
-            <p>
-              Structured mock interviews and coaching sessions designed to
-              enhance your communication, confidence, and workplace readiness.
-            </p>
-            <ul>
-              <li>Mock interview sessions</li>
-              <li>Behavioral coaching</li>
-              <li>Communication skills</li>
-            </ul>
-            <button>Enquire Now</button>
-          </article>
+          <article class="job-card">
+            <div class="job-card-head">
+              <span class="job-type">WFO</span>
+              <span class="job-date">1/19/2026</span>
+            </div>
 
-          <article class="service-offer-card">
-            <span class="offer-icon purple">&#128101;</span>
-            <h3>Corporate Hiring Support</h3>
-            <p>
-              Expert recruitment support for HR teams and companies. We ensure
-              candidates are thoroughly prepared for professional challenges.
-            </p>
-            <ul>
-              <li>Talent acquisition</li>
-              <li>Candidate screening</li>
-              <li>HR partnership</li>
+            <h3>Senior React Developer</h3>
+            <ul class="job-meta">
+              <li>&#127970; TechCorp Solutions</li>
+              <li>&#128205; Bangalore</li>
+              <li>&#8377; 20L - 30L PA</li>
             </ul>
-            <button>Enquire Now</button>
+            <p>We are looking for an experienced React developer to join our team.</p>
+            <button class="job-apply-btn">Apply Now</button>
           </article>
         </div>
       </div>
