@@ -1704,6 +1704,167 @@ h1 .gradient {
   letter-spacing: 1.2px;
 }
 
+.contact-page .contact-hero {
+  background: #2f67dd;
+  padding: 66px 0 148px;
+}
+
+.contact-page .contact-hero-wrap {
+  width: min(1320px, calc(100% - 120px));
+  text-align: center;
+}
+
+.contact-page .contact-hero h1 {
+  color: #0f193b;
+  font-size: 42px;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.contact-page .contact-hero p {
+  margin: 14px auto 0;
+  max-width: 680px;
+  color: #e6edff;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.contact-page .contact-main {
+  background: #e9eef6;
+  padding: 0 0 76px;
+}
+
+.contact-page .contact-main-wrap {
+  width: min(1320px, calc(100% - 120px));
+  margin-top: -96px;
+  display: grid;
+  grid-template-columns: 0.78fr 1.62fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.contact-page .contact-info-card,
+.contact-page .contact-form-card {
+  background: #f7f9fc;
+  border: 1px solid #dbe2ef;
+  border-radius: 18px;
+  box-shadow: 0 12px 22px rgba(18, 34, 70, 0.08);
+}
+
+.contact-page .contact-info-card {
+  padding: 24px;
+}
+
+.contact-page .contact-info-card h2 {
+  color: #0f193b;
+  font-size: 18px;
+  font-weight: 700;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #dbe2ef;
+}
+
+.contact-page .contact-info-list {
+  margin-top: 16px;
+  display: grid;
+  gap: 16px;
+}
+
+.contact-page .contact-item {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.contact-page .contact-item .icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #eaf1fd;
+  color: #2f67dd;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+}
+
+.contact-page .contact-item small {
+  color: #6e81a1;
+  font-size: 12px;
+}
+
+.contact-page .contact-item p {
+  color: #0f193b;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+.contact-page .contact-form-card {
+  padding: 24px 24px 22px;
+}
+
+.contact-page .contact-form-card h2 {
+  color: #0f193b;
+  font-size: 24px;
+  margin-bottom: 18px;
+}
+
+.contact-page .contact-form-card form {
+  display: grid;
+  gap: 14px;
+}
+
+.contact-page .contact-form-card .grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.contact-page .contact-form-card label {
+  color: #1f3557;
+  font-size: 12px;
+  font-weight: 500;
+  display: grid;
+  gap: 8px;
+}
+
+.contact-page .contact-form-card input,
+.contact-page .contact-form-card select,
+.contact-page .contact-form-card textarea {
+  width: 100%;
+  border: 1px solid #d2dbea;
+  border-radius: 10px;
+  background: #f7f9fc;
+  padding: 0 14px;
+  color: #2f4467;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+}
+
+.contact-page .contact-form-card input,
+.contact-page .contact-form-card select {
+  min-height: 44px;
+}
+
+.contact-page .contact-form-card textarea {
+  min-height: 150px;
+  padding-top: 10px;
+  resize: vertical;
+}
+
+.contact-page .contact-submit {
+  border: 0;
+  border-radius: 12px;
+  min-height: 48px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(90deg, #2f71ff, #4f39e4);
+  box-shadow: 0 10px 18px rgba(52, 95, 214, 0.22);
+  cursor: pointer;
+}
+
 @media (max-width: 1280px) {
   .container {
     width: min(1200px, calc(100% - 48px));
@@ -2012,6 +2173,15 @@ h1 .gradient {
 
   .about-page .who strong {
     font-size: 16px;
+  }
+
+  .contact-page .contact-hero-wrap,
+  .contact-page .contact-main-wrap {
+    width: min(1200px, calc(100% - 48px));
+  }
+
+  .contact-page .contact-main-wrap {
+    grid-template-columns: 1fr 1.35fr;
   }
 }
 
@@ -2658,5 +2828,53 @@ h1 .gradient {
 
   .about-page .who small {
     font-size: 11px;
+  }
+
+  .contact-page .contact-hero {
+    padding: 44px 0 126px;
+  }
+
+  .contact-page .contact-hero-wrap,
+  .contact-page .contact-main-wrap {
+    width: min(700px, calc(100% - 28px));
+  }
+
+  .contact-page .contact-hero h1 {
+    font-size: 34px;
+  }
+
+  .contact-page .contact-hero p {
+    font-size: 14px;
+  }
+
+  .contact-page .contact-main-wrap {
+    margin-top: -72px;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .contact-page .contact-info-card,
+  .contact-page .contact-form-card {
+    border-radius: 14px;
+    padding: 16px;
+  }
+
+  .contact-page .contact-form-card h2 {
+    font-size: 21px;
+    margin-bottom: 12px;
+  }
+
+  .contact-page .contact-form-card .grid2 {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .contact-page .contact-form-card textarea {
+    min-height: 120px;
+  }
+
+  .contact-page .contact-submit {
+    min-height: 42px;
+    font-size: 15px;
   }
 }
