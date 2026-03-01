@@ -41,25 +41,26 @@
           <h1>Register</h1>
           <p>Create your account and start applying for the best roles.</p>
 
-          <form class="auth-form">
+          <form class="auth-form" id="registerForm">
             <label>
               Full Name
-              <input type="text" placeholder="Your full name" />
+              <input id="registerName" type="text" placeholder="Your full name" required />
             </label>
             <label>
               Email Address
-              <input type="email" placeholder="you@example.com" />
+              <input id="registerEmail" type="email" placeholder="you@example.com" required />
             </label>
             <label>
               Phone Number
-              <input type="text" placeholder="+91..." />
+              <input id="registerPhone" type="text" placeholder="+91..." required />
             </label>
             <label>
               Password
-              <input type="password" placeholder="Create password" />
+              <input id="registerPassword" type="password" placeholder="Create password" required />
             </label>
-            <button type="button" class="auth-submit">Create Account</button>
+            <button type="submit" class="auth-submit" id="registerSubmitBtn">Create Account</button>
           </form>
+          <p class="auth-message" id="registerMessage"></p>
 
           <p class="auth-switch">
             Already have an account?
@@ -116,6 +117,7 @@
       </div>
     </footer>
 
+    <script type="module" src="auth.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

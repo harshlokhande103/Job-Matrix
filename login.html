@@ -41,17 +41,18 @@
           <h1>Login</h1>
           <p>Welcome back! Login to continue your career journey.</p>
 
-          <form class="auth-form">
+          <form class="auth-form" id="loginForm">
             <label>
               Email Address
-              <input type="email" placeholder="you@example.com" />
+              <input id="loginEmail" type="email" placeholder="you@example.com" required />
             </label>
             <label>
               Password
-              <input type="password" placeholder="Enter your password" />
+              <input id="loginPassword" type="password" placeholder="Enter your password" required />
             </label>
-            <button type="button" class="auth-submit">Login</button>
+            <button type="submit" class="auth-submit" id="loginSubmitBtn">Login</button>
           </form>
+          <p class="auth-message" id="loginMessage"></p>
 
           <p class="auth-switch">
             Don't have an account?
@@ -108,6 +109,7 @@
       </div>
     </footer>
 
+    <script type="module" src="auth.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
