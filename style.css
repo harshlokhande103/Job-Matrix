@@ -1196,6 +1196,10 @@ h1 .gradient {
   position: relative;
 }
 
+.services-page .seat-count.low-seat {
+  color: #e53935;
+}
+
 .services-page .info-btn {
   width: 18px;
   height: 18px;
@@ -2231,8 +2235,8 @@ button,
 .plans-tabs button,
 .footer-links a,
 .footer-col a {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease,
-    background-color 0.25s ease, color 0.25s ease;
+  transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease,
+    background-color 0.14s ease, color 0.14s ease;
 }
 
 button:hover,
@@ -2261,8 +2265,8 @@ button:active,
 .about-mv-media,
 .photo-wrap,
 .center-ring {
-  transition: transform 0.28s ease, box-shadow 0.28s ease,
-    background-color 0.28s ease, border-color 0.28s ease, filter 0.28s ease;
+  transition: transform 0.16s ease, box-shadow 0.16s ease,
+    background-color 0.16s ease, border-color 0.16s ease, filter 0.16s ease;
 }
 
 .photo-wrap img,
@@ -3444,4 +3448,27 @@ button:active,
     min-height: 42px;
     font-size: 15px;
   }
+}
+
+/* Keep hover zoom working even with scroll-reveal transforms */
+.service-card.reveal-on-scroll.is-visible:hover,
+.service-offer-card.reveal-on-scroll.is-visible:hover,
+.why-card.reveal-on-scroll.is-visible:hover,
+.plan-card.reveal-on-scroll.is-visible:hover,
+.job-card.reveal-on-scroll.is-visible:hover,
+.milestone-card.reveal-on-scroll.is-visible:hover,
+.contact-info-card.reveal-on-scroll.is-visible:hover,
+.contact-form-card.reveal-on-scroll.is-visible:hover,
+.values-grid article.reveal-on-scroll.is-visible:hover,
+.testimonial-grid article.reveal-on-scroll.is-visible:hover,
+.about-adv-right.reveal-on-scroll.is-visible:hover,
+.about-mv-media.reveal-on-scroll.is-visible:hover,
+.photo-wrap.reveal-on-scroll.is-visible:hover,
+.center-ring.reveal-on-scroll.is-visible:hover {
+  transform: translateY(-5px) scale(1.01) !important;
+}
+
+button.reveal-on-scroll.is-visible:hover,
+.plans-tabs button.reveal-on-scroll.is-visible:hover {
+  transform: translateY(-2px) scale(1.02) !important;
 }

@@ -87,6 +87,101 @@ if (plansToggle && plansDropdown) {
   });
 }
 
+const seatNodes = Array.from(document.querySelectorAll(".seat-count"));
+
+if (seatNodes.length) {
+  const STORAGE_KEY = "jm_prepaid_seat_state_v1";
+  const DECREMENT_EVERY_MS = 52 * 60 * 60 * 1000;
+  const DECREMENT_BY = 3;
+
+  const now = Date.now();
+  let state = {};
+
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    state = raw ? JSON.parse(raw) : {};
+  } catch {
+    state = {};
+  }
+
+  const applySeatDisplay = (el, seats) => {
+    el.textContent = `${seats} seats left`;
+    el.classList.toggle("low-seat", seats < 10);
+  };
+
+  seatNodes.forEach((el) => {
+    const key = el.getAttribute("data-plan-key");
+    const initial = Number(el.getAttribute("data-initial-seats")) || 0;
+    if (!key || !initial) return;
+
+    if (!state[key]) {
+      state[key] = {
+        initial,
+        seats: initial,
+        lastTick: now,
+      };
+    }
+
+    const item = state[key];
+    let seats = Number(item.seats) || initial;
+    let lastTick = Number(item.lastTick) || now;
+    const intervals = Math.floor((now - lastTick) / DECREMENT_EVERY_MS);
+
+    if (intervals > 0) {
+      for (let i = 0; i < intervals; i += 1) {
+        seats -= DECREMENT_BY;
+        if (seats <= 3) {
+          seats = initial;
+        }
+      }
+      lastTick += intervals * DECREMENT_EVERY_MS;
+    }
+
+    state[key] = {
+      initial,
+      seats,
+      lastTick,
+    };
+
+    applySeatDisplay(el, seats);
+  });
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+  setInterval(() => {
+    const tickNow = Date.now();
+    let changed = false;
+
+    seatNodes.forEach((el) => {
+      const key = el.getAttribute("data-plan-key");
+      if (!key || !state[key]) return;
+
+      let seats = state[key].seats;
+      let lastTick = state[key].lastTick;
+      const initial = state[key].initial;
+      const intervals = Math.floor((tickNow - lastTick) / DECREMENT_EVERY_MS);
+
+      if (intervals > 0) {
+        for (let i = 0; i < intervals; i += 1) {
+          seats -= DECREMENT_BY;
+          if (seats <= 3) {
+            seats = initial;
+          }
+        }
+        lastTick += intervals * DECREMENT_EVERY_MS;
+        state[key] = { initial, seats, lastTick };
+        changed = true;
+      }
+
+      applySeatDisplay(el, seats);
+    });
+
+    if (changed) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+  }, 60 * 1000);
+}
+
 const revealSelector = [
   "section",
   "article",
@@ -131,6 +226,7 @@ if (revealElements.length) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
+            entry.target.style.transitionDelay = "0s";
             observer.unobserve(entry.target);
           }
         });
