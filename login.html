@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Matrix - Contact</title>
+    <title>Job Matrix - Login</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,11 +12,11 @@
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="contact-page">
+  <body class="auth-page">
     <header class="site-header">
       <div class="container nav-wrap">
         <div class="brand">
-          <img class="brand-image" src="Screenshot_2026-01-19_184903-removebg-preview.png" onclick="window.location.href='index.html'" alt="Job matrix logo" />
+          <img class="brand-image" src="Screenshot_2026-01-19_184903-removebg-preview.png" alt="Job matrix logo" onclick="window.location.href='index.html'" />
         </div>
 
         <nav class="menu" id="menu">
@@ -24,7 +24,7 @@
           <a href="services.html">Services</a>
           <a href="jobs.html">Jobs</a>
           <a href="about.html">About</a>
-          <a class="active" href="contact.html">Contact</a>
+          <a href="contact.html">Contact</a>
         </nav>
 
         <button class="nav-cta" onclick="window.location.href='login.html'">Login / Sign Up</button>
@@ -35,82 +35,29 @@
       </div>
     </header>
 
-    <section class="contact-hero">
-      <div class="container contact-hero-wrap">
-        <h1>Get in Touch</h1>
-        <p>
-          Have questions? We're here to help. Send us a message and we'll
-          respond within 24 hours.
-        </p>
-      </div>
-    </section>
+    <section class="auth-section">
+      <div class="container auth-wrap">
+        <div class="auth-card">
+          <h1>Login</h1>
+          <p>Welcome back! Login to continue your career journey.</p>
 
-    <section class="contact-main">
-      <div class="container contact-main-wrap">
-        <article class="contact-info-card">
-          <h2>Contact Information</h2>
-          <div class="contact-info-list">
-            <div class="contact-item">
-              <span class="icon">✉</span>
-              <div>
-                <small>Email Us</small>
-                <p>support@talentbridge.com</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <span class="icon">☎</span>
-              <div>
-                <small>Call Us</small>
-                <p>+91 98765 43210</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <span class="icon">⌖</span>
-              <div>
-                <small>Visit Us</small>
-                <p>Bandra Kurla Complex, Mumbai, India</p>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="contact-form-card">
-          <h2>Send us a Message</h2>
-          <form>
-            <div class="grid2">
-              <label>
-                Full Name
-                <input type="text" placeholder="John Doe" />
-              </label>
-              <label>
-                Email Address
-                <input type="email" placeholder="john@example.com" />
-              </label>
-            </div>
-
-            <div class="grid2">
-              <label>
-                Phone Number (Optional)
-                <input type="text" placeholder="+91..." />
-              </label>
-              <label>
-                I am a...
-                <select>
-                  <option>General Inquiry</option>
-                  <option>Job Seeker</option>
-                  <option>Employer</option>
-                </select>
-              </label>
-            </div>
-
+          <form class="auth-form">
             <label>
-              Message
-              <textarea placeholder="Tell us how we can help..."></textarea>
+              Email Address
+              <input type="email" placeholder="you@example.com" />
             </label>
-
-            <button type="button" class="contact-submit">Send Message</button>
+            <label>
+              Password
+              <input type="password" placeholder="Enter your password" />
+            </label>
+            <button type="button" class="auth-submit">Login</button>
           </form>
-        </article>
+
+          <p class="auth-switch">
+            Don't have an account?
+            <a href="register.html">Create Register Account</a>
+          </p>
+        </div>
       </div>
     </section>
 
