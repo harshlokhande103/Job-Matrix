@@ -28,8 +28,11 @@ body {
 }
 
 .site-header {
-  background: var(--header-bg);
-  border-bottom: 1px solid #dfe5ef;
+  background: rgba(255, 255, 255, 0.62);
+  border-bottom: 1px solid rgba(196, 209, 230, 0.6);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  box-shadow: 0 8px 20px rgba(26, 49, 92, 0.08);
   position: fixed;
   top: 0;
   left: 0;
@@ -170,6 +173,35 @@ h1 .gradient {
   gap: 18px;
 }
 
+.hero-trust-points {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #4d6388;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.trust-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #22b663;
+  color: #22b663;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  line-height: 1;
+}
+
 .btn {
   border-radius: 999px;
   min-height: 54px;
@@ -198,9 +230,13 @@ h1 .gradient {
 
 .photo-wrap {
   position: relative;
-  border-radius: 32px;
+  border-radius: 34px;
+  padding: 8px;
+  border: 6px solid #f2f6ff;
+  box-shadow:
+    0 20px 34px rgba(29, 55, 106, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
   overflow: hidden;
-  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.6);
 }
 
 .photo-wrap img {
@@ -209,6 +245,7 @@ h1 .gradient {
   min-height: 500px;
   object-fit: cover;
   display: block;
+  border-radius: 26px;
 }
 
 .placement-card {
@@ -759,6 +796,7 @@ h1 .gradient {
   inset: 0;
   opacity: 0;
   transition: opacity 0.7s ease;
+  overflow: hidden;
 }
 
 .india-slide.active {
@@ -816,7 +854,7 @@ h1 .gradient {
 
 .home-search-strip {
   padding: 24px 0 34px;
-  background: #ffffff;
+  background: var(--bg);
 }
 
 .home-search-wrap {
@@ -1539,6 +1577,7 @@ h1 .gradient {
   padding: 8px;
   border: 6px solid #f2f6ff;
   box-shadow: 0 20px 34px rgba(29, 55, 106, 0.2);
+  overflow: hidden;
 }
 
 .about-page .about-hero-media img {
@@ -2100,6 +2139,100 @@ h1 .gradient {
   cursor: pointer;
 }
 
+/* Global hover effects for buttons and cards across the project */
+button,
+.plans-tabs button,
+.footer-links a,
+.footer-col a {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease,
+    background-color 0.25s ease, color 0.25s ease;
+}
+
+button:hover,
+.plans-tabs button:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.05) saturate(1.08);
+  box-shadow: 0 14px 26px rgba(24, 48, 95, 0.2);
+}
+
+button:active,
+.plans-tabs button:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.service-card,
+.service-offer-card,
+.why-card,
+.plan-card,
+.job-card,
+.milestone-card,
+.contact-info-card,
+.contact-form-card,
+.values-grid article,
+.testimonial-grid article,
+.about-adv-right,
+.about-mv-media,
+.photo-wrap,
+.center-ring {
+  transition: transform 0.28s ease, box-shadow 0.28s ease,
+    background-color 0.28s ease, border-color 0.28s ease, filter 0.28s ease;
+}
+
+.photo-wrap img,
+.why-card img,
+.india-slide img,
+.about-hero-media img,
+.about-mv-media img {
+  transition: transform 0.45s ease, filter 0.45s ease;
+  transform: scale(1);
+}
+
+.service-card:hover,
+.service-offer-card:hover,
+.why-card:hover,
+.plan-card:hover,
+.job-card:hover,
+.milestone-card:hover,
+.contact-info-card:hover,
+.contact-form-card:hover,
+.values-grid article:hover,
+.testimonial-grid article:hover,
+.about-adv-right:hover,
+.about-mv-media:hover,
+.photo-wrap:hover,
+.center-ring:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 18px 34px rgba(22, 43, 84, 0.2);
+  filter: brightness(1.02);
+}
+
+.photo-wrap:hover img,
+.why-card:hover img,
+.india-slide:hover img,
+.about-hero-media:hover img,
+.about-mv-media:hover img {
+  transform: scale(1.08);
+  filter: saturate(1.05);
+}
+
+.footer-col a:hover,
+.footer-links a:hover {
+  transform: translateY(-1px);
+}
+
+/* Global scroll reveal animation */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (max-width: 1280px) {
   .container {
     width: min(1200px, calc(100% - 48px));
@@ -2491,6 +2624,21 @@ h1 .gradient {
     margin-top: 28px;
     flex-wrap: wrap;
     gap: 12px;
+  }
+
+  .hero-trust-points {
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .trust-item {
+    font-size: 13px;
+  }
+
+  .trust-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
   }
 
   .btn {

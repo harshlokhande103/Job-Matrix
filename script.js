@@ -86,3 +86,63 @@ if (plansToggle && plansDropdown) {
     infoMeta.forEach((item) => item.classList.remove("show-tip"));
   });
 }
+
+const revealSelector = [
+  "section",
+  "article",
+  "h1",
+  "h2",
+  "h3",
+  "p",
+  "img",
+  "button",
+  "label",
+  "li",
+  ".service-card",
+  ".service-offer-card",
+  ".plan-card",
+  ".job-card",
+  ".milestone-card",
+  ".contact-info-card",
+  ".contact-form-card",
+  ".why-card",
+  ".values-grid article",
+  ".testimonial-grid article",
+].join(", ");
+
+const revealElements = Array.from(document.querySelectorAll(revealSelector)).filter(
+  (el) =>
+    !el.closest(".site-header") &&
+    !el.closest(".india-slider-frame") &&
+    !el.closest(".india-slider-dots") &&
+    !el.classList.contains("menu-toggle") &&
+    !el.classList.contains("reveal-on-scroll")
+);
+
+if (revealElements.length) {
+  revealElements.forEach((el, index) => {
+    el.classList.add("reveal-on-scroll");
+    el.style.transitionDelay = `${Math.min((index % 8) * 0.06, 0.42)}s`;
+  });
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -8% 0px",
+      }
+    );
+
+    revealElements.forEach((el) => observer.observe(el));
+  } else {
+    revealElements.forEach((el) => el.classList.add("is-visible"));
+  }
+}
