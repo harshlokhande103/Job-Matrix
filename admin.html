@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Matrix - Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="admin-page">
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <div class="brand">
+          <img
+            class="brand-image"
+            src="Screenshot_2026-01-19_184903-removebg-preview.png"
+            alt="Job matrix logo"
+            onclick="window.location.href='index.html'"
+          />
+        </div>
+
+        <nav class="menu" id="menu">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="jobs.html">Jobs</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <button class="nav-cta" onclick="window.location.href='login.html'">
+          Login / Sign Up
+        </button>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <section class="admin-hero">
+      <div class="container admin-hero-wrap">
+        <h1>Admin Panel</h1>
+        <p>Yahan se sirf jobs page ke fields ke hisaab se job post karo.</p>
+      </div>
+    </section>
+
+    <section class="admin-main">
+      <div class="container admin-main-wrap">
+        <article class="admin-form-card">
+          <h2>Post New Job</h2>
+          <form id="adminJobForm" class="admin-job-form">
+            <div class="admin-grid2">
+              <label>
+                Job Type
+                <select id="adminJobType" required>
+                  <option value="">Select type</option>
+                  <option value="WFO">WFO</option>
+                  <option value="WFH">WFH</option>
+                  <option value="Hybrid">Hybrid</option>
+                  <option value="Remote">Remote</option>
+                </select>
+              </label>
+              <label>
+                Date
+                <input id="adminJobDate" type="date" />
+              </label>
+            </div>
+
+            <label>
+              Job Title
+              <input id="adminJobTitle" type="text" placeholder="HR Recruiter" required />
+            </label>
+
+            <div class="admin-grid2">
+              <label>
+                Company
+                <input id="adminJobCompany" type="text" placeholder="JobConnect Consultancy" required />
+              </label>
+              <label>
+                Location
+                <input id="adminJobLocation" type="text" placeholder="Mumbai" required />
+              </label>
+            </div>
+
+            <label>
+              Salary
+              <input id="adminJobSalary" type="text" placeholder="3L - 5L PA" required />
+            </label>
+
+            <label>
+              Description
+              <textarea
+                id="adminJobDescription"
+                placeholder="End-to-end recruitment for IT and Non-IT clients."
+                required
+              ></textarea>
+            </label>
+
+            <div class="admin-form-actions">
+              <button type="submit" class="admin-post-btn">Post Job</button>
+              <button type="button" id="adminClearJobs" class="admin-clear-btn">
+                Clear Admin Posted Jobs
+              </button>
+            </div>
+            <p id="adminJobMessage" class="admin-message"></p>
+          </form>
+        </article>
+
+        <article class="admin-preview-card">
+          <h2>Admin Posted Jobs</h2>
+          <p>Yahan par wahi jobs dikhengi jo admin se post hongi.</p>
+          <div id="adminPostedJobs" class="admin-posted-jobs"></div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <div class="footer-top">
+          <div class="footer-col footer-brand">
+            <div class="footer-logo">
+              <img
+                src="Screenshot_2026-01-19_184903-removebg-preview.png"
+                alt="Job matrix logo"
+                class="footer-logo-image"
+              />
+            </div>
+            <p>
+              Connecting top talent with India's leading companies. Ethical
+              recruitment, transparency, and trust are our core values.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <a href="jobs.html">Find a Job</a>
+            <a href="#">For Employers</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Support</a>
+          </div>
+
+          <div class="footer-col">
+            <h3>Services</h3>
+            <a href="services.html">Resume Building</a>
+            <a href="services.html">Interview Prep</a>
+            <a href="services.html">Job Placement</a>
+            <a href="services.html">HR Consulting</a>
+          </div>
+
+          <div class="footer-col">
+            <h3>Contact</h3>
+            <p>Mumbai, Maharashtra</p>
+            <p>contact@jobmatrix.com</p>
+            <p>+91 98765 43210</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div class="footer-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+          <p>&copy; 2026 Job Matrix Recruitment. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

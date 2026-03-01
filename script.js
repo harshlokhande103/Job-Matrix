@@ -182,6 +182,244 @@ if (seatNodes.length) {
   }, 60 * 1000);
 }
 
+const JOBS_STORAGE_KEY = "jm_admin_jobs_v1";
+const defaultJobsData = [
+  {
+    id: "default-1",
+    type: "Hybrid",
+    date: "1/19/2026",
+    title: "HR Recruiter",
+    company: "JobConnect Consultancy",
+    location: "Mumbai",
+    salary: "3L - 5L PA",
+    description: "End-to-end recruitment for IT and Non-IT clients.",
+  },
+  {
+    id: "default-2",
+    type: "Remote",
+    date: "1/19/2026",
+    title: "Customer Support Executive",
+    company: "Global Connect BPO",
+    location: "Remote (Pan India)",
+    salary: "2.5L - 4L PA",
+    description: "Handle international voice/non-voice processes. Night shift.",
+  },
+  {
+    id: "default-3",
+    type: "WFO",
+    date: "1/19/2026",
+    title: "Senior React Developer",
+    company: "TechCorp Solutions",
+    location: "Bangalore",
+    salary: "20L - 30L PA",
+    description: "We are looking for an experienced React developer to join our team.",
+  },
+];
+
+const escapeHtml = (value) =>
+  String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+
+const normalizeJobType = (value) => {
+  const type = String(value ?? "").trim();
+  if (!type) return "WFO";
+  if (type.toUpperCase() === "WFH") return "WFH";
+  if (type.toUpperCase() === "WFO") return "WFO";
+  if (type.toLowerCase() === "remote") return "Remote";
+  if (type.toLowerCase() === "hybrid") return "Hybrid";
+  return type;
+};
+
+const readAdminJobs = () => {
+  try {
+    const raw = localStorage.getItem(JOBS_STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+};
+
+const saveAdminJobs = (jobs) => {
+  localStorage.setItem(JOBS_STORAGE_KEY, JSON.stringify(jobs));
+};
+
+const createJobCardMarkup = (job) => {
+  const safeType = escapeHtml(normalizeJobType(job.type));
+  const safeDate = escapeHtml(job.date || "");
+  const safeTitle = escapeHtml(job.title || "");
+  const safeCompany = escapeHtml(job.company || "");
+  const safeLocation = escapeHtml(job.location || "");
+  const safeSalary = escapeHtml(job.salary || "");
+  const safeDescription = escapeHtml(job.description || "");
+  const mutedClass = safeType.toLowerCase() === "remote" ? " muted" : "";
+
+  return `
+    <article class="job-card">
+      <div class="job-card-head">
+        <span class="job-type${mutedClass}">${safeType}</span>
+        <span class="job-date">${safeDate}</span>
+      </div>
+      <h3>${safeTitle}</h3>
+      <ul class="job-meta">
+        <li>&#127970; ${safeCompany}</li>
+        <li>&#128205; ${safeLocation}</li>
+        <li>&#8377; ${safeSalary}</li>
+      </ul>
+      <p>${safeDescription}</p>
+      <button class="job-apply-btn">Apply Now</button>
+    </article>
+  `;
+};
+
+const setupJobsPage = () => {
+  if (!document.body.classList.contains("jobs-page")) return;
+
+  const grid = document.getElementById("jobsGrid");
+  const emptyState = document.getElementById("jobsEmpty");
+  const searchInput = document.getElementById("jobsSearchInput");
+  const typeFilter = document.getElementById("jobsTypeFilter");
+  const searchBtn = document.getElementById("jobsSearchBtn");
+  if (!grid || !searchInput || !typeFilter || !searchBtn) return;
+
+  const adminJobs = readAdminJobs();
+  const allJobs = [...adminJobs, ...defaultJobsData];
+
+  const render = (list) => {
+    grid.innerHTML = list.map((job) => createJobCardMarkup(job)).join("");
+    if (emptyState) emptyState.hidden = list.length !== 0;
+  };
+
+  const applyFilter = () => {
+    const query = searchInput.value.trim().toLowerCase();
+    const selectedType = typeFilter.value.trim().toLowerCase();
+
+    const filtered = allJobs.filter((job) => {
+      const type = String(job.type || "").toLowerCase();
+      const matchType = selectedType === "all types" || selectedType === type;
+      const blob = `${job.title} ${job.company} ${job.location} ${job.salary} ${job.description}`.toLowerCase();
+      const matchQuery = !query || blob.includes(query);
+      return matchType && matchQuery;
+    });
+
+    render(filtered);
+  };
+
+  render(allJobs);
+  searchBtn.addEventListener("click", applyFilter);
+  searchInput.addEventListener("input", applyFilter);
+  typeFilter.addEventListener("change", applyFilter);
+};
+
+const setupAdminPage = () => {
+  if (!document.body.classList.contains("admin-page")) return;
+
+  const form = document.getElementById("adminJobForm");
+  const message = document.getElementById("adminJobMessage");
+  const postedJobsWrap = document.getElementById("adminPostedJobs");
+  const clearBtn = document.getElementById("adminClearJobs");
+  if (!form || !postedJobsWrap || !clearBtn || !message) return;
+
+  const renderAdminPostedJobs = () => {
+    const adminJobs = readAdminJobs();
+    if (!adminJobs.length) {
+      postedJobsWrap.innerHTML = "<article><p>No admin jobs posted yet.</p></article>";
+      return;
+    }
+
+    postedJobsWrap.innerHTML = adminJobs
+      .map(
+        (job) => `
+          <article>
+            <h3>${escapeHtml(job.title)}</h3>
+            <p>${escapeHtml(job.type)} | ${escapeHtml(job.company)} | ${escapeHtml(job.location)}</p>
+            <p>${escapeHtml(job.salary)} | ${escapeHtml(job.date)}</p>
+            <button type="button" class="admin-delete-btn" data-delete-job-id="${escapeHtml(
+              job.id
+            )}">Delete Job</button>
+          </article>
+        `
+      )
+      .join("");
+  };
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const typeInput = document.getElementById("adminJobType");
+    const dateInput = document.getElementById("adminJobDate");
+    const titleInput = document.getElementById("adminJobTitle");
+    const companyInput = document.getElementById("adminJobCompany");
+    const locationInput = document.getElementById("adminJobLocation");
+    const salaryInput = document.getElementById("adminJobSalary");
+    const descriptionInput = document.getElementById("adminJobDescription");
+    if (
+      !typeInput ||
+      !dateInput ||
+      !titleInput ||
+      !companyInput ||
+      !locationInput ||
+      !salaryInput ||
+      !descriptionInput
+    ) {
+      return;
+    }
+
+    const today = new Date().toLocaleDateString("en-IN");
+    const selectedDate = dateInput.value
+      ? new Date(dateInput.value).toLocaleDateString("en-IN")
+      : today;
+
+    const newJob = {
+      id: `admin-${Date.now()}`,
+      type: normalizeJobType(typeInput.value),
+      date: selectedDate,
+      title: titleInput.value.trim(),
+      company: companyInput.value.trim(),
+      location: locationInput.value.trim(),
+      salary: salaryInput.value.trim(),
+      description: descriptionInput.value.trim(),
+    };
+
+    const adminJobs = readAdminJobs();
+    adminJobs.unshift(newJob);
+    saveAdminJobs(adminJobs);
+
+    form.reset();
+    message.textContent = "Job posted successfully. Jobs page par ab ye job dikh rahi hai.";
+    renderAdminPostedJobs();
+  });
+
+  clearBtn.addEventListener("click", () => {
+    localStorage.removeItem(JOBS_STORAGE_KEY);
+    message.textContent = "All admin posted jobs cleared.";
+    renderAdminPostedJobs();
+  });
+
+  postedJobsWrap.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-delete-job-id]");
+    if (!button) return;
+
+    const deleteId = button.getAttribute("data-delete-job-id");
+    if (!deleteId) return;
+
+    const adminJobs = readAdminJobs();
+    const updatedJobs = adminJobs.filter((job) => String(job.id) !== String(deleteId));
+    saveAdminJobs(updatedJobs);
+    message.textContent = "Selected job deleted successfully.";
+    renderAdminPostedJobs();
+  });
+
+  renderAdminPostedJobs();
+};
+
+setupJobsPage();
+setupAdminPage();
+
 const revealSelector = [
   "section",
   "article",

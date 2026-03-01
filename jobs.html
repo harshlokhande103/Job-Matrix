@@ -49,11 +49,15 @@
         <div class="jobs-search-bar">
           <div class="search-input-wrap">
             <span class="search-icon">&#128269;</span>
-            <input type="text" placeholder="Search by title, skill, or company..." />
+            <input
+              id="jobsSearchInput"
+              type="text"
+              placeholder="Search by title, skill, or company..."
+            />
           </div>
 
           <div class="jobs-select-wrap">
-            <select>
+            <select id="jobsTypeFilter">
               <option>All Types</option>
               <option>WFO</option>
               <option>WFH</option>
@@ -62,62 +66,15 @@
             </select>
           </div>
 
-          <button class="jobs-search-btn">Search</button>
+          <button class="jobs-search-btn" id="jobsSearchBtn">Search</button>
         </div>
       </div>
     </section>
 
     <section class="jobs-listing">
       <div class="container jobs-listing-wrap">
-        <div class="jobs-grid">
-          <article class="job-card">
-            <div class="job-card-head">
-              <span class="job-type">Hybrid</span>
-              <span class="job-date">1/19/2026</span>
-            </div>
-
-            <h3>HR Recruiter</h3>
-            <ul class="job-meta">
-              <li>&#127970; JobConnect Consultancy</li>
-              <li>&#128205; Mumbai</li>
-              <li>&#8377; 3L - 5L PA</li>
-            </ul>
-            <p>End-to-end recruitment for IT and Non-IT clients.</p>
-            <button class="job-apply-btn">Apply Now</button>
-          </article>
-
-          <article class="job-card">
-            <div class="job-card-head">
-              <span class="job-type muted">Remote</span>
-              <span class="job-date">1/19/2026</span>
-            </div>
-
-            <h3>Customer Support Executive</h3>
-            <ul class="job-meta">
-              <li>&#127970; Global Connect BPO</li>
-              <li>&#128205; Remote (Pan India)</li>
-              <li>&#8377; 2.5L - 4L PA</li>
-            </ul>
-            <p>Handle international voice/non-voice processes. Night shift.</p>
-            <button class="job-apply-btn">Apply Now</button>
-          </article>
-
-          <article class="job-card">
-            <div class="job-card-head">
-              <span class="job-type">WFO</span>
-              <span class="job-date">1/19/2026</span>
-            </div>
-
-            <h3>Senior React Developer</h3>
-            <ul class="job-meta">
-              <li>&#127970; TechCorp Solutions</li>
-              <li>&#128205; Bangalore</li>
-              <li>&#8377; 20L - 30L PA</li>
-            </ul>
-            <p>We are looking for an experienced React developer to join our team.</p>
-            <button class="job-apply-btn">Apply Now</button>
-          </article>
-        </div>
+        <div class="jobs-grid" id="jobsGrid"></div>
+        <p class="jobs-empty" id="jobsEmpty" hidden>No matching jobs found.</p>
       </div>
     </section>
 

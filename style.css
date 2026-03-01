@@ -1572,6 +1572,190 @@ h1 .gradient {
   cursor: pointer;
 }
 
+.jobs-page .jobs-empty {
+  margin-top: 14px;
+  text-align: center;
+  color: #5a6f92;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.admin-page .admin-hero {
+  background: linear-gradient(90deg, #eef3fc 0%, #f8faff 100%);
+  border-bottom: 1px solid #d8e2f3;
+  padding: 42px 0;
+}
+
+.admin-page .admin-hero-wrap {
+  width: min(1100px, calc(100% - 120px));
+  text-align: center;
+}
+
+.admin-page .admin-hero h1 {
+  color: #0f193b;
+  font-size: 52px;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.admin-page .admin-hero p {
+  margin-top: 10px;
+  color: #4a6083;
+  font-size: 18px;
+}
+
+.admin-page .admin-main {
+  padding: 40px 0 70px;
+}
+
+.admin-page .admin-main-wrap {
+  width: min(1100px, calc(100% - 120px));
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 18px;
+}
+
+.admin-page .admin-form-card,
+.admin-page .admin-preview-card {
+  background: #f6f8fc;
+  border: 1px solid #d9e2f0;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 14px 24px rgba(24, 46, 89, 0.08);
+}
+
+.admin-page .admin-form-card h2,
+.admin-page .admin-preview-card h2 {
+  color: #0f193b;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.admin-page .admin-preview-card p {
+  margin-top: 6px;
+  color: #506687;
+  font-size: 14px;
+}
+
+.admin-page .admin-job-form {
+  margin-top: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.admin-page .admin-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.admin-page .admin-job-form label {
+  color: #112041;
+  font-size: 14px;
+  font-weight: 500;
+  display: grid;
+  gap: 6px;
+}
+
+.admin-page .admin-job-form input,
+.admin-page .admin-job-form select,
+.admin-page .admin-job-form textarea {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #cfd8e7;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #21385c;
+  font-size: 15px;
+  font-family: inherit;
+  padding: 0 12px;
+  outline: none;
+}
+
+.admin-page .admin-job-form textarea {
+  min-height: 110px;
+  padding-top: 10px;
+  resize: vertical;
+}
+
+.admin-page .admin-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-page .admin-post-btn,
+.admin-page .admin-clear-btn {
+  min-height: 44px;
+  border-radius: 12px;
+  border: 0;
+  padding: 0 18px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.admin-page .admin-post-btn {
+  color: #ffffff;
+  background: linear-gradient(90deg, #2f71ff, #4f39e4);
+  box-shadow: 0 10px 18px rgba(52, 95, 214, 0.24);
+}
+
+.admin-page .admin-clear-btn {
+  color: #183154;
+  background: #e7edf8;
+  border: 1px solid #cdd8ea;
+}
+
+.admin-page .admin-message {
+  min-height: 22px;
+  color: #2e62d6;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.admin-page .admin-posted-jobs {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.admin-page .admin-posted-jobs article {
+  background: #ffffff;
+  border: 1px solid #d7e0ef;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.admin-page .admin-posted-jobs h3 {
+  color: #102145;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.admin-page .admin-posted-jobs p {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #4f6386;
+}
+
+.admin-page .admin-delete-btn {
+  margin-top: 10px;
+  min-height: 34px;
+  border: 1px solid #f3b7bf;
+  border-radius: 9px;
+  background: #fff1f3;
+  color: #b4233c;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
 .about-page .mini {
   color: #2f67dd;
   font-size: 10px;
@@ -2778,6 +2962,11 @@ button.reveal-on-scroll.is-visible,
   .auth-page .auth-wrap {
     width: min(760px, calc(100% - 48px));
   }
+
+  .admin-page .admin-hero-wrap,
+  .admin-page .admin-main-wrap {
+    width: min(1080px, calc(100% - 90px));
+  }
 }
 
 @media (max-width: 980px) {
@@ -3411,6 +3600,54 @@ button.reveal-on-scroll.is-visible,
   .jobs-page .job-apply-btn {
     min-height: 40px;
     font-size: 16px;
+  }
+
+  .admin-page .admin-hero {
+    padding: 34px 0;
+  }
+
+  .admin-page .admin-hero-wrap,
+  .admin-page .admin-main-wrap {
+    width: min(700px, calc(100% - 28px));
+  }
+
+  .admin-page .admin-hero h1 {
+    font-size: 36px;
+  }
+
+  .admin-page .admin-hero p {
+    font-size: 14px;
+  }
+
+  .admin-page .admin-main {
+    padding: 26px 0 56px;
+  }
+
+  .admin-page .admin-main-wrap {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .admin-page .admin-form-card,
+  .admin-page .admin-preview-card {
+    border-radius: 14px;
+    padding: 16px;
+  }
+
+  .admin-page .admin-form-card h2,
+  .admin-page .admin-preview-card h2 {
+    font-size: 24px;
+  }
+
+  .admin-page .admin-grid2 {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .admin-page .admin-post-btn,
+  .admin-page .admin-clear-btn {
+    min-height: 42px;
+    font-size: 14px;
   }
 
   .about-page .about-hero {
