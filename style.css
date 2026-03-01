@@ -1002,14 +1002,40 @@ h1 .gradient {
 }
 
 .services-page .services-hero {
-  padding: 82px 0 68px;
+  padding: 126px 0 112px;
   border-bottom: 1px solid #dfe5ef;
+  position: relative;
+  overflow: hidden;
+}
+
+.services-page .services-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(180deg, rgba(8, 20, 46, 0.68) 0%, rgba(8, 20, 46, 0.68) 100%),
+    url("https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=2200&q=80");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1);
+  animation: servicesHeroSlowZoom 38s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+.services-page .services-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(11, 25, 55, 0.24) 0%, rgba(11, 25, 55, 0.08) 50%, rgba(11, 25, 55, 0.24) 100%);
+  z-index: 0;
 }
 
 .services-page .services-hero-wrap {
   width: min(1120px, calc(100% - 220px));
   margin: 0 auto;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .services-page .services-hero h1 {
@@ -1017,15 +1043,24 @@ h1 .gradient {
   line-height: 1.15;
   font-weight: 700;
   letter-spacing: 0;
-  color: #0f193b;
+  color: #ffffff;
 }
 
 .services-page .services-hero p {
   margin: 16px auto 0;
   max-width: 760px;
-  color: #4b5f80;
+  color: #dee8ff;
   font-size: 15px;
   line-height: 1.5;
+}
+
+@keyframes servicesHeroSlowZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
+  }
 }
 
 .services-page .services-catalog {
@@ -1311,6 +1346,58 @@ h1 .gradient {
   padding: 56px 0 68px;
   border-bottom: 1px solid #dfe5ef;
   background: #ffffff;
+}
+
+.jobs-page .jobs-banner {
+  position: relative;
+  overflow: hidden;
+  padding: 150px 0 156px;
+}
+
+.jobs-page .jobs-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(180deg, rgba(7, 18, 44, 0.72) 0%, rgba(7, 18, 44, 0.72) 100%),
+    url("https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=2200&q=80");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1);
+  animation: jobsBannerSlowZoom 44s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+.jobs-page .jobs-banner-wrap {
+  width: min(1320px, calc(100% - 120px));
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.jobs-page .jobs-banner h1 {
+  color: #ffffff;
+  font-size: 78px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.jobs-page .jobs-banner p {
+  margin-top: 20px;
+  color: #dce7ff;
+  font-size: 21px;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+@keyframes jobsBannerSlowZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
 }
 
 .jobs-page .jobs-hero-wrap {
@@ -2486,6 +2573,22 @@ button:active,
     width: min(1200px, calc(100% - 48px));
   }
 
+  .jobs-page .jobs-banner-wrap {
+    width: min(1200px, calc(100% - 48px));
+  }
+
+  .jobs-page .jobs-banner {
+    padding: 94px 0 96px;
+  }
+
+  .jobs-page .jobs-banner h1 {
+    font-size: 56px;
+  }
+
+  .jobs-page .jobs-banner p {
+    font-size: 18px;
+  }
+
   .jobs-page .jobs-hero h1 {
     font-size: 42px;
   }
@@ -3127,6 +3230,23 @@ button:active,
   .jobs-page .jobs-hero-wrap,
   .jobs-page .jobs-listing-wrap {
     width: min(700px, calc(100% - 28px));
+  }
+
+  .jobs-page .jobs-banner-wrap {
+    width: min(700px, calc(100% - 28px));
+  }
+
+  .jobs-page .jobs-banner {
+    padding: 66px 0 70px;
+  }
+
+  .jobs-page .jobs-banner h1 {
+    font-size: 36px;
+  }
+
+  .jobs-page .jobs-banner p {
+    margin-top: 10px;
+    font-size: 14px;
   }
 
   .jobs-page .jobs-hero h1 {
