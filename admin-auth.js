@@ -1,11 +1,21 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-import { doc, getDoc, getFirestore } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  orderBy,
+  query,
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
 
 const accessMessage = document.getElementById("adminAccessMessage");
 const adminHero = document.getElementById("adminHero");
 const adminMain = document.getElementById("adminMain");
+const usersStatus = document.getElementById("adminUsersStatus");
+const usersTableBody = document.getElementById("adminUsersTableBody");
 
 const showMessage = (html) => {
   if (!accessMessage) return;
@@ -20,6 +30,71 @@ const showAdmin = () => {
   if (adminHero) adminHero.hidden = false;
   if (adminMain) adminMain.hidden = false;
   if (accessMessage) accessMessage.hidden = true;
+};
+
+const escapeHtml = (value) =>
+  String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+
+const formatCreatedAt = (value) => {
+  if (!value) return "-";
+  if (typeof value.toDate === "function") {
+    return value.toDate().toLocaleString("en-IN");
+  }
+  return "-";
+};
+
+const setUsersStatus = (text) => {
+  if (usersStatus) usersStatus.textContent = text;
+};
+
+const renderUsers = (users) => {
+  if (!usersTableBody) return;
+  if (!users.length) {
+    usersTableBody.innerHTML =
+      '<tr><td colspan="5" class="admin-users-empty">No registered users found.</td></tr>';
+    return;
+  }
+
+  usersTableBody.innerHTML = users
+    .map(
+      (user) => `
+        <tr>
+          <td>${escapeHtml(user.fullName || "-")}</td>
+          <td>${escapeHtml(user.email || "-")}</td>
+          <td>${escapeHtml(user.phone || "-")}</td>
+          <td><span class="admin-role-badge">${escapeHtml(user.role || "user")}</span></td>
+          <td>${escapeHtml(formatCreatedAt(user.createdAt))}</td>
+        </tr>
+      `
+    )
+    .join("");
+};
+
+const loadRegisteredUsers = async (db) => {
+  try {
+    setUsersStatus("Loading users...");
+    const usersRef = collection(db, "users");
+    const usersQuery = query(usersRef, orderBy("createdAt", "desc"));
+    const snapshot = await getDocs(usersQuery);
+    const users = snapshot.docs.map((docSnap) => docSnap.data());
+    renderUsers(users);
+    setUsersStatus(`Total users: ${users.length}`);
+  } catch (error) {
+    console.error("Users fetch error:", error);
+    if (error.code === "permission-denied") {
+      setUsersStatus(
+        "Permission denied while reading users. Update Firestore rules to allow admin to read users collection."
+      );
+    } else {
+      setUsersStatus("Failed to load users. Please verify Firestore configuration.");
+    }
+    renderUsers([]);
+  }
 };
 
 const isConfigValid =
@@ -55,6 +130,7 @@ if (!isConfigValid) {
       const userData = userDocSnap.data();
       if (userData.role === "admin") {
         showAdmin();
+        await loadRegisteredUsers(db);
         return;
       }
 

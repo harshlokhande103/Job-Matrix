@@ -1778,6 +1778,81 @@ h1 .gradient {
   color: #4f6386;
 }
 
+.admin-page .admin-users-card {
+  grid-column: 1 / -1;
+  background: #f6f8fc;
+  border: 1px solid #d9e2f0;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 14px 24px rgba(24, 46, 89, 0.08);
+}
+
+.admin-page .admin-users-card h2 {
+  color: #0f193b;
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.admin-page .admin-users-card > p {
+  margin-top: 6px;
+  color: #506687;
+  font-size: 14px;
+}
+
+.admin-page .admin-users-status {
+  margin-top: 10px;
+  color: #2f5ec9;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.admin-page .admin-users-table-wrap {
+  margin-top: 12px;
+  overflow-x: auto;
+}
+
+.admin-page .admin-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.admin-page .admin-users-table th,
+.admin-page .admin-users-table td {
+  border-bottom: 1px solid #d7e0ef;
+  text-align: left;
+  padding: 12px 10px;
+  font-size: 14px;
+  color: #22395c;
+}
+
+.admin-page .admin-users-table th {
+  color: #102347;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  background: #edf3fc;
+}
+
+.admin-page .admin-users-empty {
+  text-align: center !important;
+  color: #607496 !important;
+  font-weight: 500;
+}
+
+.admin-page .admin-role-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  border-radius: 999px;
+  padding: 0 10px;
+  background: #e6eefc;
+  color: #1d4fba;
+  font-size: 12px;
+  font-weight: 600;
+}
+
 .admin-page .admin-delete-btn {
   margin-top: 10px;
   min-height: 34px;
@@ -3697,13 +3772,15 @@ button.reveal-on-scroll.is-visible,
   }
 
   .admin-page .admin-form-card,
-  .admin-page .admin-preview-card {
+  .admin-page .admin-preview-card,
+  .admin-page .admin-users-card {
     border-radius: 14px;
     padding: 16px;
   }
 
   .admin-page .admin-form-card h2,
-  .admin-page .admin-preview-card h2 {
+  .admin-page .admin-preview-card h2,
+  .admin-page .admin-users-card h2 {
     font-size: 24px;
   }
 
