@@ -64,11 +64,13 @@ const renderUsers = (users) => {
     .map(
       (user) => `
         <tr>
-          <td>${escapeHtml(user.fullName || "-")}</td>
-          <td>${escapeHtml(user.email || "-")}</td>
-          <td>${escapeHtml(user.phone || "-")}</td>
-          <td><span class="admin-role-badge">${escapeHtml(user.role || "user")}</span></td>
-          <td>${escapeHtml(formatCreatedAt(user.createdAt))}</td>
+          <td data-label="Name">${escapeHtml(user.fullName || "-")}</td>
+          <td data-label="Email">${escapeHtml(user.email || "-")}</td>
+          <td data-label="Phone">${escapeHtml(user.phone || "-")}</td>
+          <td data-label="Role"><span class="admin-role-badge">${escapeHtml(
+            user.role || "user"
+          )}</span></td>
+          <td data-label="Created">${escapeHtml(formatCreatedAt(user.createdAt))}</td>
         </tr>
       `
     )

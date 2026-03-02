@@ -3966,6 +3966,94 @@ button.reveal-on-scroll.is-visible,
   }
 }
 
+@media (max-width: 760px) {
+  .admin-page .admin-access {
+    padding: 36px 0 14px;
+  }
+
+  .admin-page .admin-hero {
+    padding: 24px 0;
+  }
+
+  .admin-page .admin-hero h1 {
+    font-size: 30px;
+  }
+
+  .admin-page .admin-hero p {
+    margin-top: 8px;
+    font-size: 13px;
+  }
+
+  .admin-page .admin-main {
+    padding: 18px 0 44px;
+  }
+
+  .admin-page .admin-form-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .admin-page .admin-post-btn,
+  .admin-page .admin-clear-btn {
+    width: 100%;
+  }
+
+  .admin-page .admin-posted-jobs h3 {
+    font-size: 16px;
+  }
+
+  .admin-page .admin-posted-jobs p {
+    font-size: 12px;
+  }
+
+  .admin-page .admin-users-table {
+    min-width: 0;
+  }
+
+  .admin-page .admin-users-table thead {
+    display: none;
+  }
+
+  .admin-page .admin-users-table,
+  .admin-page .admin-users-table tbody,
+  .admin-page .admin-users-table tr,
+  .admin-page .admin-users-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .admin-page .admin-users-table tr {
+    background: #ffffff;
+    border: 1px solid #d7e0ef;
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .admin-page .admin-users-table td {
+    border: 0;
+    padding: 6px 2px;
+    font-size: 13px;
+  }
+
+  .admin-page .admin-users-table td::before {
+    content: attr(data-label) ": ";
+    color: #102347;
+    font-weight: 600;
+  }
+
+  .admin-page .admin-users-empty {
+    border: 0 !important;
+    text-align: left !important;
+    padding: 4px 2px !important;
+  }
+
+  .admin-page .admin-users-empty::before {
+    content: "";
+  }
+}
+
 /* Keep hover zoom working even with scroll-reveal transforms */
 .service-card.reveal-on-scroll.is-visible:hover,
 .service-offer-card.reveal-on-scroll.is-visible:hover,
