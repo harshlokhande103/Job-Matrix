@@ -390,7 +390,7 @@ const setupAdminPage = () => {
     saveAdminJobs(adminJobs);
 
     form.reset();
-    message.textContent = "Job posted successfully. Jobs page par ab ye job dikh rahi hai.";
+    message.textContent = "Job posted successfully. It is now visible on the Jobs page.";
     renderAdminPostedJobs();
   });
 

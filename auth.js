@@ -31,15 +31,15 @@ const setMessage = (node, text, type = "info") => {
 const mapAuthError = (code) => {
   switch (code) {
     case "auth/operation-not-allowed":
-      return "Email/Password sign-in abhi Firebase me enabled nahi hai.";
+      return "Email/Password sign-in is not enabled in Firebase.";
     case "auth/unauthorized-domain":
-      return "Current domain Firebase authorized domains me add nahi hai.";
+      return "The current domain is not added to Firebase authorized domains.";
     case "auth/network-request-failed":
-      return "Network issue. Internet check karke dobara try karo.";
+      return "Network issue. Please check your internet connection and try again.";
     case "permission-denied":
       return "Firestore rules permission deny kar rahi hain.";
     case "failed-precondition":
-      return "Firestore database abhi create/enable nahi hui hai.";
+      return "Firestore database is not created or enabled yet.";
     case "auth/invalid-email":
       return "Please enter a valid email address.";
     case "auth/missing-password":
@@ -118,7 +118,7 @@ if (!hasValidFirebaseConfig()) {
           `jm_user_profile_${credential.user.uid}`,
           JSON.stringify({ fullName: name, phone })
         );
-        alert("Register successful ho gaya hai.");
+        alert("Registration successful.");
         setMessage(message, "Account created successfully. Redirecting to login...", "success");
         registerForm.reset();
         setTimeout(() => {
@@ -129,7 +129,7 @@ if (!hasValidFirebaseConfig()) {
         if (createdUser && error.code === "permission-denied") {
           setMessage(
             message,
-            "Account Auth me create ho gaya, but Firestore rules ne profile save block kiya. Firestore rules update karo aur users collection me is UID ka role user/admin manually set karo.",
+            "The account was created in Authentication, but Firestore rules blocked profile saving. Update Firestore rules and set role (user/admin) manually for this UID in the users collection.",
             "error"
           );
         } else {

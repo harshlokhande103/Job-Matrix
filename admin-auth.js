@@ -29,7 +29,7 @@ const isConfigValid =
   );
 
 if (!isConfigValid) {
-  showMessage("<p>Firebase config missing hai. Pehle firebase-config.js complete karo.</p>");
+  showMessage("<p>Firebase config is missing. Please complete firebase-config.js first.</p>");
 } else {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
@@ -47,7 +47,7 @@ if (!isConfigValid) {
 
       if (!userDocSnap.exists()) {
         showMessage(
-          "<p>User profile Firestore me nahi mila. Register dubara karo ya users collection me document add karo.</p>"
+          "<p>User profile was not found in Firestore. Register again or add the user document in the users collection.</p>"
         );
         return;
       }
@@ -59,15 +59,13 @@ if (!isConfigValid) {
       }
 
       showMessage(`
-        <p>Access denied. Aapka role <strong>${String(
-          userData.role || "user"
-        )}</strong> hai.</p>
-        <p>Admin panel ke liye Firestore me is user ka role <strong>admin</strong> karo.</p>
+        <p>Access denied. Your current role is <strong>${String(userData.role || "user")}</strong>.</p>
+        <p>To open the admin panel, set this user's role to <strong>admin</strong> in Firestore.</p>
         <button class="admin-back-btn" onclick="window.location.href='index.html'">Back to Home</button>
       `);
     } catch (error) {
       console.error("Admin access check error:", error);
-      showMessage("<p>Admin access check fail hua. Firestore rules/config check karo.</p>");
+      showMessage("<p>Admin access check failed. Please verify Firestore rules and configuration.</p>");
     }
   });
 }
