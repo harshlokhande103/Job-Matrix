@@ -10,6 +10,11 @@
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/login", "destination": "/login.html" },
     { "source": "/register", "destination": "/register.html" },
-    { "source": "/admin", "destination": "/admin.html" }
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/fraud-alert", "destination": "/fraud-alert.html" },
+    { "source": "/cancellation-refund", "destination": "/cancellation-refund.html" },
+    { "source": "/terms-conditions", "destination": "/terms-conditions.html" },
+    { "source": "/privacy-policy", "destination": "/privacy-policy.html" }
   ]
 }
+

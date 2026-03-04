@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Matrix - Jobs</title>
+    <title>Job Matrix - Terms & Conditions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,19 +12,24 @@
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="jobs-page">
+  <body class="terms-page">
     <header class="site-header">
       <div class="container nav-wrap">
         <div class="brand">
-          <img class="brand-image" src="Screenshot_2026-01-19_184903-removebg-preview.png" onclick="window.location.href='index.html'" alt="Job matrix logo" />
+          <img
+            class="brand-image"
+            src="Screenshot_2026-01-19_184903-removebg-preview.png"
+            alt="Job matrix logo"
+            onclick="window.location.href='index.html'"
+          />
         </div>
 
         <nav class="menu" id="menu">
           <a href="index.html">Home</a>
           <a href="services.html">Services</a>
-          <a class="active" href="jobs.html">Jobs</a>
-          <div class="menu-item-about">
-            <a href="about.html">About</a>
+          <a href="jobs.html">Jobs</a>
+          <div class="menu-item-about active">
+            <a class="active" href="about.html">About</a>
             <div class="about-dropdown">
               <a href="about.html">About Us</a>
               <a href="fraud-alert.html">Fraud Alert</a>
@@ -36,7 +41,9 @@
           <a href="contact.html">Contact</a>
         </nav>
 
-        <button class="nav-cta" onclick="window.location.href='login.html'">Login / Sign Up</button>
+        <button class="nav-cta" onclick="window.location.href='login.html'">
+          Login / Sign Up
+        </button>
 
         <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
           <span></span><span></span><span></span>
@@ -44,55 +51,47 @@
       </div>
     </header>
 
-    <section class="jobs-banner">
-      <div class="container jobs-banner-wrap">
-        <h1>Find Your Dream Job Today</h1>
-        <p>Trusted Placement Services for Freshers &amp; Experienced Candidates</p>
-      </div>
-    </section>
-
-    <section class="jobs-hero">
-      <div class="container jobs-hero-wrap">
-        <h1>Open Positions</h1>
-
-        <div class="jobs-search-bar">
-          <div class="search-input-wrap">
-            <span class="search-icon">&#128269;</span>
-            <input
-              id="jobsSearchInput"
-              type="text"
-              placeholder="Search by title, skill, or company..."
-            />
-          </div>
-
-          <div class="jobs-select-wrap">
-            <select id="jobsTypeFilter">
-              <option>All Types</option>
-              <option>WFO</option>
-              <option>WFH</option>
-              <option>Hybrid</option>
-              <option>Remote</option>
-            </select>
-          </div>
-
-          <button class="jobs-search-btn" id="jobsSearchBtn">Search</button>
+    <main class="terms-main">
+      <section class="terms-wrap">
+        <div class="terms-head">
+          <span class="terms-head-icon">&#128196;</span>
+          <h1>Terms &amp; Conditions</h1>
+          <!-- <span class="terms-head-caret">&#8963;</span> -->
         </div>
-      </div>
-    </section>
 
-    <section class="jobs-listing">
-      <div class="container jobs-listing-wrap">
-        <div class="jobs-grid" id="jobsGrid"></div>
-        <p class="jobs-empty" id="jobsEmpty" hidden>No matching jobs found.</p>
-      </div>
-    </section>
+        <article class="terms-card">
+          <h2>Terms of Service</h2>
+          <p>
+            By accessing or using the Job Matrix platform, you agree to be
+            bound by these Terms and Conditions. Our services are intended for
+            individuals seeking employment and employers looking to hire talent.
+          </p>
+          <p>
+            Users are responsible for providing accurate and truthful
+            information in their profiles and applications. Job Matrix reserves
+            the right to terminate accounts that provide misleading information
+            or engage in prohibited activities.
+          </p>
+          <p>
+            All content provided on the platform, including text, graphics, and
+            logos, is the property of Job Matrix and is protected by
+            intellectual property laws. Unauthorized use of this content is
+            strictly prohibited.
+          </p>
+        </article>
+      </section>
+    </main>
 
     <footer class="site-footer">
       <div class="container footer-wrap">
         <div class="footer-top">
           <div class="footer-col footer-brand">
             <div class="footer-logo">
-              <img src="Screenshot_2026-01-19_184903-removebg-preview.png" alt="Job matrix logo" class="footer-logo-image" />
+              <img
+                src="Screenshot_2026-01-19_184903-removebg-preview.png"
+                alt="Job matrix logo"
+                class="footer-logo-image"
+              />
             </div>
             <p>
               Connecting top talent with India's leading companies. Ethical
@@ -102,18 +101,18 @@
 
           <div class="footer-col">
             <h3>Quick Links</h3>
-            <a href="#">Find a Job</a>
+            <a href="jobs.html">Find a Job</a>
             <a href="#">For Employers</a>
-            <a href="#">About Us</a>
-            <a href="#">Contact Support</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Support</a>
           </div>
 
           <div class="footer-col">
             <h3>Services</h3>
-            <a href="#">Resume Building</a>
-            <a href="#">Interview Prep</a>
-            <a href="#">Job Placement</a>
-            <a href="#">HR Consulting</a>
+            <a href="services.html">Resume Building</a>
+            <a href="services.html">Interview Prep</a>
+            <a href="services.html">Job Placement</a>
+            <a href="services.html">HR Consulting</a>
           </div>
 
           <div class="footer-col">
@@ -137,12 +136,6 @@
     <script src="script.js"></script>
   </body>
 </html>
-
-
-
-
-
-
 
 
 

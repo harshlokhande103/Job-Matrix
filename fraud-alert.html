@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Matrix - Contact</title>
+    <title>Job Matrix - Fraud Alert</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,19 +12,24 @@
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="contact-page">
+  <body class="fraud-page">
     <header class="site-header">
       <div class="container nav-wrap">
         <div class="brand">
-          <img class="brand-image" src="Screenshot_2026-01-19_184903-removebg-preview.png" onclick="window.location.href='index.html'" alt="Job matrix logo" />
+          <img
+            class="brand-image"
+            src="Screenshot_2026-01-19_184903-removebg-preview.png"
+            alt="Job matrix logo"
+            onclick="window.location.href='index.html'"
+          />
         </div>
 
         <nav class="menu" id="menu">
           <a href="index.html">Home</a>
           <a href="services.html">Services</a>
           <a href="jobs.html">Jobs</a>
-          <div class="menu-item-about">
-            <a href="about.html">About</a>
+          <div class="menu-item-about active">
+            <a class="active" href="about.html">About</a>
             <div class="about-dropdown">
               <a href="about.html">About Us</a>
               <a href="fraud-alert.html">Fraud Alert</a>
@@ -33,10 +38,12 @@
               <a href="privacy-policy.html">Privacy Policy</a>
             </div>
           </div>
-          <a class="active" href="contact.html">Contact</a>
+          <a href="contact.html">Contact</a>
         </nav>
 
-        <button class="nav-cta" onclick="window.location.href='login.html'">Login / Sign Up</button>
+        <button class="nav-cta" onclick="window.location.href='login.html'">
+          Login / Sign Up
+        </button>
 
         <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
           <span></span><span></span><span></span>
@@ -44,91 +51,59 @@
       </div>
     </header>
 
-    <section class="contact-hero">
-      <div class="container contact-hero-wrap">
-        <h1>Get in Touch</h1>
-        <p>
-          Have questions? We're here to help. Send us a message and we'll
-          respond within 24 hours.
-        </p>
-      </div>
-    </section>
+    <main class="fraud-main">
+      <section class="fraud-wrap">
+        <div class="fraud-head">
+          <span class="fraud-head-icon">&#128737;</span>
+          <h1>Fraud Alert</h1>
+          <!-- <span class="fraud-head-caret">&#8963;</span> -->
+        </div>
 
-    <section class="contact-main">
-      <div class="container contact-main-wrap">
-        <article class="contact-info-card">
-          <h2>Contact Information</h2>
-          <div class="contact-info-list">
-            <div class="contact-item">
-              <span class="icon">✉</span>
-              <div>
-                <small>Email Us</small>
-                <p>support@talentbridge.com</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <span class="icon">☎</span>
-              <div>
-                <small>Call Us</small>
-                <p>+91 98765 43210</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <span class="icon">⌖</span>
-              <div>
-                <small>Visit Us</small>
-                <p>Bandra Kurla Complex, Mumbai, India</p>
-              </div>
-            </div>
+        <article class="fraud-card">
+          <div class="fraud-card-icon">&#10071;</div>
+          <div class="fraud-card-copy">
+            <h2>Fraud Alert - Important Notice</h2>
+            <p>
+              At Job Matrix, we never ask candidates to make any payment outside
+              our official platform.
+            </p>
+            <p>
+              Any payment made through unofficial sources, third-party agents,
+              or individuals claiming to represent Job Matrix will not be
+              accepted or recognized by us.
+            </p>
+            <p>
+              If any third party uses our company name and collects money from
+              you in any way, Job Matrix will not be responsible for such
+              transactions.
+            </p>
+            <p>
+              All official communication will only be done through our verified
+              email addresses and official contact details.
+            </p>
+            <p>
+              If you receive any suspicious call, email, or message asking for
+              money in our name, please report it to us immediately.
+            </p>
+            <p class="fraud-strong">
+              Your safety and trust are very important to us. Stay alert and
+              always verify before making any payment.
+            </p>
           </div>
         </article>
-
-        <article class="contact-form-card">
-          <h2>Send us a Message</h2>
-          <form>
-            <div class="grid2">
-              <label>
-                Full Name
-                <input type="text" placeholder="John Doe" />
-              </label>
-              <label>
-                Email Address
-                <input type="email" placeholder="john@example.com" />
-              </label>
-            </div>
-
-            <div class="grid2">
-              <label>
-                Phone Number (Optional)
-                <input type="text" placeholder="+91..." />
-              </label>
-              <label>
-                I am a...
-                <select>
-                  <option>General Inquiry</option>
-                  <option>Job Seeker</option>
-                  <option>Employer</option>
-                </select>
-              </label>
-            </div>
-
-            <label>
-              Message
-              <textarea placeholder="Tell us how we can help..."></textarea>
-            </label>
-
-            <button type="button" class="contact-submit">Send Message</button>
-          </form>
-        </article>
-      </div>
-    </section>
+      </section>
+    </main>
 
     <footer class="site-footer">
       <div class="container footer-wrap">
         <div class="footer-top">
           <div class="footer-col footer-brand">
             <div class="footer-logo">
-              <img src="Screenshot_2026-01-19_184903-removebg-preview.png" alt="Job matrix logo" class="footer-logo-image" />
+              <img
+                src="Screenshot_2026-01-19_184903-removebg-preview.png"
+                alt="Job matrix logo"
+                class="footer-logo-image"
+              />
             </div>
             <p>
               Connecting top talent with India's leading companies. Ethical
@@ -173,10 +148,6 @@
     <script src="script.js"></script>
   </body>
 </html>
-
-
-
-
 
 
 
