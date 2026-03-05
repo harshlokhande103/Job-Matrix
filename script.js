@@ -7,6 +7,26 @@ if (menuToggle && menu) {
   });
 }
 
+const aboutMenuItems = Array.from(document.querySelectorAll(".menu-item-about"));
+if (aboutMenuItems.length) {
+  aboutMenuItems.forEach((item) => {
+    const closeBtn = item.querySelector(".about-dropdown-close");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        item.classList.remove("force-open");
+        item.classList.add("force-closed");
+      });
+    }
+
+    item.addEventListener("mouseenter", () => {
+      item.classList.remove("force-closed");
+      item.classList.add("force-open");
+    });
+  });
+}
+
 const slider = document.getElementById("indiaSlider");
 const dotsWrap = document.getElementById("indiaSliderDots");
 
