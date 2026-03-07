@@ -638,8 +638,8 @@ h1 .gradient {
 .apply-grid {
   margin-top: 52px;
   display: grid;
-  grid-template-columns: 1fr 0.9fr;
-  gap: 42px;
+  grid-template-columns: 1fr 1fr;
+  gap: 34px;
   align-items: center;
 }
 
@@ -693,26 +693,73 @@ h1 .gradient {
   top: 7px;
 }
 
-.apply-copy h3 {
+.apply-right {
+  display: grid;
+  gap: 18px;
+}
+
+.apply-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.apply-mini-card {
+  background: #f3f5f8;
+  border: 1px solid #dfe4ee;
+  border-radius: 18px;
+  padding: 20px 22px;
+  min-height: 164px;
+  box-shadow: 0 8px 16px rgba(20, 33, 64, 0.06);
+}
+
+.apply-mini-card h4 {
   color: #0f193b;
-  font-size: 40px;
+  font-size: 20px;
+  line-height: 1.28;
+  font-weight: 700;
+}
+
+.apply-mini-card p {
+  margin-top: 10px;
+  color: #4c6387;
+  font-size: 17px;
+  line-height: 1.48;
+}
+
+.apply-cta-card {
+  background: #2f67dd;
+  border-radius: 24px;
+  padding: 28px 30px 30px;
+  box-shadow: 0 14px 24px rgba(37, 76, 161, 0.22);
+}
+
+.apply-cta-card h3 {
+  color: #08173b;
+  font-size: 48px;
   line-height: 1.15;
   font-weight: 700;
 }
 
-.apply-copy h4 {
-  margin-top: 20px;
-  color: #0f193b;
-  font-size: 18px;
-  line-height: 1.35;
-  font-weight: 700;
+.apply-cta-card p {
+  margin-top: 12px;
+  color: #edf4ff;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-.apply-copy p {
-  margin-top: 4px;
-  color: #334e72;
-  font-size: 14px;
-  line-height: 1.5;
+.apply-cta-btn {
+  margin-top: 18px;
+  width: 100%;
+  min-height: 52px;
+  border: 2px solid #1e3d72;
+  border-radius: 14px;
+  background: #f4f7fb;
+  color: #0d1f42;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
 }
 
 .mission {
@@ -3901,17 +3948,49 @@ button.reveal-on-scroll.is-visible,
     margin-top: 8px;
   }
 
-  .apply-copy h3 {
+  .apply-right {
+    gap: 12px;
+  }
+
+  .apply-cards-grid {
+    gap: 10px;
+  }
+
+  .apply-mini-card {
+    border-radius: 14px;
+    min-height: 150px;
+    padding: 14px;
+  }
+
+  .apply-mini-card h4 {
+    font-size: 18px;
+  }
+
+  .apply-mini-card p {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .apply-cta-card {
+    border-radius: 16px;
+    padding: 16px 14px;
+  }
+
+  .apply-cta-card h3 {
     font-size: 28px;
   }
 
-  .apply-copy h4 {
-    margin-top: 14px;
-    font-size: 17px;
+  .apply-cta-card p {
+    font-size: 14px;
+    margin-top: 8px;
   }
 
-  .apply-copy p {
-    font-size: 14px;
+  .apply-cta-btn {
+    margin-top: 12px;
+    min-height: 44px;
+    border-radius: 12px;
+    font-size: 15px;
   }
 
   .mission {
@@ -4734,6 +4813,19 @@ button.reveal-on-scroll.is-visible,
 
   .admin-page .admin-posted-jobs p {
     font-size: 12px;
+  }
+
+  .apply-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .apply-mini-card {
+    min-height: auto;
+  }
+
+  .apply-cta-card h3 {
+    font-size: 24px;
   }
 
   .admin-page .admin-users-table {
