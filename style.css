@@ -3012,70 +3012,99 @@ h1 .gradient {
 }
 
 .privacy-page .privacy-main {
-  padding: 34px 0 70px;
+  padding: 0 0 70px;
 }
 
-.privacy-page .privacy-wrap {
+.privacy-page .privacy-hero {
+  min-height: 360px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid #d8e0ef;
+}
+
+.privacy-page .privacy-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(180deg, rgba(7, 19, 44, 0.76) 0%, rgba(7, 19, 44, 0.72) 100%),
+    url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2200&q=80");
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.privacy-page .privacy-hero-wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 360px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+.privacy-page .privacy-hero h1 {
+  color: #ffffff;
+  font-size: 60px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+}
+
+.privacy-page .privacy-hero p {
+  margin-top: 10px;
+  color: #d9e7ff;
+  font-size: 24px;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.privacy-page .privacy-content {
+  padding: 40px 0 0;
+}
+
+.privacy-page .privacy-content-wrap {
   width: min(1120px, calc(100% - 120px));
   margin: 0 auto;
-  background: #f6f8fc;
-  border: 1px solid #dfe4ee;
-  border-radius: 18px;
-  padding: 22px;
 }
 
-.privacy-page .privacy-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
+.privacy-page .privacy-content-card {
+  background: #f7f9fd;
+  border: 1px solid #dbe3f1;
+  border-radius: 20px;
+  padding: 32px 34px;
+  box-shadow: 0 12px 24px rgba(18, 42, 82, 0.08);
 }
 
-.privacy-page .privacy-head h1 {
-  margin-right: auto;
+.privacy-page .privacy-content-card h2 {
+  margin-top: 30px;
   color: #0f193b;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.4px;
-}
-
-.privacy-page .privacy-head-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  background: #eaf1ff;
-  color: #3a64c9;
-  display: grid;
-  place-items: center;
-  font-size: 22px;
-}
-
-.privacy-page .privacy-head-caret {
-  color: #8394b1;
-  font-size: 26px;
-  line-height: 1;
-}
-
-.privacy-page .privacy-card {
-  margin-top: 16px;
-  border-radius: 16px;
-  padding: 6px 2px 8px;
-}
-
-.privacy-page .privacy-card h2 {
-  color: #0f193b;
-  font-size: 50px;
-  line-height: 1.12;
+  font-size: 34px;
+  line-height: 1.2;
   font-weight: 700;
 }
 
-.privacy-page .privacy-card p {
+.privacy-page .privacy-content-card p {
   margin-top: 16px;
   color: #374f74;
-  font-size: 20px;
-  line-height: 1.66;
-  max-width: 1320px;
+  font-size: 18px;
+  line-height: 1.74;
+}
+
+.privacy-page .privacy-content-card hr {
+  border: 0;
+  border-top: 1px solid #d9e2f0;
+  margin: 26px 0 8px;
+}
+
+.privacy-page .privacy-highlight {
+  margin-top: 22px;
+  border-left: 4px solid #2f67dd;
+  background: #eef4ff;
+  color: #1e4cab;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-weight: 600;
 }
 
 .auth-page .auth-section {
@@ -3660,7 +3689,7 @@ button.reveal-on-scroll.is-visible,
     width: min(1040px, calc(100% - 48px));
   }
 
-  .privacy-page .privacy-wrap {
+  .privacy-page .privacy-content-wrap {
     width: min(1040px, calc(100% - 48px));
   }
 
@@ -3700,16 +3729,20 @@ button.reveal-on-scroll.is-visible,
     font-size: 18px;
   }
 
-  .privacy-page .privacy-head h1 {
-    font-size: 34px;
+  .privacy-page .privacy-hero h1 {
+    font-size: 52px;
   }
 
-  .privacy-page .privacy-card h2 {
-    font-size: 38px;
+  .privacy-page .privacy-hero p {
+    font-size: 22px;
   }
 
-  .privacy-page .privacy-card p {
-    font-size: 18px;
+  .privacy-page .privacy-content-card h2 {
+    font-size: 32px;
+  }
+
+  .privacy-page .privacy-content-card p {
+    font-size: 17px;
   }
 
   .admin-page .admin-hero-wrap,
@@ -4794,10 +4827,8 @@ button.reveal-on-scroll.is-visible,
     padding: 14px;
   }
 
-  .privacy-page .privacy-wrap {
+  .privacy-page .privacy-content-wrap {
     width: min(700px, calc(100% - 28px));
-    border-radius: 14px;
-    padding: 14px;
   }
 
   .fraud-page .fraud-head h1 {
@@ -4812,8 +4843,20 @@ button.reveal-on-scroll.is-visible,
     font-size: 30px;
   }
 
-  .privacy-page .privacy-head h1 {
-    font-size: 30px;
+  .privacy-page .privacy-hero {
+    min-height: 260px;
+  }
+
+  .privacy-page .privacy-hero-wrap {
+    min-height: 260px;
+  }
+
+  .privacy-page .privacy-hero h1 {
+    font-size: 38px;
+  }
+
+  .privacy-page .privacy-hero p {
+    font-size: 18px;
   }
 
   .fraud-page .fraud-head-icon {
@@ -4846,17 +4889,6 @@ button.reveal-on-scroll.is-visible,
   }
 
   .terms-page .terms-head-caret {
-    font-size: 20px;
-  }
-
-  .privacy-page .privacy-head-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    font-size: 18px;
-  }
-
-  .privacy-page .privacy-head-caret {
     font-size: 20px;
   }
 
@@ -4915,19 +4947,24 @@ button.reveal-on-scroll.is-visible,
     line-height: 1.54;
   }
 
-  .privacy-page .privacy-card {
-    margin-top: 12px;
-    padding: 2px;
+  .privacy-page .privacy-content {
+    padding-top: 24px;
   }
 
-  .privacy-page .privacy-card h2 {
-    font-size: 28px;
+  .privacy-page .privacy-content-card {
+    border-radius: 14px;
+    padding: 16px 14px;
   }
 
-  .privacy-page .privacy-card p {
+  .privacy-page .privacy-content-card h2 {
+    margin-top: 22px;
+    font-size: 24px;
+  }
+
+  .privacy-page .privacy-content-card p {
     margin-top: 10px;
-    font-size: 16px;
-    line-height: 1.54;
+    font-size: 15px;
+    line-height: 1.62;
   }
 }
 
