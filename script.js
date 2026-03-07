@@ -81,17 +81,19 @@ if (slider && dotsWrap) {
 const plansToggle = document.getElementById("plansToggle");
 const plansDropdown = document.getElementById("plansDropdown");
 
-if (plansToggle && plansDropdown) {
-  plansToggle.addEventListener("click", () => {
-    const isHidden = plansDropdown.hasAttribute("hidden");
-    if (isHidden) {
-      plansDropdown.removeAttribute("hidden");
-      plansToggle.setAttribute("aria-expanded", "true");
-    } else {
-      plansDropdown.setAttribute("hidden", "");
-      plansToggle.setAttribute("aria-expanded", "false");
-    }
-  });
+if (plansDropdown) {
+  if (plansToggle) {
+    plansToggle.addEventListener("click", () => {
+      const isHidden = plansDropdown.hasAttribute("hidden");
+      if (isHidden) {
+        plansDropdown.removeAttribute("hidden");
+        plansToggle.setAttribute("aria-expanded", "true");
+      } else {
+        plansDropdown.setAttribute("hidden", "");
+        plansToggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
 
   const tabButtons = Array.from(plansDropdown.querySelectorAll("[data-plan-tab]"));
   const panels = Array.from(plansDropdown.querySelectorAll("[data-plan-panel]"));
@@ -110,21 +112,15 @@ if (plansToggle && plansDropdown) {
     });
   });
 
-  const infoMeta = Array.from(plansDropdown.querySelectorAll(".plan-meta"));
-  infoMeta.forEach((meta) => {
-    const infoBtn = meta.querySelector(".info-btn");
-    if (!infoBtn) return;
-
-    infoBtn.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const wasOpen = meta.classList.contains("show-tip");
-      infoMeta.forEach((item) => item.classList.remove("show-tip"));
-      if (!wasOpen) meta.classList.add("show-tip");
+  const planMoreButtons = Array.from(plansDropdown.querySelectorAll(".plan-more-btn"));
+  planMoreButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".plan-card");
+      if (!card) return;
+      const expanded = card.classList.toggle("expanded");
+      btn.setAttribute("aria-expanded", expanded ? "true" : "false");
+      btn.textContent = expanded ? "Show Less" : "Know More";
     });
-  });
-
-  document.addEventListener("click", () => {
-    infoMeta.forEach((item) => item.classList.remove("show-tip"));
   });
 }
 
