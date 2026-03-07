@@ -9,8 +9,12 @@ if (menuToggle && menu) {
 
 const aboutMenuItems = Array.from(document.querySelectorAll(".menu-item-about"));
 if (aboutMenuItems.length) {
+  const isMobileMenu = () => window.matchMedia("(max-width: 980px)").matches;
+
   aboutMenuItems.forEach((item) => {
     const closeBtn = item.querySelector(".about-dropdown-close");
+    const aboutLink = item.querySelector(":scope > a");
+
     if (closeBtn) {
       closeBtn.addEventListener("click", (event) => {
         event.preventDefault();
@@ -20,7 +24,24 @@ if (aboutMenuItems.length) {
       });
     }
 
+    if (aboutLink) {
+      aboutLink.addEventListener("click", (event) => {
+        if (!isMobileMenu()) return;
+        event.preventDefault();
+        event.stopPropagation();
+        const isOpen = item.classList.contains("force-open");
+        if (isOpen) {
+          item.classList.remove("force-open");
+          item.classList.add("force-closed");
+        } else {
+          item.classList.remove("force-closed");
+          item.classList.add("force-open");
+        }
+      });
+    }
+
     item.addEventListener("mouseenter", () => {
+      if (isMobileMenu()) return;
       item.classList.remove("force-closed");
       item.classList.add("force-open");
     });

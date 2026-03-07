@@ -83,6 +83,22 @@ body {
   align-items: center;
 }
 
+.menu .menu-item-about > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.menu .menu-item-about > a::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid currentColor;
+  margin-top: 2px;
+}
+
 .menu .about-dropdown {
   position: absolute;
   top: calc(100% + 10px);
@@ -3574,8 +3590,15 @@ button.reveal-on-scroll.is-visible,
     padding: 16px;
     display: none;
     flex-direction: column;
+    align-items: flex-start;
     gap: 12px;
     z-index: 10;
+  }
+
+  .menu > a {
+    width: 100%;
+    display: block;
+    text-align: left;
   }
 
   .menu .menu-item-about {
@@ -3584,7 +3607,10 @@ button.reveal-on-scroll.is-visible,
   }
 
   .menu .menu-item-about > a {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
     width: 100%;
     color: #566a8d;
     font-size: 15px;
@@ -3603,10 +3629,10 @@ button.reveal-on-scroll.is-visible,
     box-shadow: none;
     background: #f3f7ff;
     border-color: #dde6f6;
-    opacity: 1;
-    max-height: none;
-    overflow: visible;
-    padding: 8px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 8px;
   }
 
   .menu .about-dropdown-close {
@@ -3624,6 +3650,16 @@ button.reveal-on-scroll.is-visible,
   .menu .about-dropdown a {
     font-size: 13px;
     padding: 8px 10px;
+    width: 100%;
+    text-align: left;
+  }
+
+  .menu .menu-item-about.force-open .about-dropdown {
+    opacity: 1;
+    max-height: 260px;
+    overflow: visible;
+    padding: 8px;
+    transform: none;
   }
 
   .menu.open {
