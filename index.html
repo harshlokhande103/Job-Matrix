@@ -1,572 +1,536 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Matrix</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <div class="container nav-wrap">
-        <div class="brand">
-          <img class="brand-image" src="Screenshot_2026-01-19_184903-removebg-preview.png" alt="Job matrix logo" onclick="window.location.href='index.html'"/>
-        </div>
 
-        <nav class="menu" id="menu">
-          <a class="active" href="#home">Home</a>
-          <a href="services.html">Services</a>
-          <a href="jobs.html">Jobs</a>
-          <div class="menu-item-about">
-            <a href="about.html">About</a>
-            <div class="about-dropdown">
-              <button type="button" class="about-dropdown-close" aria-label="Close About menu">&times;</button>
-              <a href="about.html">About Us</a>
-              <a href="fraud-alert.html">Fraud Alert</a>
-              <a href="cancellation-refund.html">Cancellation &amp; Refund</a>
-              <a href="terms-conditions.html">Teams &amp; Condition</a>
-              <a href="privacy-policy.html">Privacy Policy</a>
-            </div>
-          </div>
-          <a href="contact.html">Contact</a>
-        </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Matrix</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-        <button class="nav-cta" onclick="window.location.href='login.html'">Login / Sign Up</button>
-
-        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-          <span></span><span></span><span></span>
-        </button>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <div class="brand">
+        <img class="brand-image" src="Screenshot_2026-01-19_184903-removebg-preview.png" alt="Job matrix logo"
+          onclick="window.location.href='index.html'" />
       </div>
-    </header>
 
-    <main class="hero" id="home">
-      <div class="container hero-grid">
-        <section class="hero-copy">
-          <div class="badge">
-            <span class="dot"></span>
-            <span>#1 India's Trusted Recruitment Agency</span>
-          </div>
-
-          <h1>
-            <span>Empowering Your Career</span>
-            <span class="gradient">Through Training &amp; Placement</span>
-          </h1>
-
-          <p>
-            Job Matrix is a career-focused consultancy platform dedicated to
-            bridging the gap between talent and opportunity across India. We
-            provide expert guidance, essential training, and direct access to
-            both Work From Home and Office-based roles.
-          </p>
-
-          <div class="hero-actions">
-            <button class="btn btn-primary" onclick="window.location.href='jobs.html'">Browse Open Roles</button>
-            <button class="btn btn-outline" onclick="window.location.href='register.html'">Register</button>
-          </div>
-
-          <div class="hero-trust-points">
-            <div class="trust-item">
-              <span class="trust-icon">&#10003;</span>
-              <span>Verified Employers</span>
-            </div>
-            <div class="trust-item">
-              <span class="trust-icon">&#10003;</span>
-              <span>Pan-India Reach</span>
-            </div>
-          </div>
-        </section>
-
-        <section class="hero-media">
-          <div class="photo-wrap">
-            <img
-              src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80"
-              alt="Team meeting in office"
-            />
-
-            <div class="placement-card">
-              <div>
-                <p class="small">Recent Placements</p>
-                <p class="count">1,240+</p>
-              </div>
-              <div class="avatars" aria-hidden="true">
-                <span></span><span></span><span></span><span></span>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
-
-    <section class="services" id="services">
-      <div class="container services-wrap">
-        <div class="services-head">
-          <h2>Our Services</h2>
-          <span class="services-line"></span>
-          <p>
-            Training that transforms careers by building real skills, confidence,
-            and job-ready professionals.
-          </p>
-        </div>
-
-        <div class="services-layout">
-          <article class="service-card card-top-left">
-            <h3>Resume &amp; CV Building</h3>
-            <p>
-              Professional resume creation based on industry standards to improve
-              interview shortlisting.
-            </p>
-            <span class="service-icon pink">&#128196;</span>
-          </article>
-
-          <article class="service-card card-top-right">
-            <h3>Placement Assistance</h3>
-            <p>
-              End-to-end placement support including job matching, interview
-              scheduling, and guidance.
-            </p>
-            <span class="service-icon coral">&#128188;</span>
-          </article>
-
-          <article class="service-card card-left">
-            <h3>Interview Preparation Training</h3>
-            <p>
-              Structured interview training to improve communication skills,
-              confidence, and interview performance.
-            </p>
-            <span class="service-icon magenta">&#9678;</span>
-          </article>
-
-          <article class="service-card card-right">
-            <h3>Career Skill Development</h3>
-            <p>
-              Skill development training focused on workplace communication and
-              job readiness.
-            </p>
-            <span class="service-icon yellow">&#127891;</span>
-          </article>
-
-          <article class="service-card card-bottom-left">
-            <h3>Mock Interview Sessions</h3>
-            <p>
-              Real-time mock interviews with practical feedback to identify gaps
-              and boost confidence.
-            </p>
-            <span class="service-icon green">&#128172;</span>
-          </article>
-
-          <article class="service-card card-bottom-right">
-            <h3>Career Guidance &amp; Counseling</h3>
-            <p>
-              Personalized one-on-one career guidance to help candidates choose
-              the right career path.
-            </p>
-            <span class="service-icon red">&#10084;</span>
-          </article>
-
-          <div class="services-center">
-            <div class="center-ring">
-              <img
-                src="https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1000&q=80"
-                alt="Workspace setup"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="why-choose" id="why-choose">
-      <div class="container why-wrap">
-        <h2>Why Choose JobMatrix</h2>
-
-        <div class="why-grid">
-          <article class="why-card">
-            <img
-              src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80"
-              alt="Industry training meeting"
-            />
-            <div class="why-body">
-              <h3>Industry-Oriented Training Programs</h3>
-              <p>
-                At Job Matrix, our training programs are designed to align with
-                current industry requirements. We focus on practical interview
-                preparation, communication skills, and job readiness rather than
-                theory alone. This structured approach helps candidates
-                understand real hiring expectations and prepare with confidence
-                for interviews and professional environments.
-              </p>
-            </div>
-          </article>
-
-          <article class="why-card">
-            <img
-              src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80"
-              alt="Verified opportunities"
-            />
-            <div class="why-body">
-              <h3>Verified &amp; Reliable Job Opportunities</h3>
-              <p>
-                We share only verified and genuine job opportunities to ensure
-                reliability and trust. Each opportunity is carefully reviewed to
-                avoid misleading or fake offers. Our goal is to connect
-                candidates with relevant roles that match their skills,
-                preferences, and long-term career goals.
-              </p>
-            </div>
-          </article>
-
-          <article class="why-card">
-            <img
-              src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?auto=format&fit=crop&w=1200&q=80"
-              alt="Pan India reach"
-            />
-            <div class="why-body">
-              <h3>PAN India Career Opportunities</h3>
-              <p>
-                Job Matrix provides access to job opportunities across PAN India,
-                including both work-from-home and work-from-office roles. This
-                wide reach allows candidates from different locations to explore
-                multiple career options without geographical limitations.
-              </p>
-            </div>
-          </article>
-        </div>
-
-        <div class="why-grid why-grid-bottom">
-          <article class="why-card">
-            <img
-              src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80"
-              alt="Transparent and ethical work process"
-            />
-            <div class="why-body">
-              <h3>Transparent &amp; Ethical Work Process</h3>
-              <p>
-                We follow a transparent and professional process at every stage
-                of our services. Clear communication, defined procedures, and
-                honest guidance ensure candidates understand what to expect. We
-                believe transparency builds trust and helps candidates make
-                informed career decisions.
-              </p>
-            </div>
-          </article>
-
-          <article class="why-card">
-            <img
-              src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?auto=format&fit=crop&w=1200&q=80"
-              alt="Honest career support"
-            />
-            <div class="why-body">
-              <h3>Honest Career Support (No False Commitments)</h3>
-              <p>
-                Job Matrix believes in honesty over unrealistic promises. We do
-                not offer fake job guarantees. Instead, we focus on training,
-                guidance, and placement assistance, while final selection
-                depends on candidate performance and employer requirements.
-              </p>
-            </div>
-          </article>
-
-          <article class="why-card">
-            <img
-              src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1200&q=80"
-              alt="Personalized guidance"
-            />
-            <div class="why-body">
-              <h3>Personalized Career Guidance &amp; Support</h3>
-              <p>
-                We provide personalized one-on-one guidance to understand each
-                candidate's strengths, goals, and experience. This tailored
-                support helps us recommend suitable training and job
-                opportunities, ensuring clarity and confidence throughout the
-                career journey.
-              </p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="apply" id="apply">
-      <div class="container apply-wrap">
-        <div class="apply-head">
-          <h2>Who Can Apply</h2>
-          <p>
-            Is Job Matrix right for you? Train with experts, prepare with
-            confidence, and explore real job opportunities that match your
-            skills and career goals.
-          </p>
-        </div>
-
-        <div class="apply-grid">
-          <div class="apply-media">
-            <img
-              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80"
-              alt="Who can apply candidates"
-            />
-            <div class="apply-overlay">
-              <ul>
-                <li>Students (18+)</li>
-                <li>Experienced professionals</li>
-              </ul>
-              <ul>
-                <li>Freshers</li>
-                <li>Work From Home job seekers</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="apply-right">
-            <div class="apply-cards-grid">
-              <article class="apply-mini-card">
-                <h4>Students (18+)</h4>
-                <p>
-                  Early career preparation and skill-building opportunities for
-                  students.
-                </p>
-              </article>
-
-              <article class="apply-mini-card">
-                <h4>Freshers</h4>
-                <p>
-                  Dedicated support for recent graduates to land their first
-                  professional role.
-                </p>
-              </article>
-
-              <article class="apply-mini-card">
-                <h4>Experienced Professionals</h4>
-                <p>
-                  Strategic guidance for those looking to transition or level up
-                  their careers.
-                </p>
-              </article>
-
-              <article class="apply-mini-card">
-                <h4>Career Switchers</h4>
-                <p>
-                  Transition smoothly into new industries with our targeted
-                  training programs.
-                </p>
-              </article>
-            </div>
-
-            <article class="apply-cta-card">
-              <h3>Start Your Journey Today</h3>
-              <p>
-                Join thousands of successful candidates who found their dream
-                roles through Job Matrix.
-              </p>
-              <button type="button" class="apply-cta-btn">Get Started Now</button>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="mission" id="mission">
-      <div class="container mission-wrap">
-        <div class="mission-card">
-          <span class="mission-badge">&#8226; OUR CORE MISSION</span>
-          <h2>Our Mission</h2>
-          <p>
-            To provide <strong>reliable training</strong> and
-            <strong>verified job opportunities</strong> while maintaining a
-            transparent recruitment process.
-          </p>
-
-          <div class="mission-points">
-            <div class="mission-point">
-              <span class="mission-icon">&#10023;</span>
-              <span>RELIABLE</span>
-            </div>
-            <div class="mission-point">
-              <span class="mission-icon">&#10003;</span>
-              <span>VERIFIED</span>
-            </div>
-            <div class="mission-point">
-              <span class="mission-icon">&#9678;</span>
-              <span>TRANSPARENT</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="milestones" id="milestones">
-      <div class="container milestones-wrap">
-        <div class="milestones-head">
-          <h2>Milestones That Define Our Success</h2>
-          <p>Delivering Excellence with Proven Results</p>
-        </div>
-
-        <div class="milestones-grid">
-          <article class="milestone-card">
-            <span class="milestone-icon">&#9889;</span>
-            <h3>50+</h3>
-            <p>JOBS POSTED</p>
-          </article>
-
-          <article class="milestone-card">
-            <span class="milestone-icon">&#128101;</span>
-            <h3>100+</h3>
-            <p>CANDIDATES PLACED</p>
-          </article>
-
-          <article class="milestone-card">
-            <span class="milestone-icon">&#127942;</span>
-            <h3>5+</h3>
-            <p>PARTNER COMPANIES</p>
-          </article>
-
-          <article class="milestone-card">
-            <span class="milestone-icon">&#128172;</span>
-            <h3>98%</h3>
-            <p>CLIENT SATISFACTION</p>
-          </article>
-        </div>
-      </div>
-    </section>
-    <section class="home-search-strip">
-      <div class="container home-search-wrap">
-        <div class="home-search-bar">
-          <label class="home-search-field">
-            <span>🔍</span>
-            <input type="text" placeholder="Job title, keywords, or company" />
-          </label>
-          <label class="home-search-field">
-            <span>📍</span>
-            <input type="text" placeholder="City, state, or 'Remote'" />
-          </label>
-          <button type="button" class="home-search-btn">Search Jobs</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="india-slider" id="india-slider">
-      <div class="apply-head">
-          <h2 style="font-size: 44px; font-weight: 600;">Top Hiring Cities Across India</h2>
-          <p>
-            Explore job opportunities in India’s fastest growing cities
-          </p>
-        </div>
-      <div class="container india-slider-wrap">
-        <br><br>
-        <div class="india-slider-frame" id="indiaSlider">
-          <article class="india-slide active">
-            <img
-              src="https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=1800&q=80"
-              alt="Mumbai, India"
-            />
-            <h3>Mumbai, India</h3>
-          </article>
-
-          <article class="india-slide">
-            <img
-              src="https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1800&q=80"
-              alt="New Delhi, India"
-            />
-            <h3>New Delhi, India</h3>
-          </article>
-
-          <article class="india-slide">
-            <img
-              src="https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=1800&q=80"
-              alt="Bengaluru, India"
-            />
-            <h3>Bengaluru, India</h3>
-          </article>
-
-          <article class="india-slide">
-            <img
-              src="https://images.unsplash.com/photo-1558431382-27e303142255?auto=format&fit=crop&w=1800&q=80"
-              alt="Kolkata, India"
-            />
-            <h3>Kolkata, India</h3>
-          </article>
-
-          <article class="india-slide">
-            <img
-              src="https://images.unsplash.com/photo-1597074866923-dc0589150358?auto=format&fit=crop&w=1800&q=80"
-              alt="Hyderabad, India"
-            />
-            <h3>Hyderabad, India</h3>
-          </article>
-        </div>
-
-        <div class="india-slider-dots" id="indiaSliderDots">
-          <button class="active" aria-label="Slide 1"></button>
-          <button aria-label="Slide 2"></button>
-          <button aria-label="Slide 3"></button>
-          <button aria-label="Slide 4"></button>
-          <button aria-label="Slide 5"></button>
-        </div>
-      </div>
-    </section>
-
-    <footer class="site-footer">
-      <div class="container footer-wrap">
-        <div class="footer-top">
-          <div class="footer-col footer-brand">
-            <div class="footer-logo">
-              <img src="Screenshot_2026-01-19_184903-removebg-preview.png" alt="Job matrix logo" class="footer-logo-image" />
-            </div>
-            <p>
-              Connecting top talent with India's leading companies. Ethical
-              recruitment, transparency, and trust are our core values.
-            </p>
-          </div>
-
-          <div class="footer-col">
-            <h3>Quick Links</h3>
-            <a href="#">Find a Job</a>
-            <a href="#">For Employers</a>
-            <a href="#">About Us</a>
-            <a href="#">Contact Support</a>
-          </div>
-
-          <div class="footer-col">
-            <h3>Services</h3>
-            <a href="#">Resume Building</a>
-            <a href="#">Interview Prep</a>
-            <a href="#">Job Placement</a>
-            <a href="#">HR Consulting</a>
-          </div>
-
-          <div class="footer-col">
-            <h3>Contact</h3>
-            <p>Mumbai, Maharashtra</p>
-            <p>contact@jobmatrix.com</p>
-            <p>+91 98765 43210</p>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          <div class="footer-links">
-            <a href="#">Terms</a>
+      <nav class="menu" id="menu">
+        <a class="active" href="#home">Home</a>
+        <a href="services.html">Services</a>
+        <a href="jobs.html">Jobs</a>
+        <div class="menu-item-about">
+          <a href="about.html">About</a>
+          <div class="about-dropdown">
+            <button type="button" class="about-dropdown-close" aria-label="Close About menu">&times;</button>
+            <a href="about.html">About Us</a>
+            <a href="fraud-alert.html">Fraud Alert</a>
+            <a href="cancellation-refund.html">Cancellation &amp; Refund</a>
+            <a href="terms-conditions.html">Teams &amp; Condition</a>
             <a href="privacy-policy.html">Privacy Policy</a>
           </div>
-          <p>&copy; 2026 Job Matrix Recruitment. All rights reserved.</p>
+        </div>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <button class="nav-cta" onclick="window.location.href='login.html'">Login / Sign Up</button>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="hero" id="home">
+    <div class="container hero-grid">
+      <section class="hero-copy">
+        <div class="badge">
+          <span class="dot"></span>
+          <span>#1 India's Trusted Recruitment Agency</span>
+        </div>
+
+        <h1>
+          <span>Empowering Your Career</span>
+          <span class="gradient">Through Training &amp; Placement</span>
+        </h1>
+
+        <p>
+          Job Matrix is a career-focused consultancy platform dedicated to
+          bridging the gap between talent and opportunity across India. We
+          provide expert guidance, essential training, and direct access to
+          both Work From Home and Office-based roles.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="window.location.href='jobs.html'">Browse Open Roles</button>
+          <button class="btn btn-outline" onclick="window.location.href='register.html'">Register</button>
+        </div>
+
+        <div class="hero-trust-points">
+          <div class="trust-item">
+            <span class="trust-icon">&#10003;</span>
+            <span>Verified Employers</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">&#10003;</span>
+            <span>Pan-India Reach</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="hero-media">
+        <div class="photo-wrap">
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80"
+            alt="Team meeting in office" />
+
+          <div class="placement-card">
+            <div>
+              <p class="small">Recent Placements</p>
+              <p class="count">1,240+</p>
+            </div>
+            <div class="avatars" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <section class="services" id="services">
+    <div class="container services-wrap">
+      <div class="services-head">
+        <h2>Our Services</h2>
+        <span class="services-line"></span>
+        <p>
+          Training that transforms careers by building real skills, confidence,
+          and job-ready professionals.
+        </p>
+      </div>
+
+      <div class="services-layout">
+        <article class="service-card card-top-left">
+          <h3>Resume &amp; CV Building</h3>
+          <p>
+            Professional resume creation based on industry standards to improve
+            interview shortlisting.
+          </p>
+          <span class="service-icon pink">&#128196;</span>
+        </article>
+
+        <article class="service-card card-top-right">
+          <h3>Placement Assistance</h3>
+          <p>
+            End-to-end placement support including job matching, interview
+            scheduling, and guidance.
+          </p>
+          <span class="service-icon coral">&#128188;</span>
+        </article>
+
+        <article class="service-card card-left">
+          <h3>Interview Preparation Training</h3>
+          <p>
+            Structured interview training to improve communication skills,
+            confidence, and interview performance.
+          </p>
+          <span class="service-icon magenta">&#9678;</span>
+        </article>
+
+        <article class="service-card card-right">
+          <h3>Career Skill Development</h3>
+          <p>
+            Skill development training focused on workplace communication and
+            job readiness.
+          </p>
+          <span class="service-icon yellow">&#127891;</span>
+        </article>
+
+        <article class="service-card card-bottom-left">
+          <h3>Mock Interview Sessions</h3>
+          <p>
+            Real-time mock interviews with practical feedback to identify gaps
+            and boost confidence.
+          </p>
+          <span class="service-icon green">&#128172;</span>
+        </article>
+
+        <article class="service-card card-bottom-right">
+          <h3>Career Guidance &amp; Counseling</h3>
+          <p>
+            Personalized one-on-one career guidance to help candidates choose
+            the right career path.
+          </p>
+          <span class="service-icon red">&#10084;</span>
+        </article>
+
+        <div class="services-center">
+          <div class="center-ring">
+            <img src="https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1000&q=80"
+              alt="Workspace setup" />
+          </div>
         </div>
       </div>
-    </footer>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
-  </body>
+  <section class="why-choose" id="why-choose">
+    <div class="container why-wrap">
+      <h2>Why Choose JobMatrix</h2>
+
+      <div class="why-grid">
+        <article class="why-card">
+          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80"
+            alt="Industry training meeting" />
+          <div class="why-body">
+            <h3>Industry-Oriented Training Programs</h3>
+            <p>
+              At Job Matrix, our training programs are designed to align with
+              current industry requirements. We focus on practical interview
+              preparation, communication skills, and job readiness rather than
+              theory alone. This structured approach helps candidates
+              understand real hiring expectations and prepare with confidence
+              for interviews and professional environments.
+            </p>
+          </div>
+        </article>
+
+        <article class="why-card">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80"
+            alt="Verified opportunities" />
+          <div class="why-body">
+            <h3>Verified &amp; Reliable Job Opportunities</h3>
+            <p>
+              We share only verified and genuine job opportunities to ensure
+              reliability and trust. Each opportunity is carefully reviewed to
+              avoid misleading or fake offers. Our goal is to connect
+              candidates with relevant roles that match their skills,
+              preferences, and long-term career goals.
+            </p>
+          </div>
+        </article>
+
+        <article class="why-card">
+          <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?auto=format&fit=crop&w=1200&q=80"
+            alt="Pan India reach" />
+          <div class="why-body">
+            <h3>PAN India Career Opportunities</h3>
+            <p>
+              Job Matrix provides access to job opportunities across PAN India,
+              including both work-from-home and work-from-office roles. This
+              wide reach allows candidates from different locations to explore
+              multiple career options without geographical limitations.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <div class="why-grid why-grid-bottom">
+        <article class="why-card">
+          <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80"
+            alt="Transparent and ethical work process" />
+          <div class="why-body">
+            <h3>Transparent &amp; Ethical Work Process</h3>
+            <p>
+              We follow a transparent and professional process at every stage
+              of our services. Clear communication, defined procedures, and
+              honest guidance ensure candidates understand what to expect. We
+              believe transparency builds trust and helps candidates make
+              informed career decisions.
+            </p>
+          </div>
+        </article>
+
+        <article class="why-card">
+          <img src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?auto=format&fit=crop&w=1200&q=80"
+            alt="Honest career support" />
+          <div class="why-body">
+            <h3>Honest Career Support (No False Commitments)</h3>
+            <p>
+              Job Matrix believes in honesty over unrealistic promises. We do
+              not offer fake job guarantees. Instead, we focus on training,
+              guidance, and placement assistance, while final selection
+              depends on candidate performance and employer requirements.
+            </p>
+          </div>
+        </article>
+
+        <article class="why-card">
+          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1200&q=80"
+            alt="Personalized guidance" />
+          <div class="why-body">
+            <h3>Personalized Career Guidance &amp; Support</h3>
+            <p>
+              We provide personalized one-on-one guidance to understand each
+              candidate's strengths, goals, and experience. This tailored
+              support helps us recommend suitable training and job
+              opportunities, ensuring clarity and confidence throughout the
+              career journey.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="apply" id="apply">
+    <div class="container apply-wrap">
+      <div class="apply-head">
+        <h2>Who Can Apply</h2>
+        <p>
+          Is Job Matrix right for you? Train with experts, prepare with
+          confidence, and explore real job opportunities that match your
+          skills and career goals.
+        </p>
+      </div>
+
+      <div class="apply-grid">
+        <div class="apply-media">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80"
+            alt="Who can apply candidates" />
+          <div class="apply-overlay">
+            <ul>
+              <li>Students (18+)</li>
+              <li>Experienced professionals</li>
+            </ul>
+            <ul>
+              <li>Freshers</li>
+              <li>Work From Home job seekers</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="apply-right">
+          <div class="apply-cards-grid">
+            <article class="apply-mini-card">
+              <h4>Students (18+)</h4>
+              <p>
+                Early career preparation and skill-building opportunities for
+                students.
+              </p>
+            </article>
+
+            <article class="apply-mini-card">
+              <h4>Freshers</h4>
+              <p>
+                Dedicated support for recent graduates to land their first
+                professional role.
+              </p>
+            </article>
+
+            <article class="apply-mini-card">
+              <h4>Experienced Professionals</h4>
+              <p>
+                Strategic guidance for those looking to transition or level up
+                their careers.
+              </p>
+            </article>
+
+            <article class="apply-mini-card">
+              <h4>Career Switchers</h4>
+              <p>
+                Transition smoothly into new industries with our targeted
+                training programs.
+              </p>
+            </article>
+          </div>
+
+          <article class="apply-cta-card">
+            <h3>Start Your Journey Today</h3>
+            <p>
+              Join thousands of successful candidates who found their dream
+              roles through Job Matrix.
+            </p>
+            <button type="button" class="apply-cta-btn">Get Started Now</button>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mission" id="mission">
+    <div class="container mission-wrap">
+      <div class="mission-card">
+        <span class="mission-badge">&#8226; OUR CORE MISSION</span>
+        <h2>Our Mission</h2>
+        <p>
+          To provide <strong>reliable training</strong> and
+          <strong>verified job opportunities</strong> while maintaining a
+          transparent recruitment process.
+        </p>
+
+        <div class="mission-points">
+          <div class="mission-point">
+            <span class="mission-icon">&#10023;</span>
+            <span>RELIABLE</span>
+          </div>
+          <div class="mission-point">
+            <span class="mission-icon">&#10003;</span>
+            <span>VERIFIED</span>
+          </div>
+          <div class="mission-point">
+            <span class="mission-icon">&#9678;</span>
+            <span>TRANSPARENT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="milestones" id="milestones">
+    <div class="container milestones-wrap">
+      <div class="milestones-head">
+        <h2>Milestones That Define Our Success</h2>
+        <p>Delivering Excellence with Proven Results</p>
+      </div>
+
+      <div class="milestones-grid">
+        <article class="milestone-card">
+          <span class="milestone-icon">&#9889;</span>
+          <h3>50+</h3>
+          <p>JOBS POSTED</p>
+        </article>
+
+        <article class="milestone-card">
+          <span class="milestone-icon">&#128101;</span>
+          <h3>100+</h3>
+          <p>CANDIDATES PLACED</p>
+        </article>
+
+        <article class="milestone-card">
+          <span class="milestone-icon">&#127942;</span>
+          <h3>5+</h3>
+          <p>PARTNER COMPANIES</p>
+        </article>
+
+        <article class="milestone-card">
+          <span class="milestone-icon">&#128172;</span>
+          <h3>98%</h3>
+          <p>CLIENT SATISFACTION</p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="home-search-strip">
+    <div class="container home-search-wrap">
+      <div class="home-search-bar">
+        <label class="home-search-field">
+          <span>🔍</span>
+          <input type="text" placeholder="Job title, keywords, or company" />
+        </label>
+        <label class="home-search-field">
+          <span>📍</span>
+          <input type="text" placeholder="City, state, or 'Remote'" />
+        </label>
+        <button type="button" class="home-search-btn">Search Jobs</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="india-slider" id="india-slider">
+    <div class="apply-head">
+      <h2 style="font-size: 44px; font-weight: 600;">Top Hiring Cities Across India</h2>
+      <p>
+        Explore job opportunities in India’s fastest growing cities
+      </p>
+    </div>
+    <div class="container india-slider-wrap">
+      <br><br>
+      <div class="india-slider-frame" id="indiaSlider">
+        <article class="india-slide active">
+          <img src="https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=1800&q=80"
+            alt="Mumbai, India" />
+          <h3>Mumbai, India</h3>
+        </article>
+
+        <article class="india-slide">
+          <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1800&q=80"
+            alt="New Delhi, India" />
+          <h3>New Delhi, India</h3>
+        </article>
+
+        <article class="india-slide">
+          <img src="https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=1800&q=80"
+            alt="Bengaluru, India" />
+          <h3>Bengaluru, India</h3>
+        </article>
+
+        <article class="india-slide">
+          <img src="https://images.unsplash.com/photo-1558431382-27e303142255?auto=format&fit=crop&w=1800&q=80"
+            alt="Kolkata, India" />
+          <h3>Kolkata, India</h3>
+        </article>
+
+        <article class="india-slide">
+          <img src="https://images.unsplash.com/photo-1597074866923-dc0589150358?auto=format&fit=crop&w=1800&q=80"
+            alt="Hyderabad, India" />
+          <h3>Hyderabad, India</h3>
+        </article>
+      </div>
+
+      <div class="india-slider-dots" id="indiaSliderDots">
+        <button class="active" aria-label="Slide 1"></button>
+        <button aria-label="Slide 2"></button>
+        <button aria-label="Slide 3"></button>
+        <button aria-label="Slide 4"></button>
+        <button aria-label="Slide 5"></button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <div class="footer-top">
+        <div class="footer-col footer-brand">
+          <div class="footer-logo">
+            <img src="Screenshot_2026-01-19_184903-removebg-preview.png" alt="Job matrix logo"
+              class="footer-logo-image" />
+          </div>
+          <p>
+            Connecting top talent with India's leading companies. Ethical
+            recruitment, transparency, and trust are our core values.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <a href="#">Find a Job</a>
+          <a href="#">For Employers</a>
+          <a href="#">About Us</a>
+          <a href="#">Contact Support</a>
+        </div>
+
+        <div class="footer-col">
+          <h3>Services</h3>
+          <a href="#">Resume Building</a>
+          <a href="#">Interview Prep</a>
+          <a href="#">Job Placement</a>
+          <a href="#">HR Consulting</a>
+        </div>
+
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <p>Mumbai, Maharashtra</p>
+          <p>contact@jobmatrix.com</p>
+          <p>+91 98765 43210</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-links">
+          <a href="#">Terms</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+        </div>
+        <p>&copy; 2026 Job Matrix Recruitment. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
