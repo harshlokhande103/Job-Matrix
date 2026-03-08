@@ -2787,94 +2787,87 @@ h1 .gradient {
 }
 
 .fraud-page .fraud-main {
-  padding: 34px 0 70px;
+  padding: 0 0 70px;
 }
 
-.fraud-page .fraud-wrap {
+.fraud-page .fraud-hero {
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid #d8e0ef;
+}
+
+.fraud-page .fraud-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(180deg, rgba(7, 19, 44, 0.74) 0%, rgba(7, 19, 44, 0.72) 100%),
+    url("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=2200&q=80");
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.fraud-page .fraud-hero-wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 500px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+.fraud-page .fraud-hero h1 {
+  color: #ffffff;
+  font-size: 60px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+}
+
+.fraud-page .fraud-hero p {
+  margin-top: 10px;
+  color: #d9e7ff;
+  font-size: 24px;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.fraud-page .fraud-content {
+  padding: 40px 0 0;
+}
+
+.fraud-page .fraud-content-wrap {
   width: min(1120px, calc(100% - 120px));
   margin: 0 auto;
-  background: #f6f8fc;
-  border: 1px solid #dfe4ee;
-  border-radius: 18px;
-  padding: 22px;
 }
 
-.fraud-page .fraud-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  color: #0f193b;
-  font-size: 16px;
-  font-weight: 700;
+.fraud-page .fraud-content-card {
+  background: #f7f9fd;
+  border: 1px solid #dbe3f1;
+  border-radius: 20px;
+  padding: 32px 34px;
+  box-shadow: 0 12px 24px rgba(18, 42, 82, 0.08);
 }
 
-.fraud-page .fraud-head h1 {
-  margin-right: auto;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.4px;
-}
-
-.fraud-page .fraud-head-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  background: #eaf1ff;
-  color: #3a64c9;
-  display: grid;
-  place-items: center;
-  font-size: 22px;
-}
-
-.fraud-page .fraud-head-caret {
-  color: #8394b1;
-  font-size: 26px;
-  line-height: 1;
-}
-
-.fraud-page .fraud-card {
-  margin-top: 16px;
-  background: #fff2f2;
-  border: 1px solid #f2d2d2;
-  border-radius: 16px;
-  padding: 26px 24px 28px;
-  display: grid;
-  grid-template-columns: 82px 1fr;
-  gap: 18px;
-}
-
-.fraud-page .fraud-card-icon {
-  width: 72px;
-  height: 72px;
-  border-radius: 18px;
-  background: #ffe4e4;
-  color: #d53333;
-  display: grid;
-  place-items: center;
-  font-size: 36px;
-  line-height: 1;
-}
-
-.fraud-page .fraud-card-copy h2 {
-  color: #7f1717;
-  font-size: 50px;
-  line-height: 1.1;
-  font-weight: 700;
-}
-
-.fraud-page .fraud-card-copy p {
+.fraud-page .fraud-content-card p {
   margin-top: 14px;
-  color: #8a1e1e;
-  font-size: 20px;
-  line-height: 1.58;
+  color: #374f74;
+  font-size: 18px;
+  line-height: 1.74;
 }
 
-.fraud-page .fraud-card-copy .fraud-strong {
-  margin-top: 16px;
+.fraud-page .fraud-content-card .fraud-quote-box {
+  margin-top: 24px;
+  text-align: center;
   font-weight: 700;
-  text-decoration: underline;
+  color: #1e3f74;
+  background: #edf4ff;
+  border: 1px solid #cdddf7;
+  border-radius: 14px;
+  padding: 18px 16px;
+  box-shadow: 0 8px 18px rgba(23, 50, 97, 0.1);
 }
 
 .refund-page .refund-main {
@@ -3682,7 +3675,7 @@ button.reveal-on-scroll.is-visible,
     width: min(760px, calc(100% - 48px));
   }
 
-  .fraud-page .fraud-wrap {
+  .fraud-page .fraud-content-wrap {
     width: min(1040px, calc(100% - 48px));
   }
 
@@ -3698,16 +3691,16 @@ button.reveal-on-scroll.is-visible,
     width: min(1040px, calc(100% - 48px));
   }
 
-  .fraud-page .fraud-head h1 {
-    font-size: 34px;
+  .fraud-page .fraud-hero h1 {
+    font-size: 52px;
   }
 
-  .fraud-page .fraud-card-copy h2 {
-    font-size: 38px;
+  .fraud-page .fraud-hero p {
+    font-size: 22px;
   }
 
-  .fraud-page .fraud-card-copy p {
-    font-size: 18px;
+  .fraud-page .fraud-content-card p {
+    font-size: 17px;
   }
 
   .refund-page .refund-head h1 {
@@ -4799,7 +4792,7 @@ button.reveal-on-scroll.is-visible,
   }
 
   .fraud-page .fraud-main {
-    padding: 24px 0 52px;
+    padding: 0 0 52px;
   }
 
   .refund-page .refund-main {
@@ -4814,10 +4807,8 @@ button.reveal-on-scroll.is-visible,
     padding: 24px 0 52px;
   }
 
-  .fraud-page .fraud-wrap {
+  .fraud-page .fraud-content-wrap {
     width: min(700px, calc(100% - 28px));
-    border-radius: 14px;
-    padding: 14px;
   }
 
   .refund-page .refund-wrap {
@@ -4834,8 +4825,20 @@ button.reveal-on-scroll.is-visible,
     width: min(700px, calc(100% - 28px));
   }
 
-  .fraud-page .fraud-head h1 {
-    font-size: 30px;
+  .fraud-page .fraud-hero {
+    min-height: 260px;
+  }
+
+  .fraud-page .fraud-hero-wrap {
+    min-height: 260px;
+  }
+
+  .fraud-page .fraud-hero h1 {
+    font-size: 38px;
+  }
+
+  .fraud-page .fraud-hero p {
+    font-size: 18px;
   }
 
   .refund-page .refund-head h1 {
@@ -4874,17 +4877,6 @@ button.reveal-on-scroll.is-visible,
     font-size: 18px;
   }
 
-  .fraud-page .fraud-head-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    font-size: 18px;
-  }
-
-  .fraud-page .fraud-head-caret {
-    font-size: 20px;
-  }
-
   .refund-page .refund-head-icon {
     width: 42px;
     height: 42px;
@@ -4896,29 +4888,19 @@ button.reveal-on-scroll.is-visible,
     font-size: 20px;
   }
 
-  .fraud-page .fraud-card {
-    margin-top: 12px;
-    padding: 14px;
-    grid-template-columns: 1fr;
-    gap: 12px;
+  .fraud-page .fraud-content {
+    padding-top: 24px;
+  }
+
+  .fraud-page .fraud-content-card {
     border-radius: 14px;
+    padding: 16px 14px;
   }
 
-  .fraud-page .fraud-card-icon {
-    width: 58px;
-    height: 58px;
-    border-radius: 14px;
-    font-size: 28px;
-  }
-
-  .fraud-page .fraud-card-copy h2 {
-    font-size: 28px;
-  }
-
-  .fraud-page .fraud-card-copy p {
+  .fraud-page .fraud-content-card p {
     margin-top: 10px;
-    font-size: 16px;
-    line-height: 1.54;
+    font-size: 15px;
+    line-height: 1.62;
   }
 
   .refund-page .refund-card {
