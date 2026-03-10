@@ -457,6 +457,32 @@ const setupAdminPage = () => {
 setupJobsPage();
 setupAdminPage();
 
+const aboutHeroMore = document.getElementById("aboutHeroMore");
+const aboutHeroModal = document.getElementById("aboutHeroModal");
+
+if (aboutHeroMore && aboutHeroModal) {
+  const closeTargets = Array.from(aboutHeroModal.querySelectorAll("[data-about-modal-close]"));
+
+  const openModal = () => {
+    aboutHeroModal.classList.add("is-open");
+    aboutHeroModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    aboutHeroModal.classList.remove("is-open");
+    aboutHeroModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  };
+
+  aboutHeroMore.addEventListener("click", openModal);
+  closeTargets.forEach((btn) => btn.addEventListener("click", closeModal));
+
+  aboutHeroModal.addEventListener("click", (event) => {
+    if (event.target === aboutHeroModal) closeModal();
+  });
+}
+
 const revealSelector = [
   "section",
   "article",
