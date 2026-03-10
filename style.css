@@ -2358,6 +2358,85 @@ h1 .gradient {
   color: #cad8f4;
 }
 
+.about-page .about-services {
+  padding: 54px 0 70px;
+  background: var(--bg);
+}
+
+.about-page .about-services-wrap {
+  width: min(1120px, calc(100% - 120px));
+  margin: 0 auto;
+}
+
+.about-page .about-services h2 {
+  text-align: center;
+  color: #0f193b;
+  font-size: 46px;
+  line-height: 1.12;
+  font-weight: 700;
+}
+
+.about-page .about-services h2 span {
+  color: #2f67dd;
+}
+
+.about-page .about-services-intro {
+  margin: 18px auto 0;
+  max-width: 880px;
+  text-align: center;
+  color: #3a5176;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.about-page .about-services-grid {
+  margin-top: 34px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.about-page .about-service-card {
+  background: #f6f8fc;
+  border: 1px solid #dfe5f1;
+  border-radius: 18px;
+  padding: 22px 22px 20px;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 16px;
+  box-shadow: 0 10px 20px rgba(20, 35, 70, 0.08);
+}
+
+.about-page .about-service-card h3 {
+  color: #0f193b;
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.about-page .about-service-card p {
+  margin-top: 10px;
+  color: #3f567b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.about-page .about-service-card p + p {
+  margin-top: 12px;
+}
+
+.about-page .service-number {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: #e8f0ff;
+  color: #2f67dd;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
 .about-page .about-values {
   padding: 54px 0 64px;
   background: #f3f6fb;
@@ -3612,6 +3691,7 @@ button.reveal-on-scroll.is-visible,
 
   .about-page .about-hero-wrap,
   .about-page .about-mv-wrap,
+  .about-page .about-services-wrap,
   .about-page .about-values-wrap,
   .about-page .about-adv-wrap,
   .about-page .about-testimonials-wrap {
@@ -3623,6 +3703,7 @@ button.reveal-on-scroll.is-visible,
   }
 
   .about-page .about-mv-copy h2,
+  .about-page .about-services h2,
   .about-page .about-values h2,
   .about-page .about-adv-left h2 {
     font-size: 40px;
@@ -4628,6 +4709,7 @@ button.reveal-on-scroll.is-visible,
   .about-page .about-hero-wrap,
   .about-page .about-stats-wrap,
   .about-page .about-mv-wrap,
+  .about-page .about-services-wrap,
   .about-page .about-values-wrap,
   .about-page .about-adv-wrap,
   .about-page .about-testimonials-wrap {
@@ -4663,9 +4745,14 @@ button.reveal-on-scroll.is-visible,
   }
 
   .about-page .about-mv-copy h2,
+  .about-page .about-services h2,
   .about-page .about-values h2,
   .about-page .about-adv-left h2 {
     font-size: 34px;
+  }
+
+  .about-page .about-services-grid {
+    grid-template-columns: 1fr;
   }
 
   .about-page .values-grid,
