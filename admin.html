@@ -167,9 +167,26 @@
               <h2>Contact Form Submissions</h2>
               <p>All public contact page messages will appear here.</p>
             </div>
+            <button type="button" id="adminDownloadContacts" class="admin-download-btn">
+              Download PDF
+            </button>
           </div>
           <p class="admin-users-status" id="adminContactStatus">Loading contact submissions...</p>
-          <div id="adminContactList" class="admin-contact-list"></div>
+          <div class="admin-users-table-wrap">
+            <table class="admin-users-table admin-contact-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Category</th>
+                  <th>Message</th>
+                  <th>Created</th>
+                </tr>
+              </thead>
+              <tbody id="adminContactList"></tbody>
+            </table>
+          </div>
         </article>
       </div>
     </section>

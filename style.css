@@ -2167,50 +2167,14 @@ h1 .gradient {
   font-weight: 600;
 }
 
-.admin-page .admin-contact-list {
-  margin-top: 14px;
-  display: grid;
-  gap: 12px;
+.admin-page .admin-contact-table {
+  min-width: 980px;
 }
 
-.admin-page .admin-contact-item {
-  background: #ffffff;
-  border: 1px solid #d7e0ef;
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 10px 20px rgba(24, 46, 89, 0.05);
-}
-
-.admin-page .admin-contact-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.admin-page .admin-contact-top h3 {
-  color: #102145;
-  font-size: 18px;
-  line-height: 1.3;
-}
-
-.admin-page .admin-contact-top span {
-  color: #6a7e9f;
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.admin-page .admin-contact-item p {
-  margin-top: 6px;
-  color: #4f6386;
-  font-size: 14px;
+.admin-page .admin-contact-table td:nth-child(5) {
+  min-width: 280px;
+  white-space: normal;
   line-height: 1.55;
-}
-
-.admin-page .admin-contact-item strong {
-  color: #22395c;
 }
 
 .about-page .mini {

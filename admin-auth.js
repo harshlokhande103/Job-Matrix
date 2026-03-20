@@ -17,10 +17,12 @@ const adminMain = document.getElementById("adminMain");
 const usersStatus = document.getElementById("adminUsersStatus");
 const usersTableBody = document.getElementById("adminUsersTableBody");
 const downloadUsersButton = document.getElementById("adminDownloadUsers");
+const downloadContactsButton = document.getElementById("adminDownloadContacts");
 const contactStatus = document.getElementById("adminContactStatus");
 const contactList = document.getElementById("adminContactList");
 const CONTACT_SUBMISSIONS_STORAGE_KEY = "jm_contact_submissions_v1";
 let registeredUsers = [];
+let contactSubmissions = [];
 
 const showMessage = (html) => {
   if (!accessMessage) return;
@@ -128,6 +130,77 @@ const downloadUsersList = (users) => {
   setUsersStatus(`Downloaded ${users.length} users as PDF.`);
 };
 
+const downloadContactSubmissions = (submissions) => {
+  if (!submissions.length) {
+    setContactStatus("No contact submissions available to download.");
+    return;
+  }
+
+  const jsPdfLib = window.jspdf?.jsPDF;
+  if (!jsPdfLib) {
+    setContactStatus("PDF library failed to load. Please refresh and try again.");
+    return;
+  }
+
+  const doc = new jsPdfLib({
+    orientation: "landscape",
+    unit: "pt",
+    format: "a4",
+  });
+  const dateStamp = new Date().toISOString().slice(0, 10);
+  const tableRows = submissions.map((item) => [
+    item.fullName || "-",
+    item.email || "-",
+    item.phone || "-",
+    item.category || "General Inquiry",
+    item.message || "-",
+    formatCreatedAt(item.createdAt),
+  ]);
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.text("Job Matrix Contact Form Submissions", 40, 42);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.text(`Downloaded on: ${new Date().toLocaleString("en-IN")}`, 40, 62);
+
+  doc.autoTable({
+    startY: 78,
+    head: [["Name", "Email", "Phone", "Category", "Message", "Created"]],
+    body: tableRows,
+    theme: "grid",
+    styles: {
+      font: "helvetica",
+      fontSize: 9,
+      cellPadding: 6,
+      textColor: [34, 57, 92],
+      overflow: "linebreak",
+      cellWidth: "wrap",
+    },
+    headStyles: {
+      fillColor: [47, 113, 255],
+      textColor: [255, 255, 255],
+      fontStyle: "bold",
+    },
+    alternateRowStyles: {
+      fillColor: [245, 248, 252],
+    },
+    columnStyles: {
+      4: {
+        cellWidth: 240,
+      },
+    },
+    margin: {
+      left: 24,
+      right: 24,
+    },
+  });
+
+  doc.save(`job-matrix-contact-submissions-${dateStamp}.pdf`);
+  setContactStatus(`Downloaded ${submissions.length} contact submissions as PDF.`);
+};
+
 const deleteRegisteredUser = async (currentUser, targetUser) => {
   if (!currentUser?.uid || !targetUser?.uid) {
     throw new Error("Missing user details for delete.");
@@ -202,23 +275,22 @@ const renderUsers = (users) => {
 const renderContactSubmissions = (submissions) => {
   if (!contactList) return;
   if (!submissions.length) {
-    contactList.innerHTML = '<article class="admin-contact-item"><p>No contact submissions found.</p></article>';
+    contactList.innerHTML =
+      '<tr><td colspan="6" class="admin-users-empty">No contact submissions found.</td></tr>';
     return;
   }
 
   contactList.innerHTML = submissions
     .map(
       (item) => `
-        <article class="admin-contact-item">
-          <div class="admin-contact-top">
-            <h3>${escapeHtml(item.fullName || "-")}</h3>
-            <span>${escapeHtml(formatCreatedAt(item.createdAt))}</span>
-          </div>
-          <p><strong>Email:</strong> ${escapeHtml(item.email || "-")}</p>
-          <p><strong>Phone:</strong> ${escapeHtml(item.phone || "-")}</p>
-          <p><strong>Category:</strong> ${escapeHtml(item.category || "General Inquiry")}</p>
-          <p><strong>Message:</strong> ${escapeHtml(item.message || "-")}</p>
-        </article>
+        <tr>
+          <td data-label="Name">${escapeHtml(item.fullName || "-")}</td>
+          <td data-label="Email">${escapeHtml(item.email || "-")}</td>
+          <td data-label="Phone">${escapeHtml(item.phone || "-")}</td>
+          <td data-label="Category">${escapeHtml(item.category || "General Inquiry")}</td>
+          <td data-label="Message">${escapeHtml(item.message || "-")}</td>
+          <td data-label="Created">${escapeHtml(formatCreatedAt(item.createdAt))}</td>
+        </tr>
       `
     )
     .join("");
@@ -263,9 +335,9 @@ const loadRegisteredUsers = async (db) => {
 
 const loadContactSubmissions = () => {
   setContactStatus("Loading contact submissions...");
-  const submissions = readContactSubmissions();
-  renderContactSubmissions(submissions);
-  setContactStatus(`Total messages: ${submissions.length}`);
+  contactSubmissions = readContactSubmissions();
+  renderContactSubmissions(contactSubmissions);
+  setContactStatus(`Total messages: ${contactSubmissions.length}`);
 };
 
 const isConfigValid =
@@ -285,6 +357,12 @@ if (!isConfigValid) {
   if (downloadUsersButton) {
     downloadUsersButton.addEventListener("click", () => {
       downloadUsersList(registeredUsers);
+    });
+  }
+
+  if (downloadContactsButton) {
+    downloadContactsButton.addEventListener("click", () => {
+      downloadContactSubmissions(contactSubmissions);
     });
   }
 
