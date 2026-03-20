@@ -647,6 +647,7 @@ h1 .gradient {
   position: relative;
   border-radius: 24px;
   overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
 .apply-media img {
@@ -654,6 +655,15 @@ h1 .gradient {
   height: 560px;
   object-fit: cover;
   display: block;
+  transition: transform 0.28s ease;
+}
+
+.apply-media:hover {
+  transform: scale(0.99);
+}
+
+.apply-media:hover img {
+  transform: scale(1.05);
 }
 
 .apply-overlay {
@@ -711,6 +721,16 @@ h1 .gradient {
   padding: 20px 22px;
   min-height: 164px;
   box-shadow: 0 8px 16px rgba(20, 33, 64, 0.06);
+  cursor: pointer;
+  transform: scale(1);
+  transform-origin: center;
+  will-change: transform;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.apply-mini-card:hover {
+  transform: scale(1.08);
+  box-shadow: 0 22px 38px rgba(20, 33, 64, 0.18);
 }
 
 .apply-mini-card h4 {
@@ -5559,6 +5579,12 @@ button.reveal-on-scroll.is-visible:hover,
   border-left: 4px solid #3560ff;
   background: #ffffff;
   box-shadow: 0 12px 30px rgba(24, 41, 85, 0.06);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.guarantee-quote-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 18px 34px rgba(24, 41, 85, 0.12);
 }
 
 .guarantee-quote-card p {
@@ -5607,6 +5633,7 @@ button.reveal-on-scroll.is-visible:hover,
   overflow: hidden;
   background: #dfe6f2;
   box-shadow: 0 26px 60px rgba(14, 23, 56, 0.12);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
 .guarantee-photo-frame::before {
@@ -5621,6 +5648,25 @@ button.reveal-on-scroll.is-visible:hover,
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.28s ease;
+}
+
+.guarantee-photo-frame:hover {
+  transform: scale(0.99);
+  box-shadow: 0 30px 64px rgba(14, 23, 56, 0.16);
+}
+
+.guarantee-photo-frame:hover img {
+  transform: scale(1.05);
+}
+
+.guarantee-ready-card {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.guarantee-ready-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 22px 42px rgba(13, 28, 72, 0.22);
 }
 
 .guarantee-ready-card {
