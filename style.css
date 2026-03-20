@@ -5748,13 +5748,17 @@ button.reveal-on-scroll.is-visible:hover,
   animation: interviewPillBlink 1.05s ease-in-out infinite;
 }
 
+.interview-pill span:last-child {
+  animation: interviewPillTextBlink 0.95s ease-in-out infinite;
+}
+
 .interview-pill-icon {
   width: auto;
   height: auto;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  color: #ffda68;
+  color: #61f08a;
   font-size: 14px;
   line-height: 1;
 }
@@ -5783,6 +5787,19 @@ button.reveal-on-scroll.is-visible:hover,
       inset 0 1px 0 rgba(255, 255, 255, 0.14),
       0 0 10px rgba(255, 218, 104, 0.16),
       0 0 16px rgba(255, 255, 255, 0.08);
+  }
+}
+
+@keyframes interviewPillTextBlink {
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+
+  45% {
+    opacity: 0.52;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.22);
   }
 }
 
