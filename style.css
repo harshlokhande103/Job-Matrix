@@ -2055,10 +2055,33 @@ h1 .gradient {
   font-weight: 700;
 }
 
+.admin-page .admin-users-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.admin-page .admin-users-head > div > p,
 .admin-page .admin-users-card > p {
   margin-top: 6px;
   color: #506687;
   font-size: 14px;
+}
+
+.admin-page .admin-download-btn {
+  min-height: 42px;
+  border: 1px solid #c9d7ef;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #183154;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 0 16px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(24, 46, 89, 0.06);
 }
 
 .admin-page .admin-users-status {

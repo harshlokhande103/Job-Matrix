@@ -16,6 +16,8 @@ const adminHero = document.getElementById("adminHero");
 const adminMain = document.getElementById("adminMain");
 const usersStatus = document.getElementById("adminUsersStatus");
 const usersTableBody = document.getElementById("adminUsersTableBody");
+const downloadUsersButton = document.getElementById("adminDownloadUsers");
+let registeredUsers = [];
 
 const showMessage = (html) => {
   if (!accessMessage) return;
@@ -50,6 +52,69 @@ const formatCreatedAt = (value) => {
 
 const setUsersStatus = (text) => {
   if (usersStatus) usersStatus.textContent = text;
+};
+
+const downloadUsersList = (users) => {
+  if (!users.length) {
+    setUsersStatus("No users available to download.");
+    return;
+  }
+
+  const jsPdfLib = window.jspdf?.jsPDF;
+  if (!jsPdfLib) {
+    setUsersStatus("PDF library failed to load. Please refresh and try again.");
+    return;
+  }
+
+  const doc = new jsPdfLib({
+    orientation: "landscape",
+    unit: "pt",
+    format: "a4",
+  });
+  const dateStamp = new Date().toISOString().slice(0, 10);
+  const tableRows = users.map((user) => [
+    user.fullName || "-",
+    user.email || "-",
+    user.phone || "-",
+    user.role || "user",
+    formatCreatedAt(user.createdAt),
+  ]);
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.text("Job Matrix Registered Users", 40, 42);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.text(`Downloaded on: ${new Date().toLocaleString("en-IN")}`, 40, 62);
+
+  doc.autoTable({
+    startY: 78,
+    head: [["Name", "Email", "Phone", "Role", "Created"]],
+    body: tableRows,
+    theme: "grid",
+    styles: {
+      font: "helvetica",
+      fontSize: 9,
+      cellPadding: 6,
+      textColor: [34, 57, 92],
+    },
+    headStyles: {
+      fillColor: [47, 113, 255],
+      textColor: [255, 255, 255],
+      fontStyle: "bold",
+    },
+    alternateRowStyles: {
+      fillColor: [245, 248, 252],
+    },
+    margin: {
+      left: 28,
+      right: 28,
+    },
+  });
+
+  doc.save(`job-matrix-users-${dateStamp}.pdf`);
+  setUsersStatus(`Downloaded ${users.length} users as PDF.`);
 };
 
 const deleteRegisteredUser = async (currentUser, targetUser) => {
@@ -133,6 +198,7 @@ const loadRegisteredUsers = async (db) => {
       docId: docSnap.id,
       ...docSnap.data(),
     }));
+    registeredUsers = users;
     renderUsers(users);
     setUsersStatus(`Total users: ${users.length}`);
   } catch (error) {
@@ -144,6 +210,7 @@ const loadRegisteredUsers = async (db) => {
     } else {
       setUsersStatus("Failed to load users. Please verify Firestore configuration.");
     }
+    registeredUsers = [];
     renderUsers([]);
   }
 };
@@ -161,6 +228,12 @@ if (!isConfigValid) {
   const auth = getAuth(app);
   const db = getFirestore(app);
   let currentAdminUser = null;
+
+  if (downloadUsersButton) {
+    downloadUsersButton.addEventListener("click", () => {
+      downloadUsersList(registeredUsers);
+    });
+  }
 
   if (usersTableBody) {
     usersTableBody.addEventListener("click", async (event) => {
