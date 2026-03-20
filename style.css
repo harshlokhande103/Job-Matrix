@@ -1148,10 +1148,13 @@ h1 .gradient {
 }
 
 .services-page .services-hero {
-  padding: 126px 0 112px;
+  min-height: 78vh;
+  padding: 120px 0 96px;
   border-bottom: 1px solid #dfe5ef;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
 .services-page .services-hero::before {
@@ -1161,9 +1164,9 @@ h1 .gradient {
   background-image:
     linear-gradient(180deg, rgba(8, 20, 46, 0.68) 0%, rgba(8, 20, 46, 0.68) 100%),
     url("https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=2200&q=80");
-  background-size: cover;
-  background-position: center;
-  transform: scale(1);
+  background-size: 102% auto;
+  background-position: center center;
+  transform: scale(0.94);
   animation: servicesHeroSlowZoom 38s ease-in-out infinite alternate;
   z-index: 0;
 }
@@ -1185,19 +1188,20 @@ h1 .gradient {
 }
 
 .services-page .services-hero h1 {
-  font-size: 34px;
-  line-height: 1.15;
-  font-weight: 700;
-  letter-spacing: 0;
+  font-size: 60px;
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   color: #ffffff;
 }
 
 .services-page .services-hero p {
-  margin: 16px auto 0;
-  max-width: 760px;
+  margin: 22px auto 0;
+  max-width: 980px;
   color: #dee8ff;
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 25px;
+  line-height: 1.42;
+  font-weight: 500;
 }
 
 @keyframes servicesHeroSlowZoom {
@@ -3790,11 +3794,11 @@ button.reveal-on-scroll.is-visible,
   }
 
   .services-page .services-hero h1 {
-    font-size: 32px;
+    font-size: 56px;
   }
 
   .services-page .services-hero p {
-    font-size: 14px;
+    font-size: 24px;
   }
 
   .services-page .services-catalog-wrap {
@@ -4560,16 +4564,17 @@ button.reveal-on-scroll.is-visible,
   }
 
   .services-page .services-hero {
-    padding: 52px 0 44px;
+    min-height: 64vh;
+    padding: 82px 0 48px;
   }
 
   .services-page .services-hero h1 {
-    font-size: 36px;
+    font-size: 46px;
   }
 
   .services-page .services-hero p {
-    margin-top: 10px;
-    font-size: 15px;
+    margin-top: 14px;
+    font-size: 20px;
   }
 
   .services-page .services-catalog {
