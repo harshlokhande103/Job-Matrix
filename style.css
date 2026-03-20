@@ -2115,7 +2115,6 @@ h1 .gradient {
 }
 
 .admin-page .admin-delete-btn {
-  margin-top: 10px;
   min-height: 34px;
   border: 1px solid #f3b7bf;
   border-radius: 9px;
@@ -2126,6 +2125,23 @@ h1 .gradient {
   font-family: inherit;
   padding: 0 12px;
   cursor: pointer;
+}
+
+.admin-page .admin-delete-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.admin-page .admin-action-note {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  border-radius: 999px;
+  padding: 0 10px;
+  background: #eef2f8;
+  color: #667894;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .about-page .mini {

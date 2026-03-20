@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getAuth, getIdToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import {
   collection,
   doc,
@@ -52,11 +52,48 @@ const setUsersStatus = (text) => {
   if (usersStatus) usersStatus.textContent = text;
 };
 
+const deleteRegisteredUser = async (currentUser, targetUser) => {
+  if (!currentUser?.uid || !targetUser?.uid) {
+    throw new Error("Missing user details for delete.");
+  }
+
+  if (currentUser.uid === targetUser.uid) {
+    throw new Error("Admin cannot delete their own account from this panel.");
+  }
+
+  const confirmed = window.confirm(
+    `Delete ${targetUser.email || "this user"} permanently?\n\nThis removes both the Firestore profile and Firebase Authentication account. The same email can register again later.`
+  );
+
+  if (!confirmed) return false;
+
+  setUsersStatus(`Deleting ${targetUser.email || "user"}...`);
+
+  const idToken = await getIdToken(currentUser, true);
+  const response = await fetch("/api/admin-delete-user", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${idToken}`,
+    },
+    body: JSON.stringify({
+      uid: targetUser.uid,
+    }),
+  });
+
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(payload.error || "Failed to delete user.");
+  }
+
+  return true;
+};
+
 const renderUsers = (users) => {
   if (!usersTableBody) return;
   if (!users.length) {
     usersTableBody.innerHTML =
-      '<tr><td colspan="5" class="admin-users-empty">No registered users found.</td></tr>';
+      '<tr><td colspan="6" class="admin-users-empty">No registered users found.</td></tr>';
     return;
   }
 
@@ -71,6 +108,15 @@ const renderUsers = (users) => {
             user.role || "user"
           )}</span></td>
           <td data-label="Created">${escapeHtml(formatCreatedAt(user.createdAt))}</td>
+          <td data-label="Actions">
+            ${
+              user.role === "admin"
+                ? '<span class="admin-action-note">Protected</span>'
+                : `<button type="button" class="admin-delete-btn" data-user-uid="${escapeHtml(
+                    user.uid || ""
+                  )}" data-user-email="${escapeHtml(user.email || "")}">Delete Permanently</button>`
+            }
+          </td>
         </tr>
       `
     )
@@ -83,7 +129,10 @@ const loadRegisteredUsers = async (db) => {
     const usersRef = collection(db, "users");
     const usersQuery = query(usersRef, orderBy("createdAt", "desc"));
     const snapshot = await getDocs(usersQuery);
-    const users = snapshot.docs.map((docSnap) => docSnap.data());
+    const users = snapshot.docs.map((docSnap) => ({
+      docId: docSnap.id,
+      ...docSnap.data(),
+    }));
     renderUsers(users);
     setUsersStatus(`Total users: ${users.length}`);
   } catch (error) {
@@ -111,6 +160,42 @@ if (!isConfigValid) {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
+  let currentAdminUser = null;
+
+  if (usersTableBody) {
+    usersTableBody.addEventListener("click", async (event) => {
+      const button = event.target.closest(".admin-delete-btn");
+      if (!button) return;
+
+      const targetUid = button.dataset.userUid || "";
+      const targetEmail = button.dataset.userEmail || "";
+      if (!targetUid) return;
+
+      button.disabled = true;
+      const originalText = button.textContent;
+      button.textContent = "Deleting...";
+
+      try {
+        const didDelete = await deleteRegisteredUser(currentAdminUser, {
+          uid: targetUid,
+          email: targetEmail,
+        });
+
+        if (didDelete) {
+          await loadRegisteredUsers(db);
+          setUsersStatus(`Deleted ${targetEmail || "user"} permanently.`);
+        } else {
+          await loadRegisteredUsers(db);
+        }
+      } catch (error) {
+        console.error("Delete user error:", error);
+        setUsersStatus(error.message || "Failed to delete user.");
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    });
+  }
 
   onAuthStateChanged(auth, async (user) => {
     if (!user) {
@@ -131,6 +216,7 @@ if (!isConfigValid) {
 
       const userData = userDocSnap.data();
       if (userData.role === "admin") {
+        currentAdminUser = user;
         showAdmin();
         await loadRegisteredUsers(db);
         return;
