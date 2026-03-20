@@ -17,6 +17,9 @@ const adminMain = document.getElementById("adminMain");
 const usersStatus = document.getElementById("adminUsersStatus");
 const usersTableBody = document.getElementById("adminUsersTableBody");
 const downloadUsersButton = document.getElementById("adminDownloadUsers");
+const contactStatus = document.getElementById("adminContactStatus");
+const contactList = document.getElementById("adminContactList");
+const CONTACT_SUBMISSIONS_STORAGE_KEY = "jm_contact_submissions_v1";
 let registeredUsers = [];
 
 const showMessage = (html) => {
@@ -47,11 +50,19 @@ const formatCreatedAt = (value) => {
   if (typeof value.toDate === "function") {
     return value.toDate().toLocaleString("en-IN");
   }
+  const parsedDate = new Date(value);
+  if (!Number.isNaN(parsedDate.getTime())) {
+    return parsedDate.toLocaleString("en-IN");
+  }
   return "-";
 };
 
 const setUsersStatus = (text) => {
   if (usersStatus) usersStatus.textContent = text;
+};
+
+const setContactStatus = (text) => {
+  if (contactStatus) contactStatus.textContent = text;
 };
 
 const downloadUsersList = (users) => {
@@ -188,6 +199,41 @@ const renderUsers = (users) => {
     .join("");
 };
 
+const renderContactSubmissions = (submissions) => {
+  if (!contactList) return;
+  if (!submissions.length) {
+    contactList.innerHTML = '<article class="admin-contact-item"><p>No contact submissions found.</p></article>';
+    return;
+  }
+
+  contactList.innerHTML = submissions
+    .map(
+      (item) => `
+        <article class="admin-contact-item">
+          <div class="admin-contact-top">
+            <h3>${escapeHtml(item.fullName || "-")}</h3>
+            <span>${escapeHtml(formatCreatedAt(item.createdAt))}</span>
+          </div>
+          <p><strong>Email:</strong> ${escapeHtml(item.email || "-")}</p>
+          <p><strong>Phone:</strong> ${escapeHtml(item.phone || "-")}</p>
+          <p><strong>Category:</strong> ${escapeHtml(item.category || "General Inquiry")}</p>
+          <p><strong>Message:</strong> ${escapeHtml(item.message || "-")}</p>
+        </article>
+      `
+    )
+    .join("");
+};
+
+const readContactSubmissions = () => {
+  try {
+    const raw = localStorage.getItem(CONTACT_SUBMISSIONS_STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+};
+
 const loadRegisteredUsers = async (db) => {
   try {
     setUsersStatus("Loading users...");
@@ -213,6 +259,13 @@ const loadRegisteredUsers = async (db) => {
     registeredUsers = [];
     renderUsers([]);
   }
+};
+
+const loadContactSubmissions = () => {
+  setContactStatus("Loading contact submissions...");
+  const submissions = readContactSubmissions();
+  renderContactSubmissions(submissions);
+  setContactStatus(`Total messages: ${submissions.length}`);
 };
 
 const isConfigValid =
@@ -292,6 +345,7 @@ if (!isConfigValid) {
         currentAdminUser = user;
         showAdmin();
         await loadRegisteredUsers(db);
+        loadContactSubmissions();
         return;
       }
 

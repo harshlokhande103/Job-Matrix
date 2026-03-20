@@ -86,26 +86,26 @@
 
         <article class="contact-form-card">
           <h2>Send us a Message</h2>
-          <form>
+          <form id="contactForm">
             <div class="grid2">
               <label>
                 Full Name
-                <input type="text" placeholder="John Doe" />
+                <input id="contactName" type="text" placeholder="John Doe" required />
               </label>
               <label>
                 Email Address
-                <input type="email" placeholder="john@example.com" />
+                <input id="contactEmail" type="email" placeholder="john@example.com" required />
               </label>
             </div>
 
             <div class="grid2">
               <label>
                 Phone Number (Optional)
-                <input type="text" placeholder="+91..." />
+                <input id="contactPhone" type="text" placeholder="+91..." />
               </label>
               <label>
                 I am a...
-                <select>
+                <select id="contactCategory">
                   <option>General Inquiry</option>
                   <option>Job Seeker</option>
                   <option>Employer</option>
@@ -115,10 +115,11 @@
 
             <label>
               Message
-              <textarea placeholder="Tell us how we can help..."></textarea>
+              <textarea id="contactMessageField" placeholder="Tell us how we can help..." required></textarea>
             </label>
 
-            <button type="button" class="contact-submit">Send Message</button>
+            <button type="submit" class="contact-submit" id="contactSubmitBtn">Send Message</button>
+            <p class="contact-form-message" id="contactFormMessage"></p>
           </form>
         </article>
       </div>
@@ -171,10 +172,10 @@
       </div>
     </footer>
 
+    <script type="module" src="contact-form.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
-
 
 
 
