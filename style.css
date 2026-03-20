@@ -5332,7 +5332,7 @@ button.reveal-on-scroll.is-visible:hover,
 }
 
 .interview-pill-icon {
-  color: #ffe15c;
+  color: #63f089;
   font-size: 17px;
 }
 
@@ -5372,6 +5372,29 @@ button.reveal-on-scroll.is-visible:hover,
   color: #ffffff;
   font-size: 16px;
   font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.interview-tags span:hover {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.16), 0 0 22px rgba(255, 255, 255, 0.42);
+  transform: translateY(-2px);
+  animation: interviewTagBlink 0.7s ease-in-out 2;
+}
+
+@keyframes interviewTagBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  35% {
+    opacity: 0.35;
+  }
+
+  70% {
+    opacity: 1;
+  }
 }
 
 .interview-feature-btn {
