@@ -1521,11 +1521,13 @@ h1 .gradient {
 
 .services-page .services-cards-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px;
 }
 
 .services-page .service-offer-card {
+  display: flex;
+  flex-direction: column;
   background: #f5f7fb;
   border: 1px solid #dde4ef;
   border-radius: 20px;
@@ -1598,17 +1600,34 @@ h1 .gradient {
   font-weight: 700;
 }
 
-.services-page .service-offer-card button {
-  margin-top: 18px;
-  width: 100%;
-  min-height: 38px;
-  border: 2px solid #95a1b8;
-  border-radius: 13px;
-  background: transparent;
-  color: #2a3f60;
+.services-page .service-offer-actions {
+  margin-top: auto;
+  padding-top: 22px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.services-page .service-offer-actions button {
+  min-height: 44px;
+  border-radius: 16px;
   font-size: 13px;
+  font-weight: 600;
   font-family: inherit;
   cursor: pointer;
+}
+
+.services-page .service-enquire-btn {
+  border: 0;
+  background: linear-gradient(90deg, #2f71ff, #4f39e4);
+  color: #ffffff;
+  box-shadow: 0 10px 18px rgba(47, 103, 221, 0.24);
+}
+
+.services-page .service-more-btn {
+  border: 1.6px solid #22395c;
+  background: #ffffff;
+  color: #1f3050;
 }
 
 .jobs-page .jobs-hero {
@@ -3801,6 +3820,10 @@ button.reveal-on-scroll.is-visible,
     font-size: 24px;
   }
 
+  .services-page .services-cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .services-page .services-catalog-wrap {
     width: min(1200px, calc(100% - 48px));
   }
@@ -4720,8 +4743,12 @@ button.reveal-on-scroll.is-visible,
     line-height: 1.7;
   }
 
-  .services-page .service-offer-card button {
-    margin-top: 14px;
+  .services-page .service-offer-actions {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .services-page .service-offer-actions button {
     min-height: 40px;
     font-size: 14px;
   }
