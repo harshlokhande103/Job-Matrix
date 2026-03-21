@@ -20,6 +20,8 @@ const downloadUsersButton = document.getElementById("adminDownloadUsers");
 const downloadContactsButton = document.getElementById("adminDownloadContacts");
 const contactStatus = document.getElementById("adminContactStatus");
 const contactList = document.getElementById("adminContactList");
+const onboardingStatus = document.getElementById("adminOnboardingStatus");
+const onboardingDetails = document.getElementById("adminOnboardingDetails");
 const CONTACT_SUBMISSIONS_STORAGE_KEY = "jm_contact_submissions_v1";
 let registeredUsers = [];
 let contactSubmissions = [];
@@ -67,6 +69,17 @@ const setContactStatus = (text) => {
   if (contactStatus) contactStatus.textContent = text;
 };
 
+const setOnboardingStatus = (text) => {
+  if (onboardingStatus) onboardingStatus.textContent = text;
+};
+
+const formatListValue = (value) => {
+  if (Array.isArray(value)) {
+    return value.length ? value.join(", ") : "-";
+  }
+  return value ? String(value) : "-";
+};
+
 const downloadUsersList = (users) => {
   if (!users.length) {
     setUsersStatus("No users available to download.");
@@ -90,6 +103,7 @@ const downloadUsersList = (users) => {
     user.email || "-",
     user.phone || "-",
     user.role || "user",
+    user.onboardingCompleted ? "Completed" : "Pending",
     formatCreatedAt(user.createdAt),
   ]);
 
@@ -103,7 +117,7 @@ const downloadUsersList = (users) => {
 
   doc.autoTable({
     startY: 78,
-    head: [["Name", "Email", "Phone", "Role", "Created"]],
+    head: [["Name", "Email", "Phone", "Role", "Onboarding", "Created"]],
     body: tableRows,
     theme: "grid",
     styles: {
@@ -205,7 +219,7 @@ const renderUsers = (users) => {
   if (!usersTableBody) return;
   if (!users.length) {
     usersTableBody.innerHTML =
-      '<tr><td colspan="5" class="admin-users-empty">No registered users found.</td></tr>';
+      '<tr><td colspan="7" class="admin-users-empty">No registered users found.</td></tr>';
     return;
   }
 
@@ -219,11 +233,86 @@ const renderUsers = (users) => {
           <td data-label="Role"><span class="admin-role-badge">${escapeHtml(
             user.role || "user"
           )}</span></td>
+          <td data-label="Onboarding">
+            <span class="admin-role-badge ${user.onboardingCompleted ? "is-complete" : "is-pending"}">
+              ${escapeHtml(user.onboardingCompleted ? "Completed" : "Pending")}
+            </span>
+          </td>
           <td data-label="Created">${escapeHtml(formatCreatedAt(user.createdAt))}</td>
+          <td data-label="Actions">
+            <button type="button" class="admin-view-btn" data-user-id="${escapeHtml(
+              user.docId || user.uid || ""
+            )}">View Details</button>
+          </td>
         </tr>
       `
     )
     .join("");
+};
+
+const renderOnboardingDetails = (user) => {
+  if (!onboardingDetails) return;
+
+  const details = user?.onboardingDetails;
+  if (!user || !details) {
+    onboardingDetails.innerHTML = `
+      <div class="admin-onboarding-empty">
+        No onboarding form submitted yet for this user.
+      </div>
+    `;
+    return;
+  }
+
+  const detailRows = [
+    ["Full Name", user.fullName || "-"],
+    ["Email", user.email || "-"],
+    ["Phone", user.phone || "-"],
+    ["Gender", details.gender],
+    ["Date of Birth", details.dateOfBirth],
+    ["Age", details.age],
+    ["WhatsApp Number", details.whatsappNumber],
+    ["Alternative Number", details.alternativeNumber],
+    ["Current Address", details.currentAddress],
+    ["Current City & State", details.currentCityState],
+    ["Permanent Address", details.permanentAddress],
+    ["Highest Qualification", details.highestQualification],
+    ["Education Status", details.educationStatus],
+    ["Field / Stream", details.fieldStream],
+    ["Passing Year", details.passingYear],
+    ["Job Status", details.jobStatus],
+    ["Years of Experience", details.yearsExperience],
+    ["Preferred Job Type", formatListValue(details.preferredJobType)],
+    ["Preferred Role / Department", formatListValue(details.preferredRole)],
+    ["Joining Availability", details.joiningAvailability],
+    ["Expected Salary", details.expectedSalary],
+    ["English Rating", details.englishRating],
+    ["Languages", formatListValue(details.languages)],
+    ["Skills", details.skills],
+    ["Hobbies", details.hobbies],
+    ["Resume", details.hasResume],
+    ["Father's Occupation", details.fatherOccupation],
+    ["Mother's Occupation", details.motherOccupation],
+    ["Job Reason", formatListValue(details.jobReason)],
+    ["Support Needed", formatListValue(details.supportNeeded)],
+    ["Found Us Through", details.foundUs],
+    ["Interested In Program", details.interestedProgram],
+    ["Submitted On", formatCreatedAt(user.onboardingSubmittedAt)],
+  ];
+
+  onboardingDetails.innerHTML = `
+    <div class="admin-onboarding-grid">
+      ${detailRows
+        .map(
+          ([label, value]) => `
+            <div class="admin-onboarding-item">
+              <span>${escapeHtml(label)}</span>
+              <strong>${escapeHtml(formatListValue(value))}</strong>
+            </div>
+          `
+        )
+        .join("")}
+    </div>
+  `;
 };
 
 const renderContactSubmissions = (submissions) => {
@@ -348,6 +437,24 @@ if (!isConfigValid) {
     });
   }
 
+  if (usersTableBody) {
+    usersTableBody.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-user-id]");
+      if (!button) return;
+
+      const userId = button.getAttribute("data-user-id");
+      const selectedUser = registeredUsers.find(
+        (item) => String(item.docId || item.uid || "") === String(userId)
+      );
+
+      if (!selectedUser) return;
+      renderOnboardingDetails(selectedUser);
+      setOnboardingStatus(
+        `Showing onboarding details for ${selectedUser.fullName || selectedUser.email || "selected user"}.`
+      );
+    });
+  }
+
   onAuthStateChanged(auth, async (user) => {
     if (!user) {
       window.location.href = "login.html";
@@ -369,6 +476,7 @@ if (!isConfigValid) {
       if (userData.role === "admin") {
         showAdmin();
         await loadRegisteredUsers(db);
+        renderOnboardingDetails(null);
         loadContactSubmissions();
         return;
       }

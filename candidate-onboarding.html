@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Matrix - Registration Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="candidate-form-page">
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <div class="brand">
+          <img
+            class="brand-image"
+            src="Screenshot_2026-01-19_184903-removebg-preview.png"
+            alt="Job matrix logo"
+            onclick="window.location.href='index.html'"
+          />
+        </div>
+
+        <nav class="menu" id="menu">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="jobs.html">Jobs</a>
+          <div class="menu-item-about">
+            <a href="about.html">About</a>
+            <div class="about-dropdown">
+              <button type="button" class="about-dropdown-close" aria-label="Close About menu">&times;</button>
+              <a href="about.html">About Us</a>
+              <a href="fraud-alert.html">Fraud Alert</a>
+              <a href="cancellation-refund.html">Cancellation &amp; Refund</a>
+              <a href="terms-conditions.html">Teams &amp; Condition</a>
+              <a href="privacy-policy.html">Privacy Policy</a>
+            </div>
+          </div>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <button class="nav-cta" type="button" id="candidateLogoutBtn">Logout</button>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="candidate-form-main">
+      <section class="candidate-form-hero">
+        <div class="container candidate-form-hero-wrap">
+          <span class="candidate-form-chip">Job Application &amp; Counseling Registration Form</span>
+          <h1>Complete Your Registration Form</h1>
+          <p>
+            500+ Job Opportunities Across India, free career counseling session, work from home and
+            office jobs available. Form submit karne ke baad hi aap dashboard par jayenge.
+          </p>
+        </div>
+      </section>
+
+      <section class="candidate-form-section">
+        <div class="container">
+          <form id="candidateOnboardingForm" class="candidate-form-card">
+            <div class="candidate-form-group">
+              <div class="candidate-form-group-head">
+                <span>Section 1</span>
+                <h2>Personal Information</h2>
+              </div>
+              <div class="candidate-form-grid candidate-form-grid-2">
+                <label>
+                  Full Name *
+                  <input type="text" id="fullName" required />
+                </label>
+                <label>
+                  Gender *
+                  <select id="gender" required>
+                    <option value="">Select gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Prefer not to say</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+                <label>
+                  Date of Birth *
+                  <input type="date" id="dob" required />
+                </label>
+                <label>
+                  Age *
+                  <input type="number" id="age" min="1" required />
+                </label>
+                <label>
+                  Contact Number *
+                  <input type="tel" id="contactNumber" required />
+                </label>
+                <label>
+                  WhatsApp Contact Number *
+                  <input type="tel" id="whatsappNumber" required />
+                </label>
+                <label>
+                  Alternative Contact Number
+                  <input type="tel" id="alternativeNumber" />
+                </label>
+                <label>
+                  Email ID *
+                  <input type="email" id="emailId" required />
+                </label>
+              </div>
+            </div>
+
+            <div class="candidate-form-group">
+              <div class="candidate-form-group-head">
+                <span>Section 2</span>
+                <h2>Address Details</h2>
+              </div>
+              <div class="candidate-form-grid">
+                <label>
+                  Current Address *
+                  <textarea id="currentAddress" rows="4" required></textarea>
+                </label>
+                <label>
+                  Current City &amp; State
+                  <input type="text" id="currentCityState" />
+                </label>
+                <label>
+                  Permanent Address *
+                  <textarea id="permanentAddress" rows="4" required></textarea>
+                </label>
+              </div>
+            </div>
+
+            <div class="candidate-form-group">
+              <div class="candidate-form-group-head">
+                <span>Section 3</span>
+                <h2>Education Details</h2>
+              </div>
+              <div class="candidate-form-grid candidate-form-grid-2">
+                <label>
+                  Highest Qualification *
+                  <input type="text" id="highestQualification" required />
+                </label>
+                <label>
+                  Current Education Status *
+                  <select id="educationStatus" required>
+                    <option value="">Select status</option>
+                    <option>Currently Studying</option>
+                    <option>Completed Education</option>
+                    <option>Drop Year</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+                <label>
+                  Field / Stream
+                  <select id="fieldStream">
+                    <option value="">Select stream</option>
+                    <option>Commerce</option>
+                    <option>Science</option>
+                    <option>Arts</option>
+                    <option>Management</option>
+                    <option>Engineering</option>
+                    <option>IT</option>
+                    <option>Hospitality</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+                <label>
+                  Passing Year
+                  <input type="text" id="passingYear" />
+                </label>
+              </div>
+            </div>
+
+            <div class="candidate-form-group">
+              <div class="candidate-form-group-head">
+                <span>Section 4</span>
+                <h2>Job Preference</h2>
+              </div>
+              <div class="candidate-form-grid candidate-form-grid-2">
+                <label>
+                  Your Job Status *
+                  <select id="jobStatus" required>
+                    <option value="">Select job status</option>
+                    <option>Fresher</option>
+                    <option>Experienced</option>
+                    <option>Internship Experience</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+                <label>
+                  Years of Experience (if any)
+                  <input type="text" id="yearsExperience" />
+                </label>
+              </div>
+
+              <fieldset class="candidate-checkbox-group">
+                <legend>Preferred Job Type</legend>
+                <div class="candidate-checkbox-grid">
+                  <label><input type="checkbox" name="preferredJobType" value="Work From Home" />Work From Home</label>
+                  <label><input type="checkbox" name="preferredJobType" value="Work From Office" />Work From Office</label>
+                  <label><input type="checkbox" name="preferredJobType" value="Hybrid" />Hybrid</label>
+                  <label><input type="checkbox" name="preferredJobType" value="Part Time" />Part Time</label>
+                  <label><input type="checkbox" name="preferredJobType" value="Full Time" />Full Time</label>
+                  <label><input type="checkbox" name="preferredJobType" value="Freelance" />Freelance</label>
+                  <label><input type="checkbox" name="preferredJobType" value="Other" />Other</label>
+                </div>
+              </fieldset>
+
+              <fieldset class="candidate-checkbox-group">
+                <legend>Preferred Job Role / Department</legend>
+                <div class="candidate-checkbox-grid">
+                  <label><input type="checkbox" name="preferredRole" value="Customer Support Voice" />Customer Support Voice</label>
+                  <label><input type="checkbox" name="preferredRole" value="Customer Support Non Voice" />Customer Support Non Voice</label>
+                  <label><input type="checkbox" name="preferredRole" value="HR" />HR</label>
+                  <label><input type="checkbox" name="preferredRole" value="Data Entry" />Data Entry</label>
+                  <label><input type="checkbox" name="preferredRole" value="Digital Marketing" />Digital Marketing</label>
+                  <label><input type="checkbox" name="preferredRole" value="Back Office" />Back Office</label>
+                  <label><input type="checkbox" name="preferredRole" value="IT" />IT</label>
+                  <label><input type="checkbox" name="preferredRole" value="Sales" />Sales</label>
+                  <label><input type="checkbox" name="preferredRole" value="Other" />Other</label>
+                </div>
+              </fieldset>
+
+              <div class="candidate-form-grid candidate-form-grid-2">
+                <label>
+                  Immediate Joining Availability
+                  <select id="joiningAvailability">
+                    <option value="">Select option</option>
+                    <option>Immediately</option>
+                    <option>Within 7 days</option>
+                    <option>Within 15 days</option>
+                    <option>Within 30 days</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+                <label>
+                  Expected Salary (Monthly)
+                  <select id="expectedSalary">
+                    <option value="">Select salary</option>
+                    <option>10,000 - 15,000</option>
+                    <option>15,000 - 20,000</option>
+                    <option>20,000 - 30,000</option>
+                    <option>30,000+</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div class="candidate-form-group">
+              <div class="candidate-form-group-head">
+                <span>Section 5</span>
+                <h2>Skills &amp; Communication</h2>
+              </div>
+              <div class="candidate-form-grid candidate-form-grid-2">
+                <label>
+                  Rate Your English Communication Skill between 1 to 10 *
+                  <select id="englishRating" required>
+                    <option value="">Select rating</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                  </select>
+                </label>
+                <label>
+                  What skills do you have?
+                  <input type="text" id="skills" />
+                </label>
+                <label>
+                  What are your hobbies?
+                  <input type="text" id="hobbies" />
+                </label>
+                <label>
+                  Do You Have a Resume?
+                  <select id="hasResume">
+                    <option value="">Select option</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                    <option>Currently Creating</option>
+                  </select>
+                </label>
+              </div>
+
+              <fieldset class="candidate-checkbox-group">
+                <legend>Languages You Know</legend>
+                <div class="candidate-checkbox-grid">
+                  <label><input type="checkbox" name="languages" value="Hindi" />Hindi</label>
+                  <label><input type="checkbox" name="languages" value="English" />English</label>
+                  <label><input type="checkbox" name="languages" value="Marathi" />Marathi</label>
+                  <label><input type="checkbox" name="languages" value="Gujarati" />Gujarati</label>
+                  <label><input type="checkbox" name="languages" value="Punjabi" />Punjabi</label>
+                  <label><input type="checkbox" name="languages" value="Tamil" />Tamil</label>
+                  <label><input type="checkbox" name="languages" value="Telugu" />Telugu</label>
+                  <label><input type="checkbox" name="languages" value="Other" />Other</label>
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="candidate-form-group">
+              <div class="candidate-form-group-head">
+                <span>Section 6</span>
+                <h2>Family Background</h2>
+              </div>
+              <div class="candidate-form-grid candidate-form-grid-2">
+                <label>
+                  Father's Occupation
+                  <input type="text" id="fatherOccupation" />
+                </label>
+                <label>
+                  Mother's Occupation
+                  <input type="text" id="motherOccupation" />
+                </label>
+              </div>
+            </div>
+
+            <div class="candidate-form-group">
+              <div class="candidate-form-group-head">
+                <span>Section 7</span>
+                <h2>Career Intent</h2>
+              </div>
+
+              <fieldset class="candidate-checkbox-group">
+                <legend>Why are you currently looking for a job?</legend>
+                <div class="candidate-checkbox-grid">
+                  <label><input type="checkbox" name="jobReason" value="Need financial support" />Need financial support</label>
+                  <label><input type="checkbox" name="jobReason" value="Career growth" />Career growth</label>
+                  <label><input type="checkbox" name="jobReason" value="Better salary" />Better salary</label>
+                  <label><input type="checkbox" name="jobReason" value="Work from home opportunity" />Work from home opportunity</label>
+                  <label><input type="checkbox" name="jobReason" value="Skill development" />Skill development</label>
+                  <label><input type="checkbox" name="jobReason" value="Family responsibility" />Family responsibility</label>
+                  <label><input type="checkbox" name="jobReason" value="Other" />Other</label>
+                </div>
+              </fieldset>
+
+              <fieldset class="candidate-checkbox-group">
+                <legend>What type of support do you need?</legend>
+                <div class="candidate-checkbox-grid">
+                  <label><input type="checkbox" name="supportNeeded" value="Job Opportunities" />Job Opportunities</label>
+                  <label><input type="checkbox" name="supportNeeded" value="Resume Building" />Resume Building</label>
+                  <label><input type="checkbox" name="supportNeeded" value="Interview Preparation" />Interview Preparation</label>
+                  <label><input type="checkbox" name="supportNeeded" value="Career Guidance" />Career Guidance</label>
+                  <label><input type="checkbox" name="supportNeeded" value="Skill Training" />Skill Training</label>
+                  <label><input type="checkbox" name="supportNeeded" value="Other" />Other</label>
+                </div>
+              </fieldset>
+
+              <div class="candidate-form-grid candidate-form-grid-2">
+                <label>
+                  How did you find us? *
+                  <select id="foundUs" required>
+                    <option value="">Select option</option>
+                    <option>Instagram</option>
+                    <option>LinkedIn</option>
+                    <option>YouTube</option>
+                    <option>Google</option>
+                    <option>Friend / Referral</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+                <label>
+                  Are you interested in job assistance &amp; interview training program?
+                  <select id="interestedProgram">
+                    <option value="">Select option</option>
+                    <option>Yes I am interested</option>
+                    <option>Maybe I want more information</option>
+                    <option>Not sure yet</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div class="candidate-form-actions">
+              <p class="candidate-form-message" id="candidateFormMessage"></p>
+              <button type="submit" class="candidate-form-submit" id="candidateFormSubmitBtn">
+                Submit Form
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="candidate-onboarding.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

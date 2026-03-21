@@ -119,10 +119,10 @@ if (!hasValidFirebaseConfig()) {
           JSON.stringify({ fullName: name, phone })
         );
         alert("Registration successful.");
-        setMessage(message, "Account created successfully. Redirecting to login...", "success");
+        setMessage(message, "Account created successfully. Redirecting to form...", "success");
         registerForm.reset();
         setTimeout(() => {
-          window.location.href = "login.html";
+          window.location.href = "candidate-onboarding.html";
         }, 900);
       } catch (error) {
         console.error("Register error:", error);
@@ -160,7 +160,7 @@ if (!hasValidFirebaseConfig()) {
 
       try {
         const credential = await signInWithEmailAndPassword(auth, email, password);
-        let redirectPage = "index.html";
+        let redirectPage = "candidate-onboarding.html";
 
         try {
           const profileRef = doc(db, "users", credential.user.uid);
@@ -169,6 +169,8 @@ if (!hasValidFirebaseConfig()) {
             const profile = profileSnap.data();
             if (profile.role === "admin") {
               redirectPage = "admin.html";
+            } else if (profile.onboardingCompleted) {
+              redirectPage = "dashboard.html";
             }
           }
         } catch (profileError) {
