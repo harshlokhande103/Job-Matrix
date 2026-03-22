@@ -2290,10 +2290,10 @@ h1 .gradient {
 
 .about-page .mini {
   color: #2f67dd;
-  font-size: 10px;
-  letter-spacing: 2px;
-  font-weight: 600;
-  margin-bottom: 8px;
+  font-size: 16px;
+  letter-spacing: 3.2px;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
 
 .about-page .mini.center {
@@ -2859,7 +2859,7 @@ h1 .gradient {
 
 .about-page .about-testimonials .mini {
   color: #c5d8ff;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 
 .about-page .about-testimonials h2 {
@@ -2986,10 +2986,25 @@ h1 .gradient {
 
 .contact-page .contact-info-card,
 .contact-page .contact-form-card {
+  position: relative;
   background: #f7f9fc;
   border: 1px solid #dbe2ef;
   border-radius: 18px;
   box-shadow: 0 12px 22px rgba(18, 34, 70, 0.08);
+  isolation: isolate;
+}
+
+.contact-page .contact-info-card::before,
+.contact-page .contact-form-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  border: inherit;
+  box-shadow: inherit;
+  z-index: -1;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
 }
 
 .contact-page .contact-info-card {
@@ -3048,6 +3063,36 @@ h1 .gradient {
   color: #0f193b;
   font-size: 24px;
   margin-bottom: 18px;
+}
+
+.contact-page .contact-info-card,
+.contact-page .contact-form-card,
+.contact-page .contact-info-card.reveal-on-scroll.is-visible,
+.contact-page .contact-form-card.reveal-on-scroll.is-visible {
+  transform: none !important;
+  filter: none !important;
+}
+
+.contact-page .contact-info-card:hover,
+.contact-page .contact-form-card:hover,
+.contact-page .contact-info-card.reveal-on-scroll.is-visible:hover,
+.contact-page .contact-form-card.reveal-on-scroll.is-visible:hover {
+  transform: translateY(-5px) !important;
+  filter: none !important;
+}
+
+.contact-page .contact-info-card:hover::before,
+.contact-page .contact-form-card:hover::before,
+.contact-page .contact-info-card.reveal-on-scroll.is-visible:hover::before,
+.contact-page .contact-form-card.reveal-on-scroll.is-visible:hover::before {
+  transform: scale(1.015);
+  box-shadow: 0 18px 34px rgba(22, 43, 84, 0.2);
+}
+
+.contact-page .contact-info-card *,
+.contact-page .contact-form-card * {
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
 }
 
 .contact-page .contact-form-card form {
@@ -3984,6 +4029,11 @@ button.reveal-on-scroll.is-visible,
 
   .about-page .about-hero h1 {
     font-size: 58px;
+  }
+
+  .about-page .mini {
+    font-size: 14px;
+    letter-spacing: 2.8px;
   }
 
   .about-page .about-mv-copy h2,
@@ -5027,6 +5077,12 @@ button.reveal-on-scroll.is-visible,
 
   .about-page .about-hero-media img {
     height: 340px;
+  }
+
+  .about-page .mini {
+    font-size: 13px;
+    letter-spacing: 2.4px;
+    margin-bottom: 10px;
   }
 
   .about-page .about-stats-wrap {
