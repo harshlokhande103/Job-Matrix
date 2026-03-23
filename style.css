@@ -2507,6 +2507,14 @@ h1 .gradient {
   font-size: 10px;
   letter-spacing: 1.6px;
   font-weight: 600;
+  gap: 10px;
+}
+
+.about-page .about-badge .dot {
+  width: 8px;
+  height: 8px;
+  margin-right: 0;
+  flex: 0 0 8px;
 }
 
 .about-page .about-hero h1 {
