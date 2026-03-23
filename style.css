@@ -2495,28 +2495,6 @@ h1 .gradient {
   align-items: center;
 }
 
-.about-page .about-badge {
-  display: inline-flex;
-  border-radius: 999px;
-  border: 1px solid #cad8f2;
-  background: #e4ebfa;
-  color: #376de4;
-  min-height: 28px;
-  padding: 0 14px;
-  align-items: center;
-  font-size: 10px;
-  letter-spacing: 1.6px;
-  font-weight: 600;
-  gap: 10px;
-}
-
-.about-page .about-badge .dot {
-  width: 8px;
-  height: 8px;
-  margin-right: 0;
-  flex: 0 0 8px;
-}
-
 .about-page .about-hero h1 {
   margin-top: 14px;
   color: #0f193b;
