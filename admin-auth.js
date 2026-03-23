@@ -2,6 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/fireba
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocsFromServer,
@@ -262,7 +263,7 @@ const renderApplications = (applications) => {
   if (!applicationsTableBody) return;
   if (!applications.length) {
     applicationsTableBody.innerHTML =
-      '<tr><td colspan="7" class="admin-users-empty">No job applications found.</td></tr>';
+      '<tr><td colspan="8" class="admin-users-empty">No job applications found.</td></tr>';
     return;
   }
 
@@ -277,6 +278,15 @@ const renderApplications = (applications) => {
           <td data-label="Company">${escapeHtml(application.jobCompany || "-")}</td>
           <td data-label="Source">${escapeHtml(application.source || "-")}</td>
           <td data-label="Applied">${escapeHtml(formatCreatedAt(application.appliedAt))}</td>
+          <td data-label="Actions">
+            <button
+              type="button"
+              class="admin-delete-btn"
+              data-application-id="${escapeHtml(application.docId || application.applicationId || "")}"
+            >
+              Delete
+            </button>
+          </td>
         </tr>
       `
     )
@@ -505,6 +515,29 @@ if (!isConfigValid) {
       saveContactSubmissions(contactSubmissions);
       renderContactSubmissions(contactSubmissions);
       setContactStatus(`Total messages: ${contactSubmissions.length}`);
+    });
+  }
+
+  if (applicationsTableBody) {
+    applicationsTableBody.addEventListener("click", async (event) => {
+      const button = event.target.closest("[data-application-id]");
+      if (!button) return;
+
+      const applicationId = button.getAttribute("data-application-id");
+      if (!applicationId) return;
+
+      const confirmed = window.confirm("Delete this job application?");
+      if (!confirmed) return;
+
+      button.disabled = true;
+      try {
+        await deleteDoc(doc(db, "jobApplications", applicationId));
+        setApplicationsStatus("Application deleted successfully.");
+      } catch (error) {
+        console.error("Application delete error:", error);
+        setApplicationsStatus("Application delete nahi ho paayi. Firestore rules check karo.");
+        button.disabled = false;
+      }
     });
   }
 
