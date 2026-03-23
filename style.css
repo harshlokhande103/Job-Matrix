@@ -6797,6 +6797,18 @@ button.reveal-on-scroll.is-visible:hover,
   text-decoration: none;
 }
 
+.dashboard-page .dashboard-applied-jobs-grid .job-card.is-applied {
+  background: linear-gradient(180deg, #f4fbf7 0%, #eef8f2 100%);
+  border-color: #cfe5d6;
+}
+
+.dashboard-page .dashboard-applied-jobs-grid .job-apply-btn.is-applied {
+  background: linear-gradient(90deg, #1f9d62, #157347);
+  box-shadow: 0 10px 18px rgba(21, 115, 71, 0.18);
+  cursor: default;
+  opacity: 1;
+}
+
 @media (max-width: 1024px) {
   .dashboard-page .dashboard-hero-wrap,
   .dashboard-page .dashboard-details-grid {

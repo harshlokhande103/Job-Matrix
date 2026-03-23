@@ -10,6 +10,7 @@ import {
   query,
   serverTimestamp,
   setDoc,
+  where,
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
 
@@ -140,6 +141,39 @@ const createDashboardJobMarkup = (job) => {
   `;
 };
 
+const createAppliedJobMarkup = (application) => {
+  const type = escapeHtml(normalizeJobType(application.jobType));
+  const date = escapeHtml(application.jobDate || "Recently applied");
+  const title = escapeHtml(application.jobTitle || "Open Role");
+  const company = escapeHtml(application.jobCompany || "Job Matrix Partner");
+  const location = escapeHtml(application.jobLocation || "Location not specified");
+  const salary = escapeHtml(application.jobSalary || "Salary not specified");
+  const description = escapeHtml(
+    application.jobDescription || "Application submitted successfully for this role."
+  );
+  const mutedClass = type.toLowerCase() === "remote" ? " muted" : "";
+  const appliedAt = escapeHtml(formatCreatedAt(application.appliedAt));
+
+  return `
+    <article class="job-card is-applied">
+      <div class="job-card-head">
+        <span class="job-type${mutedClass}">${type}</span>
+        <span class="job-date">${date}</span>
+      </div>
+      <h3>${title}</h3>
+      <ul class="job-meta">
+        <li>&#127970; ${company}</li>
+        <li>&#128205; ${location}</li>
+        <li>&#8377; ${salary}</li>
+      </ul>
+      <p>${description}</p>
+      <button class="job-apply-btn is-applied" type="button" disabled>
+        Applied On ${appliedAt}
+      </button>
+    </article>
+  `;
+};
+
 const renderDashboardJobs = (jobs, statusText) => {
   const jobsGrid = document.getElementById("dashboardJobsGrid");
   const jobsEmpty = document.getElementById("dashboardJobsEmpty");
@@ -149,6 +183,17 @@ const renderDashboardJobs = (jobs, statusText) => {
   jobsStatus.textContent = statusText;
   jobsGrid.innerHTML = jobs.map((job) => createDashboardJobMarkup(job)).join("");
   jobsEmpty.hidden = jobs.length !== 0;
+};
+
+const renderAppliedJobs = (applications, statusText) => {
+  const appliedJobsGrid = document.getElementById("dashboardAppliedJobsGrid");
+  const appliedJobsEmpty = document.getElementById("dashboardAppliedJobsEmpty");
+  const appliedJobsStatus = document.getElementById("dashboardAppliedJobsStatus");
+  if (!appliedJobsGrid || !appliedJobsEmpty || !appliedJobsStatus) return;
+
+  appliedJobsStatus.textContent = statusText;
+  appliedJobsGrid.innerHTML = applications.map((item) => createAppliedJobMarkup(item)).join("");
+  appliedJobsEmpty.hidden = applications.length !== 0;
 };
 
 const readPendingApplication = () => {
@@ -228,6 +273,40 @@ const subscribeDashboardJobs = (db, onJobsChange) => {
   );
 };
 
+const subscribeAppliedJobs = (db, userId) => {
+  if (!userId) return;
+
+  renderAppliedJobs([], "Loading applied jobs...");
+  const appliedJobsQuery = query(collection(db, "jobApplications"), where("userId", "==", userId));
+
+  onSnapshot(
+    appliedJobsQuery,
+    (snapshot) => {
+      const applications = snapshot.docs
+        .map((docSnap) => ({
+          docId: docSnap.id,
+          ...docSnap.data(),
+        }))
+        .sort((first, second) => {
+          const firstTime =
+            typeof first.appliedAt?.toDate === "function"
+              ? first.appliedAt.toDate().getTime()
+              : new Date(first.appliedAt || 0).getTime();
+          const secondTime =
+            typeof second.appliedAt?.toDate === "function"
+              ? second.appliedAt.toDate().getTime()
+              : new Date(second.appliedAt || 0).getTime();
+          return secondTime - firstTime;
+        });
+      renderAppliedJobs(applications, `Showing ${applications.length} applied jobs.`);
+    },
+    (error) => {
+      console.error("Applied jobs fetch error:", error);
+      renderAppliedJobs([], "Applied jobs load nahi ho pa rahi hain.");
+    }
+  );
+};
+
 if (!hasValidFirebaseConfig()) {
   window.location.href = "login.html";
 } else {
@@ -291,6 +370,7 @@ if (!hasValidFirebaseConfig()) {
     }
 
     currentUser = user;
+    subscribeAppliedJobs(db, user.uid);
 
     let profile = null;
 
