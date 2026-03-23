@@ -2352,17 +2352,32 @@ h1 .gradient {
   max-width: 520px;
 }
 
-.about-page .about-hero-more {
-  margin-top: 14px;
-  border: 1px solid #b9c8e2;
-  background: #f0f5ff;
+.about-page .about-hero-preview-more {
+  display: none;
+}
+
+.about-page .about-hero-preview-more.is-visible {
+  display: inline;
+}
+
+.about-page .about-hero-more-inline {
+  display: inline;
+  margin-left: 8px;
+  border: 0;
+  background: transparent;
   color: #2f67dd;
-  border-radius: 999px;
-  min-height: 42px;
-  padding: 0 18px;
   font-size: 14px;
   font-weight: 600;
+  text-decoration: underline;
   cursor: pointer;
+  padding: 0;
+  box-shadow: none;
+}
+
+.about-page .about-hero-more-inline:hover {
+  transform: none;
+  filter: none;
+  box-shadow: none;
 }
 
 .about-page .about-hero-actions {

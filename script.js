@@ -458,28 +458,12 @@ setupJobsPage();
 setupAdminPage();
 
 const aboutHeroMore = document.getElementById("aboutHeroMore");
-const aboutHeroModal = document.getElementById("aboutHeroModal");
+const aboutHeroPreviewMore = document.getElementById("aboutHeroPreviewMore");
 
-if (aboutHeroMore && aboutHeroModal) {
-  const closeTargets = Array.from(aboutHeroModal.querySelectorAll("[data-about-modal-close]"));
-
-  const openModal = () => {
-    aboutHeroModal.classList.add("is-open");
-    aboutHeroModal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-  };
-
-  const closeModal = () => {
-    aboutHeroModal.classList.remove("is-open");
-    aboutHeroModal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  };
-
-  aboutHeroMore.addEventListener("click", openModal);
-  closeTargets.forEach((btn) => btn.addEventListener("click", closeModal));
-
-  aboutHeroModal.addEventListener("click", (event) => {
-    if (event.target === aboutHeroModal) closeModal();
+if (aboutHeroMore && aboutHeroPreviewMore) {
+  aboutHeroMore.addEventListener("click", () => {
+    const isExpanded = aboutHeroPreviewMore.classList.toggle("is-visible");
+    aboutHeroMore.textContent = isExpanded ? "Show Less" : "Know More";
   });
 }
 
