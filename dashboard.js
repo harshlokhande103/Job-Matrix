@@ -1,7 +1,48 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-import { doc, getDoc, getFirestore } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import {
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+  onSnapshot,
+  orderBy,
+  query,
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
+
+const defaultJobsData = [
+  {
+    id: "default-1",
+    type: "Hybrid",
+    date: "1/19/2026",
+    title: "HR Recruiter",
+    company: "JobConnect Consultancy",
+    location: "Mumbai",
+    salary: "3L - 5L PA",
+    description: "End-to-end recruitment for IT and Non-IT clients.",
+  },
+  {
+    id: "default-2",
+    type: "Remote",
+    date: "1/19/2026",
+    title: "Customer Support Executive",
+    company: "Global Connect BPO",
+    location: "Remote (Pan India)",
+    salary: "2.5L - 4L PA",
+    description: "Handle international voice/non-voice processes. Night shift.",
+  },
+  {
+    id: "default-3",
+    type: "WFO",
+    date: "1/19/2026",
+    title: "Senior React Developer",
+    company: "TechCorp Solutions",
+    location: "Bangalore",
+    salary: "20L - 30L PA",
+    description: "We are looking for an experienced React developer to join our team.",
+  },
+];
 
 const hasValidFirebaseConfig = () =>
   firebaseConfig &&
@@ -48,6 +89,87 @@ const setAvatar = (name) => {
   avatarNode.textContent = initials || "U";
 };
 
+const escapeHtml = (value) =>
+  String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+
+const normalizeJobType = (value) => {
+  const type = String(value ?? "").trim();
+  if (!type) return "WFO";
+  if (type.toUpperCase() === "WFH") return "WFH";
+  if (type.toUpperCase() === "WFO") return "WFO";
+  if (type.toLowerCase() === "remote") return "Remote";
+  if (type.toLowerCase() === "hybrid") return "Hybrid";
+  return type;
+};
+
+const createDashboardJobMarkup = (job) => {
+  const type = escapeHtml(normalizeJobType(job.type));
+  const date = escapeHtml(job.date || "Recently added");
+  const title = escapeHtml(job.title || "Open Role");
+  const company = escapeHtml(job.company || "Job Matrix Partner");
+  const location = escapeHtml(job.location || "Location not specified");
+  const salary = escapeHtml(job.salary || "Salary not specified");
+  const description = escapeHtml(job.description || "Details will be shared after application.");
+  const mutedClass = type.toLowerCase() === "remote" ? " muted" : "";
+
+  return `
+    <article class="job-card">
+      <div class="job-card-head">
+        <span class="job-type${mutedClass}">${type}</span>
+        <span class="job-date">${date}</span>
+      </div>
+      <h3>${title}</h3>
+      <ul class="job-meta">
+        <li>&#127970; ${company}</li>
+        <li>&#128205; ${location}</li>
+        <li>&#8377; ${salary}</li>
+      </ul>
+      <p>${description}</p>
+      <a class="job-apply-btn" href="jobs.html">Apply Now</a>
+    </article>
+  `;
+};
+
+const renderDashboardJobs = (jobs, statusText) => {
+  const jobsGrid = document.getElementById("dashboardJobsGrid");
+  const jobsEmpty = document.getElementById("dashboardJobsEmpty");
+  const jobsStatus = document.getElementById("dashboardJobsStatus");
+  if (!jobsGrid || !jobsEmpty || !jobsStatus) return;
+
+  jobsStatus.textContent = statusText;
+  jobsGrid.innerHTML = jobs.map((job) => createDashboardJobMarkup(job)).join("");
+  jobsEmpty.hidden = jobs.length !== 0;
+};
+
+const subscribeDashboardJobs = (db) => {
+  renderDashboardJobs(defaultJobsData, `Showing ${defaultJobsData.length} jobs.`);
+
+  const jobsQuery = query(collection(db, "jobs"), orderBy("createdAt", "desc"));
+  onSnapshot(
+    jobsQuery,
+    (snapshot) => {
+      const firestoreJobs = snapshot.docs.map((jobDoc) => ({
+        id: jobDoc.id,
+        ...jobDoc.data(),
+      }));
+      const jobs = [...firestoreJobs, ...defaultJobsData];
+      renderDashboardJobs(jobs, `Showing ${jobs.length} jobs.`);
+    },
+    (error) => {
+      console.error("Dashboard jobs fetch error:", error);
+      renderDashboardJobs(
+        defaultJobsData,
+        "Latest jobs load nahi ho pa rahi hain. Default jobs dikh rahi hain."
+      );
+    }
+  );
+};
+
 if (!hasValidFirebaseConfig()) {
   window.location.href = "login.html";
 } else {
@@ -55,6 +177,8 @@ if (!hasValidFirebaseConfig()) {
   const auth = getAuth(app);
   const db = getFirestore(app);
   const logoutBtn = document.getElementById("dashboardLogoutBtn");
+
+  subscribeDashboardJobs(db);
 
   if (logoutBtn) {
     logoutBtn.addEventListener("click", async () => {
