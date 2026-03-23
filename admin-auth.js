@@ -6,6 +6,7 @@ import {
   getDoc,
   getDocsFromServer,
   getFirestore,
+  onSnapshot,
   orderBy,
   query,
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
@@ -14,6 +15,8 @@ import { firebaseConfig } from "./firebase-config.js";
 const accessMessage = document.getElementById("adminAccessMessage");
 const adminHero = document.getElementById("adminHero");
 const adminMain = document.getElementById("adminMain");
+const applicationsStatus = document.getElementById("adminApplicationsStatus");
+const applicationsTableBody = document.getElementById("adminApplicationsTableBody");
 const usersStatus = document.getElementById("adminUsersStatus");
 const usersTableBody = document.getElementById("adminUsersTableBody");
 const downloadUsersButton = document.getElementById("adminDownloadUsers");
@@ -25,6 +28,7 @@ const onboardingDetails = document.getElementById("adminOnboardingDetails");
 const CONTACT_SUBMISSIONS_STORAGE_KEY = "jm_contact_submissions_v1";
 let registeredUsers = [];
 let contactSubmissions = [];
+let unsubscribeApplications = null;
 
 const showMessage = (html) => {
   if (!accessMessage) return;
@@ -63,6 +67,10 @@ const formatCreatedAt = (value) => {
 
 const setUsersStatus = (text) => {
   if (usersStatus) usersStatus.textContent = text;
+};
+
+const setApplicationsStatus = (text) => {
+  if (applicationsStatus) applicationsStatus.textContent = text;
 };
 
 const setContactStatus = (text) => {
@@ -250,6 +258,31 @@ const renderUsers = (users) => {
     .join("");
 };
 
+const renderApplications = (applications) => {
+  if (!applicationsTableBody) return;
+  if (!applications.length) {
+    applicationsTableBody.innerHTML =
+      '<tr><td colspan="7" class="admin-users-empty">No job applications found.</td></tr>';
+    return;
+  }
+
+  applicationsTableBody.innerHTML = applications
+    .map(
+      (application) => `
+        <tr>
+          <td data-label="Name">${escapeHtml(application.applicantName || "-")}</td>
+          <td data-label="Email">${escapeHtml(application.applicantEmail || "-")}</td>
+          <td data-label="Phone">${escapeHtml(application.applicantPhone || "-")}</td>
+          <td data-label="Job Title">${escapeHtml(application.jobTitle || "-")}</td>
+          <td data-label="Company">${escapeHtml(application.jobCompany || "-")}</td>
+          <td data-label="Source">${escapeHtml(application.source || "-")}</td>
+          <td data-label="Applied">${escapeHtml(formatCreatedAt(application.appliedAt))}</td>
+        </tr>
+      `
+    )
+    .join("");
+};
+
 const renderOnboardingDetails = (user) => {
   if (!onboardingDetails) return;
 
@@ -392,6 +425,44 @@ const loadContactSubmissions = () => {
   setContactStatus(`Total messages: ${contactSubmissions.length}`);
 };
 
+const loadJobApplications = (db) => {
+  if (unsubscribeApplications) {
+    unsubscribeApplications();
+  }
+
+  try {
+    setApplicationsStatus("Loading applications...");
+    const applicationsRef = collection(db, "jobApplications");
+    const applicationsQuery = query(applicationsRef, orderBy("appliedAt", "desc"));
+    unsubscribeApplications = onSnapshot(
+      applicationsQuery,
+      (snapshot) => {
+        const applications = snapshot.docs.map((docSnap) => ({
+          docId: docSnap.id,
+          ...docSnap.data(),
+        }));
+        renderApplications(applications);
+        setApplicationsStatus(`Total applications: ${applications.length}`);
+      },
+      (error) => {
+        console.error("Applications fetch error:", error);
+        if (error.code === "permission-denied") {
+          setApplicationsStatus(
+            "Permission denied while reading applications. Update Firestore rules for jobApplications."
+          );
+        } else {
+          setApplicationsStatus("Failed to load applications. Please verify Firestore configuration.");
+        }
+        renderApplications([]);
+      }
+    );
+  } catch (error) {
+    console.error("Applications setup error:", error);
+    setApplicationsStatus("Failed to initialize applications list.");
+    renderApplications([]);
+  }
+};
+
 const isConfigValid =
   firebaseConfig &&
   Object.values(firebaseConfig).every(
@@ -475,6 +546,7 @@ if (!isConfigValid) {
       const userData = userDocSnap.data();
       if (userData.role === "admin") {
         showAdmin();
+        loadJobApplications(db);
         await loadRegisteredUsers(db);
         renderOnboardingDetails(null);
         loadContactSubmissions();

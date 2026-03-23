@@ -5,14 +5,19 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   getFirestore,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
+  setDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
+
+const PENDING_JOB_APPLICATION_KEY = "jm_pending_job_application";
+const POST_LOGIN_REDIRECT_KEY = "jm_post_login_redirect";
 
 const defaultJobsData = [
   {
@@ -101,9 +106,83 @@ const createJobCardMarkup = (job) => {
         <li>&#8377; ${safeSalary}</li>
       </ul>
       <p>${safeDescription}</p>
-      <button class="job-apply-btn">Apply Now</button>
+      <button class="job-apply-btn" type="button" data-apply-job-id="${escapeHtml(job.id)}">Apply Now</button>
     </article>
   `;
+};
+
+const storePendingApplication = (payload, redirectPage = "jobs.html") => {
+  sessionStorage.setItem(PENDING_JOB_APPLICATION_KEY, JSON.stringify(payload));
+  sessionStorage.setItem(POST_LOGIN_REDIRECT_KEY, redirectPage);
+};
+
+const readPendingApplication = () => {
+  try {
+    const raw = sessionStorage.getItem(PENDING_JOB_APPLICATION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+};
+
+const clearPendingApplication = () => {
+  sessionStorage.removeItem(PENDING_JOB_APPLICATION_KEY);
+};
+
+const mapSourceLabel = (value) => {
+  if (value === "dashboard") return "Dashboard";
+  if (value === "jobs-page") return "Jobs Page";
+  return "Website";
+};
+
+const getUserProfile = async (db, user) => {
+  if (!user) return null;
+  try {
+    const profileSnap = await getDoc(doc(db, "users", user.uid));
+    return profileSnap.exists() ? profileSnap.data() : null;
+  } catch (error) {
+    console.error("User profile fetch error:", error);
+    return null;
+  }
+};
+
+const applyForJob = async (db, auth, job, source) => {
+  const user = auth.currentUser;
+  if (!user) {
+    storePendingApplication({ job, source }, "jobs.html");
+    alert("Apply karne ke liye pehle login karo.");
+    window.location.href = "login.html?redirect=jobs.html";
+    return { ok: false, redirected: true };
+  }
+
+  const profile = await getUserProfile(db, user);
+  const applicationId = `${user.uid}__${job.id}`;
+  const applicationRef = doc(db, "jobApplications", applicationId);
+
+  const payload = {
+    applicationId,
+    userId: user.uid,
+    applicantName: profile?.fullName || user.displayName || "Job Matrix User",
+    applicantEmail: profile?.email || user.email || "",
+    applicantPhone: profile?.phone || "",
+    applicantRole: profile?.role || "user",
+    jobId: job.id,
+    jobTitle: job.title || "",
+    jobCompany: job.company || "",
+    jobLocation: job.location || "",
+    jobSalary: job.salary || "",
+    jobType: normalizeJobType(job.type),
+    jobDate: job.date || "",
+    jobDescription: job.description || "",
+    source: mapSourceLabel(source),
+    sourcePage: source,
+    appliedAt: serverTimestamp(),
+  };
+
+  await setDoc(applicationRef, payload);
+  clearPendingApplication();
+  sessionStorage.removeItem(POST_LOGIN_REDIRECT_KEY);
+  return { ok: true };
 };
 
 const renderJobsList = (jobs) => {
@@ -127,24 +206,67 @@ const renderJobsList = (jobs) => {
   if (emptyState) emptyState.hidden = filteredJobs.length !== 0;
 };
 
-const setupJobsPage = (db) => {
+const setupJobsPage = (db, auth) => {
   if (!document.body.classList.contains("jobs-page")) return;
 
+  const grid = document.getElementById("jobsGrid");
   const searchInput = document.getElementById("jobsSearchInput");
   const typeFilter = document.getElementById("jobsTypeFilter");
   const searchBtn = document.getElementById("jobsSearchBtn");
-  if (!searchInput || !typeFilter || !searchBtn) return;
+  if (!grid || !searchInput || !typeFilter || !searchBtn) return;
 
   let firestoreJobs = [];
+  let currentJobs = [...defaultJobsData];
 
   const refresh = () => {
-    renderJobsList([...firestoreJobs, ...defaultJobsData]);
+    currentJobs = [...firestoreJobs, ...defaultJobsData];
+    renderJobsList(currentJobs);
   };
 
   searchBtn.addEventListener("click", refresh);
   searchInput.addEventListener("input", refresh);
   typeFilter.addEventListener("change", refresh);
   refresh();
+
+  grid.addEventListener("click", async (event) => {
+    const button = event.target.closest("[data-apply-job-id]");
+    if (!button) return;
+
+    const jobId = button.getAttribute("data-apply-job-id");
+    const selectedJob = currentJobs.find((job) => String(job.id) === String(jobId));
+    if (!selectedJob) return;
+
+    button.disabled = true;
+    const originalText = button.textContent;
+    button.textContent = "Applying...";
+
+    try {
+      const result = await applyForJob(db, auth, selectedJob, "jobs-page");
+      if (result.redirected) return;
+      alert("Application successfully submit ho gayi.");
+    } catch (error) {
+      console.error("Jobs page apply error:", error);
+      alert("Application submit nahi ho paayi. Firestore rules check karo.");
+    } finally {
+      button.disabled = false;
+      button.textContent = originalText;
+    }
+  });
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) return;
+    const pendingApplication = readPendingApplication();
+    if (!pendingApplication?.job || pendingApplication.source !== "jobs-page") return;
+
+    try {
+      const result = await applyForJob(db, auth, pendingApplication.job, pendingApplication.source);
+      if (result.ok) {
+        alert("Login ke baad aapki application successfully submit ho gayi.");
+      }
+    } catch (error) {
+      console.error("Pending jobs page application error:", error);
+    }
+  });
 
   const jobsQuery = query(collection(db, "jobs"), orderBy("createdAt", "desc"));
   onSnapshot(
@@ -311,7 +433,7 @@ if (isConfigValid) {
   const db = getFirestore(app);
   const auth = getAuth(app);
 
-  setupJobsPage(db);
+  setupJobsPage(db, auth);
 
   if (document.body.classList.contains("admin-page")) {
     onAuthStateChanged(auth, () => {

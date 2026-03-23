@@ -8,8 +8,13 @@ import {
   onSnapshot,
   orderBy,
   query,
+  serverTimestamp,
+  setDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
+
+const PENDING_JOB_APPLICATION_KEY = "jm_pending_job_application";
+const POST_LOGIN_REDIRECT_KEY = "jm_post_login_redirect";
 
 const defaultJobsData = [
   {
@@ -130,7 +135,7 @@ const createDashboardJobMarkup = (job) => {
         <li>&#8377; ${salary}</li>
       </ul>
       <p>${description}</p>
-      <a class="job-apply-btn" href="jobs.html">Apply Now</a>
+      <button class="job-apply-btn" type="button" data-apply-job-id="${escapeHtml(job.id)}">Apply Now</button>
     </article>
   `;
 };
@@ -146,8 +151,59 @@ const renderDashboardJobs = (jobs, statusText) => {
   jobsEmpty.hidden = jobs.length !== 0;
 };
 
-const subscribeDashboardJobs = (db) => {
+const readPendingApplication = () => {
+  try {
+    const raw = sessionStorage.getItem(PENDING_JOB_APPLICATION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+};
+
+const clearPendingApplication = () => {
+  sessionStorage.removeItem(PENDING_JOB_APPLICATION_KEY);
+  sessionStorage.removeItem(POST_LOGIN_REDIRECT_KEY);
+};
+
+const mapSourceLabel = (value) => {
+  if (value === "dashboard") return "Dashboard";
+  if (value === "jobs-page") return "Jobs Page";
+  return "Website";
+};
+
+const applyForJob = async (db, user, profile, job, source) => {
+  if (!user) return { ok: false };
+
+  const applicationId = `${user.uid}__${job.id}`;
+  const applicationRef = doc(db, "jobApplications", applicationId);
+
+  await setDoc(applicationRef, {
+    applicationId,
+    userId: user.uid,
+    applicantName: profile?.fullName || user.displayName || "Job Matrix User",
+    applicantEmail: profile?.email || user.email || "",
+    applicantPhone: profile?.phone || "",
+    applicantRole: profile?.role || "user",
+    jobId: job.id,
+    jobTitle: job.title || "",
+    jobCompany: job.company || "",
+    jobLocation: job.location || "",
+    jobSalary: job.salary || "",
+    jobType: normalizeJobType(job.type),
+    jobDate: job.date || "",
+    jobDescription: job.description || "",
+    source: mapSourceLabel(source),
+    sourcePage: source,
+    appliedAt: serverTimestamp(),
+  });
+
+  clearPendingApplication();
+  return { ok: true };
+};
+
+const subscribeDashboardJobs = (db, onJobsChange) => {
   renderDashboardJobs(defaultJobsData, `Showing ${defaultJobsData.length} jobs.`);
+  onJobsChange([...defaultJobsData]);
 
   const jobsQuery = query(collection(db, "jobs"), orderBy("createdAt", "desc"));
   onSnapshot(
@@ -159,6 +215,7 @@ const subscribeDashboardJobs = (db) => {
       }));
       const jobs = [...firestoreJobs, ...defaultJobsData];
       renderDashboardJobs(jobs, `Showing ${jobs.length} jobs.`);
+      onJobsChange(jobs);
     },
     (error) => {
       console.error("Dashboard jobs fetch error:", error);
@@ -166,6 +223,7 @@ const subscribeDashboardJobs = (db) => {
         defaultJobsData,
         "Latest jobs load nahi ho pa rahi hain. Default jobs dikh rahi hain."
       );
+      onJobsChange([...defaultJobsData]);
     }
   );
 };
@@ -177,8 +235,42 @@ if (!hasValidFirebaseConfig()) {
   const auth = getAuth(app);
   const db = getFirestore(app);
   const logoutBtn = document.getElementById("dashboardLogoutBtn");
+  const jobsGrid = document.getElementById("dashboardJobsGrid");
+  let currentJobs = [...defaultJobsData];
+  let currentUser = null;
+  let currentProfile = null;
 
-  subscribeDashboardJobs(db);
+  subscribeDashboardJobs(db, (jobs) => {
+    currentJobs = jobs;
+  });
+
+  if (jobsGrid) {
+    jobsGrid.addEventListener("click", async (event) => {
+      const button = event.target.closest("[data-apply-job-id]");
+      if (!button || !currentUser) return;
+
+      const jobId = button.getAttribute("data-apply-job-id");
+      const selectedJob = currentJobs.find((job) => String(job.id) === String(jobId));
+      if (!selectedJob) return;
+
+      button.disabled = true;
+      const originalText = button.textContent;
+      button.textContent = "Applying...";
+
+      try {
+        const result = await applyForJob(db, currentUser, currentProfile, selectedJob, "dashboard");
+        if (result.ok) {
+          renderDashboardJobs(currentJobs, "Application successfully submit ho gayi.");
+        }
+      } catch (error) {
+        console.error("Dashboard apply error:", error);
+        renderDashboardJobs(currentJobs, "Application submit nahi ho paayi. Firestore rules check karo.");
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    });
+  }
 
   if (logoutBtn) {
     logoutBtn.addEventListener("click", async () => {
@@ -197,6 +289,8 @@ if (!hasValidFirebaseConfig()) {
       window.location.href = "login.html";
       return;
     }
+
+    currentUser = user;
 
     let profile = null;
 
@@ -224,6 +318,7 @@ if (!hasValidFirebaseConfig()) {
     const phone = textOrFallback(profile?.phone || localProfile.phone);
     const role = textOrFallback(profile?.role, "user");
     const joined = formatCreatedAt(profile?.createdAt || user.metadata?.creationTime);
+    currentProfile = profile || null;
 
     if (role.toLowerCase() !== "admin" && !profile?.onboardingCompleted) {
       window.location.href = "candidate-onboarding.html";
@@ -254,5 +349,24 @@ if (!hasValidFirebaseConfig()) {
     }
 
     setAvatar(fullName);
+
+    const pendingApplication = readPendingApplication();
+    if (pendingApplication?.job) {
+      try {
+        const result = await applyForJob(
+          db,
+          user,
+          profile,
+          pendingApplication.job,
+          pendingApplication.source || "jobs-page"
+        );
+        if (result.ok) {
+          renderDashboardJobs(currentJobs, "Pending job application successfully submit ho gayi.");
+        }
+      } catch (error) {
+        console.error("Pending dashboard application error:", error);
+        renderDashboardJobs(currentJobs, "Pending application submit nahi ho paayi.");
+      }
+    }
   });
 }

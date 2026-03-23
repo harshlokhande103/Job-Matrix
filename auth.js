@@ -14,6 +14,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
 
+const POST_LOGIN_REDIRECT_KEY = "jm_post_login_redirect";
+
 const hasValidFirebaseConfig = () =>
   firebaseConfig &&
   Object.values(firebaseConfig).every(
@@ -71,6 +73,7 @@ if (!hasValidFirebaseConfig()) {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
+  const loginRedirectParam = new URLSearchParams(window.location.search).get("redirect");
 
   const registerForm = document.getElementById("registerForm");
   const loginForm = document.getElementById("loginForm");
@@ -161,6 +164,8 @@ if (!hasValidFirebaseConfig()) {
       try {
         const credential = await signInWithEmailAndPassword(auth, email, password);
         let redirectPage = "candidate-onboarding.html";
+        const storedRedirect =
+          sessionStorage.getItem(POST_LOGIN_REDIRECT_KEY) || loginRedirectParam || "";
 
         try {
           const profileRef = doc(db, "users", credential.user.uid);
@@ -170,7 +175,7 @@ if (!hasValidFirebaseConfig()) {
             if (profile.role === "admin") {
               redirectPage = "admin.html";
             } else if (profile.onboardingCompleted) {
-              redirectPage = "dashboard.html";
+              redirectPage = storedRedirect || "dashboard.html";
             }
           }
         } catch (profileError) {
