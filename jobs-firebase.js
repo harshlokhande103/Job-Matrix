@@ -150,7 +150,7 @@ const applyForJob = async (db, auth, job, source) => {
   const user = auth.currentUser;
   if (!user) {
     storePendingApplication({ job, source }, "jobs.html");
-    alert("Apply karne ke liye pehle login karo.");
+    alert("Please log in before applying.");
     window.location.href = "login.html?redirect=jobs.html";
     return { ok: false, redirected: true };
   }
@@ -243,10 +243,10 @@ const setupJobsPage = (db, auth) => {
     try {
       const result = await applyForJob(db, auth, selectedJob, "jobs-page");
       if (result.redirected) return;
-      alert("Application successfully submit ho gayi.");
+      alert("Your application was submitted successfully.");
     } catch (error) {
       console.error("Jobs page apply error:", error);
-      alert("Application submit nahi ho paayi. Firestore rules check karo.");
+      alert("The application could not be submitted. Please check your Firestore rules.");
     } finally {
       button.disabled = false;
       button.textContent = originalText;
@@ -261,7 +261,7 @@ const setupJobsPage = (db, auth) => {
     try {
       const result = await applyForJob(db, auth, pendingApplication.job, pendingApplication.source);
       if (result.ok) {
-        alert("Login ke baad aapki application successfully submit ho gayi.");
+        alert("Your application was submitted successfully after login.");
       }
     } catch (error) {
       console.error("Pending jobs page application error:", error);
@@ -336,7 +336,7 @@ const setupAdminJobs = (db, auth) => {
     },
     (error) => {
       console.error("Admin jobs fetch error:", error);
-      setMessage("Jobs load nahi ho pa rahi hain. Firestore rules check karo.", true);
+      setMessage("Jobs could not be loaded. Please check your Firestore rules.", true);
     }
   );
 
@@ -345,7 +345,7 @@ const setupAdminJobs = (db, auth) => {
 
     const user = auth.currentUser;
     if (!user) {
-      setMessage("Pehle admin login required hai.", true);
+      setMessage("Admin login is required first.", true);
       return;
     }
 
@@ -383,13 +383,13 @@ const setupAdminJobs = (db, auth) => {
     };
 
     try {
-      setMessage("Job Firebase me save ho rahi hai...");
+      setMessage("Saving the job to Firebase...");
       await addDoc(jobsRef, newJob);
       form.reset();
-      setMessage("Job successfully post ho gayi. Ab ye Firebase aur Jobs page dono par dikhegi.");
+      setMessage("The job was posted successfully. It is now visible in Firebase and on the Jobs page.");
     } catch (error) {
       console.error("Job post error:", error);
-      setMessage("Job save nahi ho paayi. Firestore write rules check karo.", true);
+      setMessage("The job could not be saved. Please check your Firestore write rules.", true);
     }
   });
 
@@ -405,25 +405,25 @@ const setupAdminJobs = (db, auth) => {
 
     try {
       await deleteDoc(doc(db, "jobs", jobId));
-      setMessage("Selected job delete ho gayi.");
+      setMessage("The selected job was deleted successfully.");
     } catch (error) {
       console.error("Job delete error:", error);
-      setMessage("Job delete nahi ho paayi. Firestore rules check karo.", true);
+      setMessage("The job could not be deleted. Please check your Firestore rules.", true);
     }
   });
 
   clearBtn.addEventListener("click", async () => {
-    const confirmed = window.confirm("Kya aap saari admin posted jobs delete karna chahte ho?");
+    const confirmed = window.confirm("Do you want to delete all admin-posted jobs?");
     if (!confirmed) return;
 
     try {
-      setMessage("Saari jobs delete ki ja rahi hain...");
+      setMessage("Deleting all jobs...");
       const snapshot = await getDocs(jobsRef);
       await Promise.all(snapshot.docs.map((jobDoc) => deleteDoc(doc(db, "jobs", jobDoc.id))));
-      setMessage("Saari admin posted jobs delete ho gayi.");
+      setMessage("All admin-posted jobs were deleted successfully.");
     } catch (error) {
       console.error("Clear jobs error:", error);
-      setMessage("All jobs clear nahi ho paayi. Firestore rules check karo.", true);
+      setMessage("All jobs could not be cleared. Please check your Firestore rules.", true);
     }
   });
 };

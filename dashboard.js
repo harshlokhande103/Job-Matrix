@@ -266,7 +266,7 @@ const subscribeDashboardJobs = (db, onJobsChange) => {
       console.error("Dashboard jobs fetch error:", error);
       renderDashboardJobs(
         defaultJobsData,
-        "Latest jobs load nahi ho pa rahi hain. Default jobs dikh rahi hain."
+        "The latest jobs could not be loaded. Default jobs are being shown."
       );
       onJobsChange([...defaultJobsData]);
     }
@@ -302,7 +302,7 @@ const subscribeAppliedJobs = (db, userId) => {
     },
     (error) => {
       console.error("Applied jobs fetch error:", error);
-      renderAppliedJobs([], "Applied jobs load nahi ho pa rahi hain.");
+      renderAppliedJobs([], "Applied jobs could not be loaded.");
     }
   );
 };
@@ -339,11 +339,14 @@ if (!hasValidFirebaseConfig()) {
       try {
         const result = await applyForJob(db, currentUser, currentProfile, selectedJob, "dashboard");
         if (result.ok) {
-          renderDashboardJobs(currentJobs, "Application successfully submit ho gayi.");
+          renderDashboardJobs(currentJobs, "Your application was submitted successfully.");
         }
       } catch (error) {
         console.error("Dashboard apply error:", error);
-        renderDashboardJobs(currentJobs, "Application submit nahi ho paayi. Firestore rules check karo.");
+        renderDashboardJobs(
+          currentJobs,
+          "The application could not be submitted. Please check your Firestore rules."
+        );
       } finally {
         button.disabled = false;
         button.textContent = originalText;
@@ -423,7 +426,7 @@ if (!hasValidFirebaseConfig()) {
       setText("dashboardStatusTitle", "Admin Account");
       setText(
         "dashboardStatusText",
-        "Is account par admin level access configured hai. Aap admin panel se management kar sakte hain."
+        "This account has admin-level access configured. You can manage the platform from the admin panel."
       );
       setText("dashboardAccountStatus", "Admin Access");
     }
@@ -441,11 +444,11 @@ if (!hasValidFirebaseConfig()) {
           pendingApplication.source || "jobs-page"
         );
         if (result.ok) {
-          renderDashboardJobs(currentJobs, "Pending job application successfully submit ho gayi.");
+          renderDashboardJobs(currentJobs, "Your pending job application was submitted successfully.");
         }
       } catch (error) {
         console.error("Pending dashboard application error:", error);
-        renderDashboardJobs(currentJobs, "Pending application submit nahi ho paayi.");
+        renderDashboardJobs(currentJobs, "The pending application could not be submitted.");
       }
     }
   });

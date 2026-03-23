@@ -39,7 +39,7 @@ const mapAuthError = (code) => {
     case "auth/network-request-failed":
       return "Network issue. Please check your internet connection and try again.";
     case "permission-denied":
-      return "Firestore rules permission deny kar rahi hain.";
+      return "Firestore rules are blocking this action.";
     case "failed-precondition":
       return "Firestore database is not created or enabled yet.";
     case "auth/invalid-email":

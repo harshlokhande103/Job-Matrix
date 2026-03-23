@@ -201,7 +201,7 @@ if (!hasValidFirebaseConfig()) {
           }, 800);
         } catch (error) {
           console.error("Onboarding submit error:", error);
-          setMessage("Form submit nahi ho paya. Please try again.", "error");
+          setMessage("The form could not be submitted. Please try again.", "error");
         } finally {
           submitBtn.disabled = false;
         }

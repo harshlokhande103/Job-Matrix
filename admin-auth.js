@@ -535,7 +535,7 @@ if (!isConfigValid) {
         setApplicationsStatus("Application deleted successfully.");
       } catch (error) {
         console.error("Application delete error:", error);
-        setApplicationsStatus("Application delete nahi ho paayi. Firestore rules check karo.");
+        setApplicationsStatus("The application could not be deleted. Please check your Firestore rules.");
         button.disabled = false;
       }
     });
