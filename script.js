@@ -219,7 +219,6 @@ if (seatNodes.length) {
   }, 60 * 1000);
 }
 
-const JOBS_STORAGE_KEY = "jm_admin_jobs_v1";
 const defaultJobsData = [
   {
     id: "default-1",
@@ -271,20 +270,6 @@ const normalizeJobType = (value) => {
   return type;
 };
 
-const readAdminJobs = () => {
-  try {
-    const raw = localStorage.getItem(JOBS_STORAGE_KEY);
-    const parsed = raw ? JSON.parse(raw) : [];
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-};
-
-const saveAdminJobs = (jobs) => {
-  localStorage.setItem(JOBS_STORAGE_KEY, JSON.stringify(jobs));
-};
-
 const createJobCardMarkup = (job) => {
   const safeType = escapeHtml(normalizeJobType(job.type));
   const safeDate = escapeHtml(job.date || "");
@@ -312,150 +297,6 @@ const createJobCardMarkup = (job) => {
     </article>
   `;
 };
-
-const setupJobsPage = () => {
-  if (!document.body.classList.contains("jobs-page")) return;
-
-  const grid = document.getElementById("jobsGrid");
-  const emptyState = document.getElementById("jobsEmpty");
-  const searchInput = document.getElementById("jobsSearchInput");
-  const typeFilter = document.getElementById("jobsTypeFilter");
-  const searchBtn = document.getElementById("jobsSearchBtn");
-  if (!grid || !searchInput || !typeFilter || !searchBtn) return;
-
-  const adminJobs = readAdminJobs();
-  const allJobs = [...adminJobs, ...defaultJobsData];
-
-  const render = (list) => {
-    grid.innerHTML = list.map((job) => createJobCardMarkup(job)).join("");
-    if (emptyState) emptyState.hidden = list.length !== 0;
-  };
-
-  const applyFilter = () => {
-    const query = searchInput.value.trim().toLowerCase();
-    const selectedType = typeFilter.value.trim().toLowerCase();
-
-    const filtered = allJobs.filter((job) => {
-      const type = String(job.type || "").toLowerCase();
-      const matchType = selectedType === "all types" || selectedType === type;
-      const blob = `${job.title} ${job.company} ${job.location} ${job.salary} ${job.description}`.toLowerCase();
-      const matchQuery = !query || blob.includes(query);
-      return matchType && matchQuery;
-    });
-
-    render(filtered);
-  };
-
-  render(allJobs);
-  searchBtn.addEventListener("click", applyFilter);
-  searchInput.addEventListener("input", applyFilter);
-  typeFilter.addEventListener("change", applyFilter);
-};
-
-const setupAdminPage = () => {
-  if (!document.body.classList.contains("admin-page")) return;
-
-  const form = document.getElementById("adminJobForm");
-  const message = document.getElementById("adminJobMessage");
-  const postedJobsWrap = document.getElementById("adminPostedJobs");
-  const clearBtn = document.getElementById("adminClearJobs");
-  if (!form || !postedJobsWrap || !clearBtn || !message) return;
-
-  const renderAdminPostedJobs = () => {
-    const adminJobs = readAdminJobs();
-    if (!adminJobs.length) {
-      postedJobsWrap.innerHTML = "<article><p>No admin jobs posted yet.</p></article>";
-      return;
-    }
-
-    postedJobsWrap.innerHTML = adminJobs
-      .map(
-        (job) => `
-          <article>
-            <h3>${escapeHtml(job.title)}</h3>
-            <p>${escapeHtml(job.type)} | ${escapeHtml(job.company)} | ${escapeHtml(job.location)}</p>
-            <p>${escapeHtml(job.salary)} | ${escapeHtml(job.date)}</p>
-            <button type="button" class="admin-delete-btn" data-delete-job-id="${escapeHtml(
-              job.id
-            )}">Delete Job</button>
-          </article>
-        `
-      )
-      .join("");
-  };
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const typeInput = document.getElementById("adminJobType");
-    const dateInput = document.getElementById("adminJobDate");
-    const titleInput = document.getElementById("adminJobTitle");
-    const companyInput = document.getElementById("adminJobCompany");
-    const locationInput = document.getElementById("adminJobLocation");
-    const salaryInput = document.getElementById("adminJobSalary");
-    const descriptionInput = document.getElementById("adminJobDescription");
-    if (
-      !typeInput ||
-      !dateInput ||
-      !titleInput ||
-      !companyInput ||
-      !locationInput ||
-      !salaryInput ||
-      !descriptionInput
-    ) {
-      return;
-    }
-
-    const today = new Date().toLocaleDateString("en-IN");
-    const selectedDate = dateInput.value
-      ? new Date(dateInput.value).toLocaleDateString("en-IN")
-      : today;
-
-    const newJob = {
-      id: `admin-${Date.now()}`,
-      type: normalizeJobType(typeInput.value),
-      date: selectedDate,
-      title: titleInput.value.trim(),
-      company: companyInput.value.trim(),
-      location: locationInput.value.trim(),
-      salary: salaryInput.value.trim(),
-      description: descriptionInput.value.trim(),
-    };
-
-    const adminJobs = readAdminJobs();
-    adminJobs.unshift(newJob);
-    saveAdminJobs(adminJobs);
-
-    form.reset();
-    message.textContent = "Job posted successfully. It is now visible on the Jobs page.";
-    renderAdminPostedJobs();
-  });
-
-  clearBtn.addEventListener("click", () => {
-    localStorage.removeItem(JOBS_STORAGE_KEY);
-    message.textContent = "All admin posted jobs cleared.";
-    renderAdminPostedJobs();
-  });
-
-  postedJobsWrap.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-delete-job-id]");
-    if (!button) return;
-
-    const deleteId = button.getAttribute("data-delete-job-id");
-    if (!deleteId) return;
-
-    const adminJobs = readAdminJobs();
-    const updatedJobs = adminJobs.filter((job) => String(job.id) !== String(deleteId));
-    saveAdminJobs(updatedJobs);
-    message.textContent = "Selected job deleted successfully.";
-    renderAdminPostedJobs();
-  });
-
-  renderAdminPostedJobs();
-};
-
-setupJobsPage();
-setupAdminPage();
 
 const aboutHeroMore = document.getElementById("aboutHeroMore");
 const aboutHeroPreviewMore = document.getElementById("aboutHeroPreviewMore");
