@@ -3181,7 +3181,7 @@ h1 .gradient {
   border: 1px solid rgba(217, 230, 255, 0.2);
   border-radius: 36px;
   min-height: 360px;
-  padding: 74px 34px 28px;
+  padding: 42px 34px 28px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -3192,6 +3192,7 @@ h1 .gradient {
 }
 
 .about-page .testimonial-grid article > p {
+  margin-top: 12px;
   color: #f4f8ff;
   font-size: 18px;
   line-height: 1.45;
@@ -3200,11 +3201,11 @@ h1 .gradient {
 
 .about-page .testimonial-grid .testimonial-rating {
   margin-top: 0;
-  margin-bottom: 14px;
+  margin-bottom: 20px;
 }
 
 .about-page .who {
-  margin-top: 0;
+  margin-top: 50px;
   display: flex;
   align-items: center;
   gap: 14px;
