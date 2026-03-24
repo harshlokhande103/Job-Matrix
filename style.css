@@ -3235,6 +3235,10 @@ h1 .gradient {
   letter-spacing: 1.2px;
 }
 
+.about-page .testimonial-grid article:nth-child(2) .who {
+  margin-top: 72px;
+}
+
 .contact-page .contact-hero {
   background: #2f67dd;
   padding: 66px 0 148px;
