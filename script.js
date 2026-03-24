@@ -308,6 +308,30 @@ if (aboutHeroMore && aboutHeroPreviewMore) {
   });
 }
 
+const WHATSAPP_NUMBER = "919876543210";
+const WHATSAPP_MESSAGE = encodeURIComponent(
+  "Hello Job Matrix, I want to know more about your services."
+);
+
+if (document.body) {
+  const whatsappLink = document.createElement("a");
+  whatsappLink.className = "floating-whatsapp";
+  whatsappLink.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
+  whatsappLink.target = "_blank";
+  whatsappLink.rel = "noopener noreferrer";
+  whatsappLink.setAttribute("aria-label", "Chat with Job Matrix on WhatsApp");
+  whatsappLink.innerHTML = `
+    <span class="floating-whatsapp-icon" aria-hidden="true">
+      <svg viewBox="0 0 32 32" role="img" focusable="false">
+        <path fill="currentColor" d="M19.11 17.33c-.27-.14-1.58-.78-1.83-.87-.24-.09-.42-.14-.6.14-.18.27-.69.87-.85 1.05-.15.18-.31.2-.58.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.49-1.86-.16-.27-.02-.41.11-.54.12-.12.27-.31.4-.47.13-.16.18-.27.27-.45.09-.18.05-.34-.02-.47-.07-.14-.6-1.45-.82-1.99-.22-.52-.44-.45-.6-.46h-.51c-.18 0-.47.07-.72.34s-.94.92-.94 2.24.96 2.59 1.09 2.77c.13.18 1.89 2.89 4.58 4.05.64.28 1.14.45 1.53.58.64.2 1.22.17 1.68.1.51-.08 1.58-.65 1.8-1.27.22-.62.22-1.15.15-1.27-.06-.11-.24-.18-.51-.31Z"/>
+        <path fill="currentColor" d="M16.02 3.2c-7 0-12.67 5.67-12.67 12.66 0 2.22.58 4.39 1.68 6.31L3.2 28.8l6.8-1.79a12.62 12.62 0 0 0 6.02 1.53h.01c6.99 0 12.66-5.67 12.66-12.66S23.01 3.2 16.02 3.2Zm0 23.19h-.01a10.5 10.5 0 0 1-5.35-1.47l-.38-.22-4.03 1.06 1.08-3.93-.25-.4a10.5 10.5 0 1 1 8.94 4.96Z"/>
+      </svg>
+    </span>
+    <span class="floating-whatsapp-text">WhatsApp Us</span>
+  `;
+  document.body.appendChild(whatsappLink);
+}
+
 const revealSelector = [
   "section",
   "article",

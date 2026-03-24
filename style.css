@@ -22,6 +22,113 @@ body {
   padding-top: 93px;
 }
 
+.floating-whatsapp {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1400;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 60px;
+  padding: 0 20px 0 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 18px 32px rgba(18, 140, 126, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-whatsapp:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 38px rgba(18, 140, 126, 0.38);
+}
+
+.floating-whatsapp-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.16);
+  flex-shrink: 0;
+}
+
+.floating-whatsapp-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.floating-whatsapp-text {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.testimonial-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.testimonial-rating .stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.testimonial-rating .star {
+  position: relative;
+  display: inline-block;
+  font-size: 18px;
+  line-height: 1;
+  color: #d7deeb;
+}
+
+.testimonial-rating .star.filled {
+  color: #f5b301;
+}
+
+.testimonial-rating .star.half {
+  color: #d7deeb;
+}
+
+.testimonial-rating .star.half::before {
+  content: "\2605";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 50%;
+  overflow: hidden;
+  color: #f5b301;
+}
+
+@media (max-width: 760px) {
+  .floating-whatsapp {
+    right: 16px;
+    bottom: 16px;
+    min-height: 54px;
+    padding: 0 16px 0 12px;
+    gap: 8px;
+  }
+
+  .floating-whatsapp-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .floating-whatsapp-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .floating-whatsapp-text {
+    font-size: 14px;
+  }
+}
+
 .container {
   width: min(1240px, calc(100% - 96px));
   margin: 0 auto;
@@ -3077,17 +3184,11 @@ h1 .gradient {
   padding: 74px 34px 28px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .about-page .testimonial-grid article::before {
-  content: "★★★★★";
-  position: absolute;
-  left: 34px;
-  top: 28px;
-  color: #ffd43b;
-  font-size: 18px;
-  letter-spacing: 3px;
+  content: none;
 }
 
 .about-page .testimonial-grid article > p {
@@ -3097,8 +3198,13 @@ h1 .gradient {
   font-style: italic;
 }
 
+.about-page .testimonial-grid .testimonial-rating {
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+
 .about-page .who {
-  margin-top: 26px;
+  margin-top: 0;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -4237,13 +4343,7 @@ button.reveal-on-scroll.is-visible,
   .about-page .testimonial-grid article {
     min-height: 320px;
     border-radius: 28px;
-    padding: 62px 22px 22px;
-  }
-
-  .about-page .testimonial-grid article::before {
-    left: 22px;
-    top: 22px;
-    font-size: 20px;
+    padding: 28px 22px 22px;
   }
 
   .about-page .testimonial-grid article > p {
@@ -5304,14 +5404,7 @@ button.reveal-on-scroll.is-visible,
   .about-page .testimonial-grid article {
     min-height: 280px;
     border-radius: 16px;
-    padding: 44px 14px 14px;
-  }
-
-  .about-page .testimonial-grid article::before {
-    left: 14px;
-    top: 14px;
-    font-size: 15px;
-    letter-spacing: 2px;
+    padding: 24px 14px 14px;
   }
 
   .about-page .testimonial-grid article > p {
@@ -6676,7 +6769,7 @@ button.reveal-on-scroll.is-visible:hover,
 .dashboard-page .dashboard-jobs-toolbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 16px;
   margin-bottom: 24px;
   flex-wrap: wrap;
@@ -6713,7 +6806,7 @@ button.reveal-on-scroll.is-visible:hover,
 .dashboard-page .dashboard-jobs-grid .job-card-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .dashboard-page .dashboard-jobs-grid .job-type {
