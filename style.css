@@ -22,6 +22,10 @@ body {
   padding-top: 93px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .floating-whatsapp {
   position: fixed;
   right: 24px;
@@ -6353,7 +6357,7 @@ button.reveal-on-scroll.is-visible:hover,
   margin-top: 26px;
 }
 
-.interview-tags span {
+.interview-tags a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -6364,15 +6368,20 @@ button.reveal-on-scroll.is-visible:hover,
   color: #ffffff;
   font-size: 15px;
   font-weight: 600;
+  text-decoration: none;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-.interview-tags span:hover {
+.interview-tags a:hover {
   background: rgba(255, 255, 255, 0.18);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 10px 22px rgba(18, 33, 88, 0.18);
   transform: translateY(-2px);
   animation: interviewTagBlink 0.7s ease-in-out 2;
+}
+
+.service-offer-card {
+  scroll-margin-top: 120px;
 }
 
 @keyframes interviewTagBlink {
@@ -6458,7 +6467,7 @@ button.reveal-on-scroll.is-visible:hover,
     margin-top: 22px;
   }
 
-  .interview-tags span {
+  .interview-tags a {
     font-size: 13px;
     padding: 10px 14px;
   }
