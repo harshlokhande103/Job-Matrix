@@ -3981,6 +3981,243 @@ h1 .gradient {
   font-weight: 600;
 }
 
+.shipping-page {
+  background:
+    linear-gradient(180deg, #f4f7fd 0%, #ecf2fb 46%, #f7faff 100%);
+}
+
+.shipping-page .shipping-main {
+  padding: 0 0 84px;
+}
+
+.shipping-page .shipping-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 470px;
+  border-bottom: 1px solid #d8e2f1;
+  background:
+    radial-gradient(circle at top left, rgba(255, 211, 82, 0.2), transparent 24%),
+    radial-gradient(circle at right center, rgba(101, 138, 255, 0.2), transparent 28%),
+    linear-gradient(135deg, #09183f 0%, #17357a 52%, #2952c8 100%);
+}
+
+.shipping-page .shipping-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -80px -120px auto;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 211, 82, 0.24) 0%, rgba(255, 211, 82, 0) 72%);
+  pointer-events: none;
+}
+
+.shipping-page .shipping-hero-wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 470px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+.shipping-page .shipping-hero-badge {
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #dce7ff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.shipping-page .shipping-hero h1 {
+  margin-top: 20px;
+  color: #ffffff;
+  font-size: clamp(42px, 5vw, 64px);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.shipping-page .shipping-hero p {
+  margin: 18px auto 0;
+  max-width: 700px;
+  color: rgba(225, 234, 255, 0.88);
+  font-size: 19px;
+  line-height: 1.7;
+}
+
+.shipping-page .shipping-content {
+  padding: 0;
+}
+
+.shipping-page .shipping-content-wrap {
+  width: min(1180px, calc(100% - 96px));
+  margin-top: -84px;
+}
+
+.shipping-page .shipping-content-card {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 249, 255, 0.98) 100%);
+  border: 1px solid rgba(216, 226, 241, 0.92);
+  border-radius: 34px;
+  padding: 40px;
+  box-shadow: 0 24px 44px rgba(17, 38, 80, 0.12);
+}
+
+.shipping-page .shipping-intro {
+  padding: 8px 4px 30px;
+}
+
+.shipping-page .shipping-kicker {
+  color: #2f67dd;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.shipping-page .shipping-intro h2 {
+  margin-top: 14px;
+  color: #0f193b;
+  font-size: clamp(30px, 3.8vw, 48px);
+  line-height: 1.08;
+  font-weight: 800;
+  max-width: 720px;
+}
+
+.shipping-page .shipping-intro > p:last-child {
+  margin-top: 16px;
+  max-width: 760px;
+  color: #425978;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.shipping-page .shipping-points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.shipping-page .shipping-point-card {
+  position: relative;
+  min-height: 100%;
+  padding: 28px 26px 24px;
+  border-radius: 24px;
+  background: #ffffff;
+  border: 1px solid #dfe7f4;
+  box-shadow: 0 14px 28px rgba(21, 42, 86, 0.08);
+  overflow: hidden;
+}
+
+.shipping-page .shipping-point-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #2f67dd 0%, #5ca7ff 100%);
+}
+
+.shipping-page .shipping-point-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: rgba(47, 103, 221, 0.1);
+  color: #2f67dd;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.shipping-page .shipping-point-card h3 {
+  margin-top: 18px;
+  color: #0f193b;
+  font-size: 22px;
+  line-height: 1.28;
+  font-weight: 700;
+}
+
+.shipping-page .shipping-point-card p {
+  margin-top: 12px;
+  color: #526987;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.shipping-page .shipping-note-box {
+  margin-top: 26px;
+  padding: 24px 26px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #edf4ff 0%, #f8fbff 100%);
+  border: 1px solid #d7e4fb;
+}
+
+.shipping-page .shipping-note-box strong {
+  display: block;
+  color: #17357a;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.shipping-page .shipping-note-box p {
+  margin-top: 10px;
+  color: #46617f;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+@media (max-width: 900px) {
+  .shipping-page .shipping-content-wrap {
+    width: min(100%, calc(100% - 40px));
+    margin-top: -56px;
+  }
+
+  .shipping-page .shipping-content-card {
+    padding: 28px 22px;
+    border-radius: 26px;
+  }
+
+  .shipping-page .shipping-points {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .shipping-page .shipping-hero {
+    min-height: 390px;
+  }
+
+  .shipping-page .shipping-hero-wrap {
+    min-height: 390px;
+  }
+
+  .shipping-page .shipping-hero p {
+    font-size: 16px;
+  }
+
+  .shipping-page .shipping-intro h2 {
+    font-size: 30px;
+  }
+
+  .shipping-page .shipping-intro > p:last-child,
+  .shipping-page .shipping-point-card p,
+  .shipping-page .shipping-note-box p {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+}
+
 .auth-page .auth-section {
   padding: 64px 0 84px;
   background: linear-gradient(180deg, #e9eef6 0%, #f2f6fc 100%);
