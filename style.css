@@ -3885,6 +3885,17 @@ h1 .gradient {
   line-height: 1.74;
 }
 
+.terms-page .terms-content-card .terms-highlight-note {
+  margin-top: 22px;
+  padding: 18px 20px;
+  border-left: 5px solid #1f5eff;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #eef4ff 0%, #f8fbff 100%);
+  color: #173a74;
+  font-weight: 600;
+  box-shadow: 0 10px 22px rgba(31, 94, 255, 0.08);
+}
+
 .privacy-page .privacy-main {
   padding: 0 0 70px;
 }
@@ -6109,6 +6120,12 @@ button.reveal-on-scroll.is-visible,
     margin-top: 10px;
     font-size: 15px;
     line-height: 1.62;
+  }
+
+  .terms-page .terms-content-card .terms-highlight-note {
+    margin-top: 16px;
+    padding: 14px 14px 14px 16px;
+    border-radius: 12px;
   }
 
   .privacy-page .privacy-content {
