@@ -1379,7 +1379,7 @@ h1 .gradient {
 
 .footer-top {
   display: grid;
-  grid-template-columns: 1.1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.1fr 1fr 1fr 1.8fr;
   gap: 52px;
   padding-bottom: 34px;
   border-bottom: 1px solid rgba(154, 176, 214, 0.18);
@@ -1430,7 +1430,77 @@ h1 .gradient {
   text-decoration: none;
   font-size: 13px;
   line-height: 1.5;
-  margin-top: 2px;
+  margin: 2px 0 0;
+}
+
+.footer-address {
+  max-width: 320px;
+}
+
+.footer-contact-info {
+  display: grid;
+  gap: 4px;
+  align-content: start;
+}
+
+.footer-contact-info p {
+  margin: 0;
+}
+
+.footer-map-card {
+  margin-top: 14px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(152, 173, 211, 0.22);
+}
+
+.footer-map-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 14px;
+  background: #1d63d1;
+  color: #ffffff !important;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.footer-map-link:hover {
+  color: #ffffff !important;
+}
+
+.footer-map-card iframe {
+  display: block;
+  width: 100%;
+  height: 220px;
+  border: 0;
+}
+
+.footer-top > .footer-col:last-child {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  column-gap: 18px;
+  row-gap: 10px;
+  align-items: start;
+}
+
+.footer-top > .footer-col:last-child h3 {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
+.footer-top > .footer-col:last-child .footer-contact-info {
+  grid-column: 1;
+  align-self: start;
+}
+
+.footer-top > .footer-col:last-child .footer-map-card {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 0;
+  align-self: start;
 }
 
 .footer-col a:hover {
@@ -4679,6 +4749,15 @@ button.reveal-on-scroll.is-visible,
     font-size: 15px;
   }
 
+  .footer-address {
+    max-width: none;
+  }
+
+  .footer-top > .footer-col:last-child {
+    grid-template-columns: minmax(0, 1fr) 240px;
+    column-gap: 16px;
+  }
+
   .footer-logo {
     width: 102px;
     height: 74px;
@@ -5437,6 +5516,26 @@ button.reveal-on-scroll.is-visible,
   .footer-brand p {
     font-size: 14px;
     line-height: 1.45;
+  }
+
+  .footer-map-card iframe {
+    height: 200px;
+  }
+
+  .footer-top > .footer-col:last-child {
+    display: block;
+  }
+
+  .footer-top > .footer-col:last-child h3 {
+    margin-bottom: 10px;
+  }
+
+  .footer-contact-info {
+    gap: 2px;
+  }
+
+  .footer-top > .footer-col:last-child .footer-map-card {
+    margin-top: 14px;
   }
 
   .footer-logo {
