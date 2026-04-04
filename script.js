@@ -252,6 +252,150 @@ const defaultJobsData = [
   },
 ];
 
+const reviewForm = document.getElementById("reviewForm");
+const reviewFormMessage = document.getElementById("reviewFormMessage");
+
+if (reviewForm && reviewFormMessage) {
+  reviewForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById("reviewName");
+    const handle = document.getElementById("reviewHandle");
+    const message = document.getElementById("reviewMessage");
+    const rating = reviewForm.querySelector('input[name="reviewRating"]:checked');
+
+    if (!name || !handle || !message || !rating) {
+      reviewFormMessage.textContent = "Please fill all fields and select a star rating.";
+      reviewFormMessage.className = "review-form-message is-error";
+      return;
+    }
+
+    const reviewEntry = {
+      name: name.value.trim(),
+      handle: handle.value.trim(),
+      message: message.value.trim(),
+      rating: rating.value,
+      createdAt: new Date().toISOString(),
+    };
+
+    try {
+      const key = "jm_reviews_v1";
+      const existing = JSON.parse(localStorage.getItem(key) || "[]");
+      existing.unshift(reviewEntry);
+      localStorage.setItem(key, JSON.stringify(existing));
+    } catch {}
+
+    reviewForm.reset();
+    reviewFormMessage.textContent = "Thank you! Your review has been submitted successfully.";
+    reviewFormMessage.className = "review-form-message is-success";
+  });
+}
+
+const adminReviewsTableBody = document.getElementById("adminReviewsTableBody");
+const adminReviewsStatus = document.getElementById("adminReviewsStatus");
+const adminClearReviews = document.getElementById("adminClearReviews");
+
+if (adminReviewsTableBody && adminReviewsStatus) {
+  const REVIEWS_STORAGE_KEY = "jm_reviews_v1";
+
+  const escapeAdminHtml = (value = "") =>
+    String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+
+  const formatReviewDate = (value) => {
+    if (!value) return "-";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "-";
+    return date.toLocaleString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  const loadReviews = () => {
+    try {
+      return JSON.parse(localStorage.getItem(REVIEWS_STORAGE_KEY) || "[]");
+    } catch {
+      return [];
+    }
+  };
+
+  const saveReviews = (reviews) => {
+    try {
+      localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(reviews));
+    } catch {}
+  };
+
+  const renderAdminReviews = () => {
+    const reviews = loadReviews();
+
+    if (!reviews.length) {
+      adminReviewsStatus.textContent = "No experience reviews submitted yet.";
+      adminReviewsTableBody.innerHTML = "";
+      return;
+    }
+
+    adminReviewsStatus.textContent = `${reviews.length} review(s) found.`;
+    adminReviewsTableBody.innerHTML = reviews
+      .map((review, index) => {
+        const stars = "★".repeat(Number(review.rating) || 0) || "-";
+        return `
+          <tr>
+            <td>${escapeAdminHtml(review.name)}</td>
+            <td>${escapeAdminHtml(review.handle)}</td>
+            <td>${stars}</td>
+            <td>${escapeAdminHtml(review.message)}</td>
+            <td>${formatReviewDate(review.createdAt)}</td>
+            <td>
+              <button type="button" class="admin-delete-btn" data-delete-review-index="${index}">
+                Delete
+              </button>
+            </td>
+          </tr>
+        `;
+      })
+      .join("");
+  };
+
+  adminReviewsTableBody.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-delete-review-index]");
+    if (!button) return;
+
+    const index = Number(button.getAttribute("data-delete-review-index"));
+    const reviews = loadReviews();
+    if (Number.isNaN(index) || !reviews[index]) return;
+
+    reviews.splice(index, 1);
+    saveReviews(reviews);
+    renderAdminReviews();
+  });
+
+  if (adminClearReviews) {
+    adminClearReviews.addEventListener("click", () => {
+      const reviews = loadReviews();
+      if (!reviews.length) {
+        adminReviewsStatus.textContent = "No reviews available to clear.";
+        return;
+      }
+
+      const confirmed = window.confirm("Do you want to clear all submitted reviews?");
+      if (!confirmed) return;
+
+      saveReviews([]);
+      renderAdminReviews();
+    });
+  }
+
+  renderAdminReviews();
+}
+
 const escapeHtml = (value) =>
   String(value ?? "")
     .replaceAll("&", "&amp;")

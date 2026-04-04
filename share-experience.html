@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Matrix - Login</title>
+    <title>Job Matrix - Share Experience With Matrix</title>
     <link rel="icon" type="image/png" href="Logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,7 +13,7 @@
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="auth-page">
+  <body class="review-page">
     <header class="site-header">
       <div class="header-topbar">
         <div class="container header-topbar-wrap">
@@ -33,7 +33,6 @@
         <div class="brand">
           <img class="brand-image" src="Logo.png" alt="Job matrix logo" onclick="window.location.href='index.html'" />
         </div>
-
         <nav class="menu" id="menu">
           <a href="index.html">Home</a>
           <a href="services.html">Services</a>
@@ -51,41 +50,79 @@
           </div>
           <a href="contact.html">Contact</a>
         </nav>
-
         <button class="nav-cta" onclick="window.location.href='login.html'">Login / Sign Up</button>
-
         <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
           <span></span><span></span><span></span>
         </button>
       </div>
     </header>
 
-    <section class="auth-section">
-      <div class="container auth-wrap">
-        <div class="auth-card">
-          <h1>Login</h1>
-          <p>Welcome back! Login to continue your career journey.</p>
-
-          <form class="auth-form" id="loginForm">
-            <label>
-              Email Address
-              <input id="loginEmail" type="email" placeholder="you@example.com" required />
-            </label>
-            <label>
-              Password
-              <input id="loginPassword" type="password" placeholder="Enter your password" required />
-            </label>
-            <button type="submit" class="auth-submit" id="loginSubmitBtn">Login</button>
-          </form>
-          <p class="auth-message" id="loginMessage"></p>
-
-          <p class="auth-switch">
-            Don't have an account?
-            <a href="register.html">Create Register Account</a>
-          </p>
+    <main class="review-main">
+      <section class="review-hero">
+        <div class="container review-hero-wrap">
+          <span class="review-hero-badge">Real Feedback</span>
+          <h1>Share Experience With Matrix</h1>
+          <p>Share your experience with us so we can improve our services and help new candidates with genuine feedback.</p>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section class="review-section">
+        <div class="container review-layout">
+          <article class="review-info-card">
+            <p class="review-card-kicker">Why Review Us</p>
+            <h2>Your feedback matters to Matrix.</h2>
+            <ul class="review-benefits">
+              <li>Share your service experience through a simple form</li>
+              <li>Rate your overall satisfaction using the star rating</li>
+              <li>Add your social media handle for authenticity</li>
+              <li>Your feedback will help us improve our services</li>
+            </ul>
+          </article>
+
+          <article class="review-form-card">
+            <p class="review-card-kicker">Review Form</p>
+            <h2>Tell us about your experience</h2>
+            <form id="reviewForm">
+              <div class="review-grid2">
+                <label>
+                  Your Name <span>*</span>
+                  <input id="reviewName" type="text" placeholder="e.g. Rahul Sharma" required />
+                </label>
+                <label>
+                  Social Media User ID <span>*</span>
+                  <input id="reviewHandle" type="text" placeholder="@yourusername" required />
+                </label>
+              </div>
+
+              <fieldset class="review-stars-wrap">
+                <legend>Star Rating <span>*</span></legend>
+                <div class="review-stars">
+                  <input type="radio" name="reviewRating" id="reviewStar5" value="5" />
+                  <label for="reviewStar5" title="5 stars">&#9733;</label>
+                  <input type="radio" name="reviewRating" id="reviewStar4" value="4" />
+                  <label for="reviewStar4" title="4 stars">&#9733;</label>
+                  <input type="radio" name="reviewRating" id="reviewStar3" value="3" />
+                  <label for="reviewStar3" title="3 stars">&#9733;</label>
+                  <input type="radio" name="reviewRating" id="reviewStar2" value="2" />
+                  <label for="reviewStar2" title="2 stars">&#9733;</label>
+                  <input type="radio" name="reviewRating" id="reviewStar1" value="1" />
+                  <label for="reviewStar1" title="1 star">&#9733;</label>
+                </div>
+              </fieldset>
+
+              <label>
+                Your Message <span>*</span>
+                <textarea id="reviewMessage" placeholder="Write your review here..." required></textarea>
+              </label>
+
+              <button type="submit" class="review-submit" id="reviewSubmitBtn">Submit Review</button>
+              <p class="review-form-note">Your review will help us improve the Job Matrix experience.</p>
+              <p class="review-form-message" id="reviewFormMessage"></p>
+            </form>
+          </article>
+        </div>
+      </section>
+    </main>
 
     <footer class="site-footer">
       <div class="container footer-wrap">
@@ -94,21 +131,18 @@
             <div class="footer-logo">
               <img src="Logo.png" alt="Job matrix logo" class="footer-logo-image" />
             </div>
-            <p>
-              Connecting top talent with India's leading companies. Ethical
-              recruitment, transparency, and trust are our core values.
-            </p>
+            <p>Connecting top talent with India's leading companies. Ethical recruitment, transparency, and trust are our core values.</p>
           </div>
 
-        <div class="footer-col">
-          <h3>Quick Links</h3>
-          <a href="jobs.html">Find a Job</a>
-          <a href="#">For Employers</a>
-          <a href="about.html">About Us</a>
-          <a href="contact.html">Contact Support</a>
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <a href="jobs.html">Find a Job</a>
+            <a href="#">For Employers</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Support</a>
             <a href="shipping-delivery-policy.html">Shipping &amp; Delivery Policy</a>
             <a href="share-experience.html">Share Experience With Matrix</a>
-        </div>
+          </div>
 
           <div class="footer-col">
             <h3>Services</h3>
@@ -142,10 +176,6 @@
       </div>
     </footer>
 
-    <script type="module" src="auth.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
-
-
-
