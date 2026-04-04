@@ -297,6 +297,7 @@ const adminClearReviews = document.getElementById("adminClearReviews");
 
 if (adminReviewsTableBody && adminReviewsStatus) {
   const REVIEWS_STORAGE_KEY = "jm_reviews_v1";
+  const PUBLIC_TESTIMONIALS_STORAGE_KEY = "jm_public_testimonials_v1";
 
   const escapeAdminHtml = (value = "") =>
     String(value)
@@ -333,8 +334,26 @@ if (adminReviewsTableBody && adminReviewsStatus) {
     } catch {}
   };
 
+  const loadPublicTestimonials = () => {
+    try {
+      return JSON.parse(localStorage.getItem(PUBLIC_TESTIMONIALS_STORAGE_KEY) || "[]");
+    } catch {
+      return [];
+    }
+  };
+
+  const savePublicTestimonials = (items) => {
+    try {
+      localStorage.setItem(PUBLIC_TESTIMONIALS_STORAGE_KEY, JSON.stringify(items));
+    } catch {}
+  };
+
   const renderAdminReviews = () => {
     const reviews = loadReviews();
+    const publicTestimonials = loadPublicTestimonials();
+    const publicKeys = new Set(
+      publicTestimonials.map((item) => `${item.name}__${item.handle}__${item.message}__${item.rating}`)
+    );
 
     if (!reviews.length) {
       adminReviewsStatus.textContent = "No experience reviews submitted yet.";
@@ -346,14 +365,20 @@ if (adminReviewsTableBody && adminReviewsStatus) {
     adminReviewsTableBody.innerHTML = reviews
       .map((review, index) => {
         const stars = "★".repeat(Number(review.rating) || 0) || "-";
+        const reviewKey = `${review.name}__${review.handle}__${review.message}__${review.rating}`;
+        const isPublic = publicKeys.has(reviewKey);
         return `
           <tr>
             <td>${escapeAdminHtml(review.name)}</td>
             <td>${escapeAdminHtml(review.handle)}</td>
             <td>${stars}</td>
             <td>${escapeAdminHtml(review.message)}</td>
+            <td>${isPublic ? "Public" : "Private"}</td>
             <td>${formatReviewDate(review.createdAt)}</td>
             <td>
+              <button type="button" class="admin-public-btn${isPublic ? " is-live" : ""}" data-public-review-index="${index}">
+                ${isPublic ? "Public" : "Make Public"}
+              </button>
               <button type="button" class="admin-delete-btn" data-delete-review-index="${index}">
                 Delete
               </button>
@@ -365,6 +390,34 @@ if (adminReviewsTableBody && adminReviewsStatus) {
   };
 
   adminReviewsTableBody.addEventListener("click", (event) => {
+    const publicButton = event.target.closest("[data-public-review-index]");
+    if (publicButton) {
+      const index = Number(publicButton.getAttribute("data-public-review-index"));
+      const reviews = loadReviews();
+      const review = reviews[index];
+      if (Number.isNaN(index) || !review) return;
+
+      const publicTestimonials = loadPublicTestimonials();
+      const reviewKey = `${review.name}__${review.handle}__${review.message}__${review.rating}`;
+      const alreadyPublic = publicTestimonials.some(
+        (item) => `${item.name}__${item.handle}__${item.message}__${item.rating}` === reviewKey
+      );
+
+      if (!alreadyPublic) {
+        publicTestimonials.unshift({
+          name: review.name,
+          handle: review.handle,
+          message: review.message,
+          rating: review.rating,
+          createdAt: review.createdAt,
+        });
+        savePublicTestimonials(publicTestimonials);
+      }
+
+      renderAdminReviews();
+      return;
+    }
+
     const button = event.target.closest("[data-delete-review-index]");
     if (!button) return;
 
@@ -394,6 +447,52 @@ if (adminReviewsTableBody && adminReviewsStatus) {
   }
 
   renderAdminReviews();
+}
+
+const homeTestimonialsTrack = document.getElementById("homeTestimonialsTrack");
+
+if (homeTestimonialsTrack) {
+  const PUBLIC_TESTIMONIALS_STORAGE_KEY = "jm_public_testimonials_v1";
+
+  const loadPublicTestimonials = () => {
+    try {
+      return JSON.parse(localStorage.getItem(PUBLIC_TESTIMONIALS_STORAGE_KEY) || "[]");
+    } catch {
+      return [];
+    }
+  };
+
+  const createStarsMarkup = (rating) => {
+    const count = Math.max(1, Math.min(5, Number(rating) || 5));
+    return Array.from({ length: 5 }, (_, index) =>
+      `<span class="star${index < count ? " filled" : ""}">&#9733;</span>`
+    ).join("");
+  };
+
+  const publicTestimonials = loadPublicTestimonials();
+
+  if (publicTestimonials.length) {
+    const dynamicMarkup = publicTestimonials
+      .slice(0, 8)
+      .map(
+        (item) => `
+          <article class="home-testimonial-card">
+            <div class="testimonial-rating" aria-label="Rated ${escapeHtml(item.rating || 5)} out of 5 stars">
+              <span class="stars">
+                ${createStarsMarkup(item.rating)}
+              </span>
+            </div>
+            <p>
+              "${escapeHtml(item.message || "")}"
+            </p>
+            <strong>${escapeHtml(item.name || "Job Matrix User")}</strong>
+          </article>
+        `
+      )
+      .join("");
+
+    homeTestimonialsTrack.insertAdjacentHTML("beforeend", dynamicMarkup + dynamicMarkup);
+  }
 }
 
 const escapeHtml = (value) =>

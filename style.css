@@ -2645,6 +2645,25 @@ h1 .gradient {
   cursor: pointer;
 }
 
+.admin-page .admin-public-btn {
+  min-height: 34px;
+  border: 1px solid #b9d4ff;
+  border-radius: 9px;
+  background: #eef4ff;
+  color: #2757df;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+.admin-page .admin-public-btn.is-live {
+  border-color: #b9eccb;
+  background: #edf9f1;
+  color: #1f8c4d;
+}
+
 .admin-page .admin-delete-btn:disabled {
   opacity: 0.7;
   cursor: wait;
