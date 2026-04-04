@@ -19,7 +19,7 @@ body {
   color: var(--text);
   background: var(--bg);
   overflow-x: hidden;
-  padding-top: 128px;
+  padding-top: 106px;
 }
 
 html {
@@ -218,7 +218,7 @@ html {
 }
 
 .nav-wrap {
-  min-height: 92px;
+  min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
