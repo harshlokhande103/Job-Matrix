@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Matrix - Share Experience With Matrix</title>
+    <title>Job Matrix - Disclaimer</title>
     <link rel="icon" type="image/png" href="Logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,7 +13,7 @@
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="review-page">
+  <body class="disclaimer-page">
     <header class="site-header">
       <div class="header-topbar">
         <div class="container header-topbar-wrap">
@@ -33,12 +33,13 @@
         <div class="brand">
           <img class="brand-image" src="Logo.png" alt="Job matrix logo" onclick="window.location.href='index.html'" />
         </div>
+
         <nav class="menu" id="menu">
           <a href="index.html">Home</a>
           <a href="services.html">Services</a>
           <a href="jobs.html">Jobs</a>
-          <div class="menu-item-about">
-            <a href="about.html">About</a>
+          <div class="menu-item-about active">
+            <a class="active" href="about.html">About</a>
             <div class="about-dropdown">
               <button type="button" class="about-dropdown-close" aria-label="Close About menu">&times;</button>
               <a href="about.html">About Us</a>
@@ -50,75 +51,63 @@
           </div>
           <a href="contact.html">Contact</a>
         </nav>
-        <button class="nav-cta" onclick="window.location.href='login.html'">Login / Sign Up</button>
+
+        <button class="nav-cta" onclick="window.location.href='login.html'">
+          Login / Sign Up
+        </button>
+
         <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
           <span></span><span></span><span></span>
         </button>
       </div>
     </header>
 
-    <main class="review-main">
-      <section class="review-hero">
-        <div class="container review-hero-wrap">
-          <span class="review-hero-badge">Real Feedback</span>
-          <h1>Share Experience With Matrix</h1>
-          <p>Share your experience with us so we can improve our services and help new candidates with genuine feedback.</p>
+    <main class="disclaimer-main">
+      <section class="disclaimer-hero">
+        <div class="container disclaimer-hero-wrap">
+          <h1>Disclaimer</h1>
+          <p>Job Matrix Consultancy</p>
         </div>
       </section>
 
-      <section class="review-section">
-        <div class="container review-layout">
-          <article class="review-info-card">
-            <p class="review-card-kicker">Why Review Us</p>
-            <h2>Your feedback matters to Matrix.</h2>
-            <ul class="review-benefits">
-              <li>Share your service experience through a simple form</li>
-              <li>Rate your overall satisfaction using the star rating</li>
-              <li>Add your social media handle for authenticity</li>
-              <li>Your feedback will help us improve our services</li>
-            </ul>
-          </article>
-
-          <article class="review-form-card">
-            <p class="review-card-kicker">Review Form</p>
-            <h2>Tell us about your experience</h2>
-            <form id="reviewForm">
-              <div class="review-grid2">
-                <label>
-                  Your Name <span>*</span>
-                  <input id="reviewName" type="text" placeholder="e.g. Rahul Sharma" required />
-                </label>
-                <label>
-                  Social Media User ID <span>*</span>
-                  <input id="reviewHandle" type="text" placeholder="@yourusername" required />
-                </label>
-              </div>
-
-              <fieldset class="review-stars-wrap">
-                <legend>Star Rating <span>*</span></legend>
-                <div class="review-stars">
-                  <input type="radio" name="reviewRating" id="reviewStar5" value="5" />
-                  <label for="reviewStar5" title="5 stars">&#9733;</label>
-                  <input type="radio" name="reviewRating" id="reviewStar4" value="4" />
-                  <label for="reviewStar4" title="4 stars">&#9733;</label>
-                  <input type="radio" name="reviewRating" id="reviewStar3" value="3" />
-                  <label for="reviewStar3" title="3 stars">&#9733;</label>
-                  <input type="radio" name="reviewRating" id="reviewStar2" value="2" />
-                  <label for="reviewStar2" title="2 stars">&#9733;</label>
-                  <input type="radio" name="reviewRating" id="reviewStar1" value="1" />
-                  <label for="reviewStar1" title="1 star">&#9733;</label>
-                </div>
-              </fieldset>
-
-              <label>
-                Your Message <span>*</span>
-                <textarea id="reviewMessage" placeholder="Write your review here..." required></textarea>
-              </label>
-
-              <button type="submit" class="review-submit" id="reviewSubmitBtn">Submit Review</button>
-              <p class="review-form-note">Your review will help us improve the Job Matrix experience.</p>
-              <p class="review-form-message" id="reviewFormMessage"></p>
-            </form>
+      <section class="disclaimer-content">
+        <div class="container disclaimer-content-wrap">
+          <article class="disclaimer-content-card">
+            <p>
+              The information provided on the Job Matrix website is intended for
+              general informational and career guidance purposes only. While we
+              make every effort to provide accurate and updated information
+              regarding our services, training programs, and career support,
+              Job Matrix does not guarantee specific job outcomes, interview
+              results, or employment offers. Our services are designed to
+              support candidates through interview preparation, career
+              guidance, and professional skill development to improve their
+              chances of success in the job market.
+            </p>
+            <br />
+            <p>
+              Job Matrix is an independent career service platform. We are not
+              a government recruitment agency, but we are a
+              government-registered business, providing career guidance,
+              training, and interview preparation services.
+            </p>
+            <br />
+            <p>
+              All candidates are advised to carefully review job
+              opportunities, company details, and employment terms before
+              making any career decisions. Job Matrix provides assistance in
+              connecting candidates with potential opportunities based on their
+              qualifications, experience, and preferences, but the final
+              hiring decisions are always made by the respective employers or
+              organizations.
+            </p>
+            <br />
+            <p>
+              Job Matrix does not claim any partnership, endorsement, or
+              official relationship with any government body, recruitment
+              board, or organization unless it is clearly mentioned on our
+              website.
+            </p>
           </article>
         </div>
       </section>
@@ -131,7 +120,10 @@
             <div class="footer-logo">
               <img src="Logo.png" alt="Job matrix logo" class="footer-logo-image" />
             </div>
-            <p>Connecting top talent with India's leading companies. Ethical recruitment, transparency, and trust are our core values.</p>
+            <p>
+              Connecting top talent with India's leading companies. Ethical
+              recruitment, transparency, and trust are our core values.
+            </p>
           </div>
 
           <div class="footer-col">
