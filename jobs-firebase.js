@@ -47,7 +47,7 @@ const defaultJobsData = [
     title: "Senior React Developer",
     company: "TechCorp Solutions",
     location: "Bangalore",
-    salary: "20L - 30L PA",
+    salary: "3L - 5L PA",
     description: "We are looking for an experienced React developer to join our team.",
   },
 ];
