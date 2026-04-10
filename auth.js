@@ -84,6 +84,16 @@ if (!hasValidFirebaseConfig()) {
 
     registerForm.addEventListener("submit", async (event) => {
       event.preventDefault();
+
+      if (registerForm.classList.contains("is-locked")) {
+        setMessage(
+          message,
+          "Please open and accept the Terms & Conditions before registration.",
+          "error"
+        );
+        return;
+      }
+
       const name = document.getElementById("registerName")?.value.trim() || "";
       const email = document.getElementById("registerEmail")?.value.trim() || "";
       const phone = document.getElementById("registerPhone")?.value.trim() || "";

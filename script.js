@@ -7,6 +7,32 @@ if (menuToggle && menu) {
   });
 }
 
+const termsGateOverlay = document.getElementById("termsGateOverlay");
+const termsGateOpenLink = document.getElementById("termsGateOpenLink");
+const termsGateAcceptBtn = document.getElementById("termsGateAcceptBtn");
+const termsGateNote = document.getElementById("termsGateNote");
+const registerFormGate = document.getElementById("registerForm");
+
+if (termsGateOverlay && termsGateOpenLink && termsGateAcceptBtn && registerFormGate) {
+  let termsOpened = false;
+
+  termsGateOpenLink.addEventListener("click", () => {
+    termsOpened = true;
+    termsGateAcceptBtn.disabled = false;
+    if (termsGateNote) {
+      termsGateNote.textContent =
+        "Terms & Conditions opened. You can now continue with registration.";
+    }
+  });
+
+  termsGateAcceptBtn.addEventListener("click", () => {
+    if (!termsOpened) return;
+    termsGateOverlay.hidden = true;
+    termsGateOverlay.setAttribute("aria-hidden", "true");
+    registerFormGate.classList.remove("is-locked");
+  });
+}
+
 const aboutMenuItems = Array.from(document.querySelectorAll(".menu-item-about"));
 if (aboutMenuItems.length) {
   const isMobileMenu = () => window.matchMedia("(max-width: 980px)").matches;
@@ -44,6 +70,12 @@ if (aboutMenuItems.length) {
       if (isMobileMenu()) return;
       item.classList.remove("force-closed");
       item.classList.add("force-open");
+    });
+
+    item.addEventListener("mouseleave", () => {
+      if (isMobileMenu()) return;
+      item.classList.remove("force-open");
+      item.classList.remove("force-closed");
     });
   });
 }
