@@ -589,6 +589,20 @@ const WHATSAPP_MESSAGE = encodeURIComponent(
 );
 
 if (document.body) {
+  const registerLink = document.createElement("a");
+  registerLink.className = "floating-register";
+  registerLink.href = "register.html";
+  registerLink.setAttribute("aria-label", "Register with Job Matrix");
+  registerLink.innerHTML = `
+    <span class="floating-register-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" role="img" focusable="false">
+        <path fill="currentColor" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-3.33 0-6 1.79-6 4v1h12v-1c0-2.21-2.67-4-6-4Zm8-3h-2V9h-2V7h2V5h2v2h2v2h-2Z"/>
+      </svg>
+    </span>
+    <span class="floating-register-text">Register</span>
+  `;
+  document.body.appendChild(registerLink);
+
   const whatsappLink = document.createElement("a");
   whatsappLink.className = "floating-whatsapp";
   whatsappLink.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
