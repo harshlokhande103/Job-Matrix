@@ -14,32 +14,6 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="auth-page">
-    <div class="terms-gate-overlay" id="termsGateOverlay" aria-hidden="false">
-      <div class="terms-gate-modal" role="dialog" aria-modal="true" aria-labelledby="termsGateTitle">
-        <p class="terms-gate-kicker">Required Before Registration</p>
-        <h2 id="termsGateTitle">Review the Terms &amp; Conditions if you want</h2>
-        <p class="terms-gate-copy">
-          You can open the Terms &amp; Conditions in a new tab, or continue directly to create your account.
-        </p>
-        <div class="terms-gate-actions">
-          <a
-            class="terms-gate-link"
-            href="terms-conditions.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            id="termsGateOpenLink"
-          >
-            Open Terms &amp; Conditions
-          </a>
-          <button type="button" class="terms-gate-accept" id="termsGateAcceptBtn">
-            I Agree and Continue
-          </button>
-        </div>
-        <p class="terms-gate-note" id="termsGateNote">
-          You can continue directly, or open the Terms &amp; Conditions first.
-        </p>
-      </div>
-    </div>
     <header class="site-header">
       <div class="header-topbar">
         <div class="container header-topbar-wrap">
@@ -90,7 +64,7 @@
           <h1>Register</h1>
           <p>Create your account and start applying for the best roles.</p>
 
-          <form class="auth-form is-locked" id="registerForm">
+          <form class="auth-form" id="registerForm">
             <label>
               Full Name
               <input id="registerName" type="text" placeholder="Your full name" required />
@@ -106,6 +80,12 @@
             <label>
               Password
               <input id="registerPassword" type="password" placeholder="Create password" required />
+            </label>
+            <label class="auth-checkbox-row" for="registerTermsAccepted">
+              <input id="registerTermsAccepted" type="checkbox" />
+              <span>
+                I agree to the <a href="terms-conditions.html" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions</a>.
+              </span>
             </label>
             <button type="submit" class="auth-submit" id="registerSubmitBtn">Create Account</button>
           </form>

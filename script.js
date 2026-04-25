@@ -7,27 +7,6 @@ if (menuToggle && menu) {
   });
 }
 
-const termsGateOverlay = document.getElementById("termsGateOverlay");
-const termsGateOpenLink = document.getElementById("termsGateOpenLink");
-const termsGateAcceptBtn = document.getElementById("termsGateAcceptBtn");
-const termsGateNote = document.getElementById("termsGateNote");
-const registerFormGate = document.getElementById("registerForm");
-
-if (termsGateOverlay && termsGateOpenLink && termsGateAcceptBtn && registerFormGate) {
-  termsGateOpenLink.addEventListener("click", () => {
-    if (termsGateNote) {
-      termsGateNote.textContent =
-        "Terms & Conditions opened in a new tab. You can continue with registration anytime.";
-    }
-  });
-
-  termsGateAcceptBtn.addEventListener("click", () => {
-    termsGateOverlay.hidden = true;
-    termsGateOverlay.setAttribute("aria-hidden", "true");
-    registerFormGate.classList.remove("is-locked");
-  });
-}
-
 const aboutMenuItems = Array.from(document.querySelectorAll(".menu-item-about"));
 if (aboutMenuItems.length) {
   const isMobileMenu = () => window.matchMedia("(max-width: 980px)").matches;

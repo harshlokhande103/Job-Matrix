@@ -81,16 +81,20 @@ if (!hasValidFirebaseConfig()) {
   if (registerForm) {
     const message = document.getElementById("registerMessage");
     const submitBtn = document.getElementById("registerSubmitBtn");
+    const termsCheckbox = document.getElementById("registerTermsAccepted");
+
+    if (submitBtn && termsCheckbox) {
+      submitBtn.disabled = !termsCheckbox.checked;
+      termsCheckbox.addEventListener("change", () => {
+        submitBtn.disabled = !termsCheckbox.checked;
+      });
+    }
 
     registerForm.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      if (registerForm.classList.contains("is-locked")) {
-        setMessage(
-          message,
-          "Please open and accept the Terms & Conditions before registration.",
-          "error"
-        );
+      if (termsCheckbox && !termsCheckbox.checked) {
+        setMessage(message, "Please accept the Terms & Conditions to continue.", "error");
         return;
       }
 
