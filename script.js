@@ -14,19 +14,14 @@ const termsGateNote = document.getElementById("termsGateNote");
 const registerFormGate = document.getElementById("registerForm");
 
 if (termsGateOverlay && termsGateOpenLink && termsGateAcceptBtn && registerFormGate) {
-  let termsOpened = false;
-
   termsGateOpenLink.addEventListener("click", () => {
-    termsOpened = true;
-    termsGateAcceptBtn.disabled = false;
     if (termsGateNote) {
       termsGateNote.textContent =
-        "Terms & Conditions opened. You can now continue with registration.";
+        "Terms & Conditions opened in a new tab. You can continue with registration anytime.";
     }
   });
 
   termsGateAcceptBtn.addEventListener("click", () => {
-    if (!termsOpened) return;
     termsGateOverlay.hidden = true;
     termsGateOverlay.setAttribute("aria-hidden", "true");
     registerFormGate.classList.remove("is-locked");
