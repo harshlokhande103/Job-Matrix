@@ -10,6 +10,8 @@ import {
   onSnapshot,
   orderBy,
   query,
+  serverTimestamp,
+  setDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
 
@@ -26,10 +28,13 @@ const contactStatus = document.getElementById("adminContactStatus");
 const contactList = document.getElementById("adminContactList");
 const onboardingStatus = document.getElementById("adminOnboardingStatus");
 const onboardingDetails = document.getElementById("adminOnboardingDetails");
+const plansVisibilityForm = document.getElementById("adminPlansVisibilityForm");
+const plansVisibilityStatus = document.getElementById("adminPlansVisibilityStatus");
 const CONTACT_SUBMISSIONS_STORAGE_KEY = "jm_contact_submissions_v1";
 let registeredUsers = [];
 let contactSubmissions = [];
 let unsubscribeApplications = null;
+let unsubscribePlansVisibility = null;
 
 const showMessage = (html) => {
   if (!accessMessage) return;
@@ -80,6 +85,12 @@ const setContactStatus = (text) => {
 
 const setOnboardingStatus = (text) => {
   if (onboardingStatus) onboardingStatus.textContent = text;
+};
+
+const setPlansVisibilityStatus = (text, isError = false) => {
+  if (!plansVisibilityStatus) return;
+  plansVisibilityStatus.textContent = text;
+  plansVisibilityStatus.style.color = isError ? "#b42318" : "";
 };
 
 const formatListValue = (value) => {
@@ -473,6 +484,73 @@ const loadJobApplications = (db) => {
   }
 };
 
+const setupPlansVisibilityControl = (db, user) => {
+  if (!plansVisibilityForm || !user) return;
+
+  const settingRef = doc(db, "siteSettings", "services");
+  const radios = Array.from(plansVisibilityForm.querySelectorAll('input[name="plansVisibility"]'));
+
+  const setSelectedValue = (plansVisible) => {
+    const selectedValue = plansVisible ? "show" : "hide";
+    radios.forEach((radio) => {
+      radio.checked = radio.value === selectedValue;
+    });
+  };
+
+  if (plansVisibilityForm.dataset.bound !== "true") {
+    plansVisibilityForm.dataset.bound = "true";
+    plansVisibilityForm.addEventListener("change", async (event) => {
+      const radio = event.target.closest('input[name="plansVisibility"]');
+      if (!radio) return;
+
+      const plansVisible = radio.value === "show";
+      radios.forEach((item) => {
+        item.disabled = true;
+      });
+      setPlansVisibilityStatus("Saving plan visibility...");
+
+      try {
+        await setDoc(
+          settingRef,
+          {
+            plansVisible,
+            updatedAt: serverTimestamp(),
+            updatedBy: user.uid,
+          },
+          { merge: true }
+        );
+        setPlansVisibilityStatus(plansVisible ? "Service plans are visible." : "Service plans are hidden.");
+      } catch (error) {
+        console.error("Plans visibility save error:", error);
+        setPlansVisibilityStatus("Could not save this setting. Please check Firestore rules.", true);
+      } finally {
+        radios.forEach((item) => {
+          item.disabled = false;
+        });
+      }
+    });
+  }
+
+  if (unsubscribePlansVisibility) {
+    unsubscribePlansVisibility();
+  }
+
+  setPlansVisibilityStatus("Loading plan visibility...");
+  unsubscribePlansVisibility = onSnapshot(
+    settingRef,
+    (snapshot) => {
+      const plansVisible = snapshot.exists() ? snapshot.data()?.plansVisible !== false : true;
+      setSelectedValue(plansVisible);
+      setPlansVisibilityStatus(plansVisible ? "Service plans are visible." : "Service plans are hidden.");
+    },
+    (error) => {
+      console.error("Plans visibility fetch error:", error);
+      setSelectedValue(true);
+      setPlansVisibilityStatus("Could not load this setting. Showing plans by default.", true);
+    }
+  );
+};
+
 const isConfigValid =
   firebaseConfig &&
   Object.values(firebaseConfig).every(
@@ -579,6 +657,7 @@ if (!isConfigValid) {
       const userData = userDocSnap.data();
       if (userData.role === "admin") {
         showAdmin();
+        setupPlansVisibilityControl(db, user);
         loadJobApplications(db);
         await loadRegisteredUsers(db);
         renderOnboardingDetails(null);

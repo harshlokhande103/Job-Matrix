@@ -2872,6 +2872,40 @@ h1 .gradient {
   font-weight: 500;
 }
 
+.admin-page .admin-toggle-form {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-page .admin-radio-card {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #cfd8e7;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #183154;
+  padding: 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-page .admin-radio-card input {
+  width: 18px;
+  height: 18px;
+  accent-color: #2f71ff;
+}
+
+.admin-page .admin-radio-card:has(input:checked) {
+  border-color: #2f71ff;
+  background: #eef4ff;
+  color: #173f9f;
+}
+
 .admin-page .admin-users-table-wrap {
   margin-top: 12px;
   overflow-x: auto;

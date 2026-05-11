@@ -137,6 +137,26 @@
         <article class="admin-users-card">
           <div class="admin-users-head">
             <div>
+              <h2>Service Plans Visibility</h2>
+              <p>Control whether the Service Plans block appears on the Services page.</p>
+            </div>
+          </div>
+          <form id="adminPlansVisibilityForm" class="admin-toggle-form">
+            <label class="admin-radio-card">
+              <input type="radio" name="plansVisibility" value="show" />
+              <span>Show Plans</span>
+            </label>
+            <label class="admin-radio-card">
+              <input type="radio" name="plansVisibility" value="hide" />
+              <span>Hide Plans</span>
+            </label>
+          </form>
+          <p class="admin-users-status" id="adminPlansVisibilityStatus">Loading plan visibility...</p>
+        </article>
+
+        <article class="admin-users-card">
+          <div class="admin-users-head">
+            <div>
               <h2>Job Applications</h2>
               <p>Applications submitted from the dashboard and jobs page will appear here.</p>
             </div>
