@@ -1,3 +1,48 @@
+const NAME_FIELD_IDS = new Set([
+  "registerName",
+  "contactName",
+  "reviewName",
+  "fullName",
+  "whatsappEnquiryName",
+]);
+const NAME_FIELD_ERROR = "Please enter a valid name. Numbers are not allowed.";
+const NAME_VALUE_PATTERN = /^[\p{L}][\p{L}\s.'-]*$/u;
+
+const isValidatedNameField = (field) =>
+  field instanceof HTMLInputElement && NAME_FIELD_IDS.has(field.id);
+
+const validateNameField = (field) => {
+  if (!isValidatedNameField(field)) return true;
+
+  const value = field.value.trim();
+  const isValid = !value || (NAME_VALUE_PATTERN.test(value) && !/\d/.test(value));
+  field.setCustomValidity(isValid ? "" : NAME_FIELD_ERROR);
+  field.classList.toggle("name-field-invalid", !isValid);
+  return isValid;
+};
+
+document.addEventListener("input", (event) => {
+  validateNameField(event.target);
+});
+
+document.addEventListener(
+  "submit",
+  (event) => {
+    const form = event.target;
+    if (!(form instanceof HTMLFormElement)) return;
+
+    const nameFields = Array.from(form.querySelectorAll("input")).filter(isValidatedNameField);
+    const invalidField = nameFields.find((field) => !validateNameField(field));
+
+    if (invalidField) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      invalidField.reportValidity();
+    }
+  },
+  true
+);
+
 const menuToggle = document.getElementById("menuToggle");
 const menu = document.getElementById("menu");
 
