@@ -1,20 +1,19 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import {
-  createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
-  updateProfile,
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import {
   doc,
   getDoc,
   getFirestore,
-  serverTimestamp,
-  setDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
 
 const POST_LOGIN_REDIRECT_KEY = "jm_post_login_redirect";
+const REGISTER_SHEET_WEB_APP_URL =
+  "https://script.google.com/macros/s/AKfycbyEZspOpe2oAbRuLIPcrZbXPKGnX28mV7uCkH6gfqmaoZtzfYloI87LZx2WB7r_5S0I/exec";
+const REGISTER_STORAGE_KEY = "jm_register_submissions_v1";
 
 const hasValidFirebaseConfig = () =>
   firebaseConfig &&
@@ -61,6 +60,25 @@ const mapAuthError = (code) => {
   }
 };
 
+const saveRegisterBackup = (entry) => {
+  try {
+    const existing = JSON.parse(localStorage.getItem(REGISTER_STORAGE_KEY) || "[]");
+    existing.unshift(entry);
+    localStorage.setItem(REGISTER_STORAGE_KEY, JSON.stringify(existing.slice(0, 200)));
+  } catch {}
+};
+
+const sendRegisterToSheet = async (entry) => {
+  await fetch(REGISTER_SHEET_WEB_APP_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8",
+    },
+    body: JSON.stringify(entry),
+  });
+};
+
 if (!hasValidFirebaseConfig()) {
   const loginMessage = document.getElementById("loginMessage");
   const registerMessage = document.getElementById("registerMessage");
@@ -99,59 +117,47 @@ if (!hasValidFirebaseConfig()) {
       }
 
       const name = document.getElementById("registerName")?.value.trim() || "";
-      const email = document.getElementById("registerEmail")?.value.trim() || "";
       const phone = document.getElementById("registerPhone")?.value.trim() || "";
-      const password = document.getElementById("registerPassword")?.value || "";
+      const email = document.getElementById("registerEmail")?.value.trim() || "";
+      const cityState = document.getElementById("registerCityState")?.value.trim() || "";
+      const bpoKpoExperience =
+        document.getElementById("registerBpoKpoExperience")?.value.trim() || "";
+      const experience = document.getElementById("registerExperience")?.value.trim() || "";
 
-      if (!name || !email || !phone || !password) {
+      if (!name || !phone || !email || !cityState || !bpoKpoExperience) {
         setMessage(message, "Please fill all fields.", "error");
         return;
       }
 
-      if (password.length < 6) {
-        setMessage(message, "Password must be at least 6 characters.", "error");
-        return;
-      }
-
       submitBtn.disabled = true;
-      setMessage(message, "Creating account...");
+      setMessage(message, "Submitting your registration...");
 
-      let createdUser = null;
+      const registerEntry = {
+        formType: "register",
+        name,
+        phone,
+        email,
+        cityState,
+        bpoKpoExperience,
+        experience: experience || "Not provided",
+        page: window.location.href,
+        createdAt: new Date().toISOString(),
+      };
+
+      saveRegisterBackup(registerEntry);
+
       try {
-        const credential = await createUserWithEmailAndPassword(auth, email, password);
-        createdUser = credential.user;
-        await updateProfile(credential.user, { displayName: name });
-
-        await setDoc(doc(db, "users", credential.user.uid), {
-          uid: credential.user.uid,
-          fullName: name,
-          email,
-          phone,
-          role: "user",
-          createdAt: serverTimestamp(),
-        });
-
-        localStorage.setItem(
-          `jm_user_profile_${credential.user.uid}`,
-          JSON.stringify({ fullName: name, phone })
-        );
-        alert("Registration successful.");
-        setMessage(message, "Account created successfully. Redirecting to form...", "success");
+        await sendRegisterToSheet(registerEntry);
+        alert("Registration submitted successfully.");
+        setMessage(message, "Registration submitted successfully. Our team will contact you soon.", "success");
         registerForm.reset();
-        setTimeout(() => {
-          window.location.href = "candidate-onboarding.html";
-        }, 900);
       } catch (error) {
         console.error("Register error:", error);
-        if (createdUser && error.code === "permission-denied") {
-          setMessage(
-            message,
-            "The account was created in Authentication, but Firestore rules blocked profile saving. Update Firestore rules and set role (user/admin) manually for this UID in the users collection.",
-            "error"
-          );
-        } else {
-          setMessage(message, mapAuthError(error.code), "error");
-        }
+        setMessage(
+          message,
+          "Registration was saved locally, but Google Sheet could not be reached. Please try again.",
+          "error"
+        );
       } finally {
         submitBtn.disabled = false;
       }

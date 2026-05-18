@@ -62,24 +62,36 @@
       <div class="container auth-wrap">
         <div class="auth-card">
           <h1>Register</h1>
-          <p>Create your account and start applying for the best roles.</p>
+          <p>Share your details and our team will contact you for suitable roles.</p>
 
           <form class="auth-form" id="registerForm">
             <label>
-              Full Name
-              <input id="registerName" type="text" placeholder="Your full name" required />
+              Name
+              <input id="registerName" type="text" placeholder="Your name" autocomplete="name" required />
             </label>
             <label>
-              Email Address
-              <input id="registerEmail" type="email" placeholder="you@example.com" required />
+              Contact No
+              <input id="registerPhone" type="tel" placeholder="+91..." autocomplete="tel" required />
             </label>
             <label>
-              Phone Number
-              <input id="registerPhone" type="text" placeholder="+91..." required />
+              Email ID
+              <input id="registerEmail" type="email" placeholder="you@example.com" autocomplete="email" required />
             </label>
             <label>
-              Password
-              <input id="registerPassword" type="password" placeholder="Create password" required />
+              City/State
+              <input id="registerCityState" type="text" placeholder="City, State" autocomplete="address-level2" required />
+            </label>
+            <label>
+              Do you have BPO/KPO experience?
+              <select id="registerBpoKpoExperience" required>
+                <option value="">Select an option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </label>
+            <label>
+              How much experience do you have? (if any)
+              <input id="registerExperience" type="text" placeholder="Example: 6 months, 2 years, Fresher" />
             </label>
             <label class="auth-checkbox-row" for="registerTermsAccepted">
               <input id="registerTermsAccepted" type="checkbox" />
@@ -87,14 +99,9 @@
                 I agree to the <a href="terms-conditions.html" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions</a>.
               </span>
             </label>
-            <button type="submit" class="auth-submit" id="registerSubmitBtn">Create Account</button>
+            <button type="submit" class="auth-submit" id="registerSubmitBtn">Submit Registration</button>
           </form>
           <p class="auth-message" id="registerMessage"></p>
-
-          <p class="auth-switch">
-            Already have an account?
-            <a href="login.html">Login Here</a>
-          </p>
         </div>
       </div>
     </section>

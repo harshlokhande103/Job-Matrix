@@ -558,9 +558,47 @@ if (aboutHeroMore && aboutHeroPreviewMore) {
 }
 
 const WHATSAPP_NUMBER = "917649052025";
-const WHATSAPP_MESSAGE = encodeURIComponent(
-  "Hello Job Matrix, I want to know more about your services."
-);
+// Paste your deployed Google Apps Script Web App URL here.
+// Setup steps and Apps Script code are in GOOGLE_SHEET_SETUP.md.
+const ENQUIRY_SHEET_WEB_APP_URL =
+  "https://script.google.com/macros/s/AKfycbyEZspOpe2oAbRuLIPcrZbXPKGnX28mV7uCkH6gfqmaoZtzfYloI87LZx2WB7r_5S0I/exec";
+const ENQUIRY_STORAGE_KEY = "jm_whatsapp_enquiries_v1";
+
+const buildWhatsappEnquiryUrl = ({ name, email, phone }) => {
+  const message = [
+    "Hello Job Matrix, I want to know more about your services.",
+    "",
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Phone: ${phone}`,
+  ].join("\n");
+
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+};
+
+const saveEnquiryBackup = (entry) => {
+  try {
+    const existing = JSON.parse(localStorage.getItem(ENQUIRY_STORAGE_KEY) || "[]");
+    existing.unshift(entry);
+    localStorage.setItem(ENQUIRY_STORAGE_KEY, JSON.stringify(existing.slice(0, 100)));
+  } catch {}
+};
+
+const sendEnquiryToSheet = async (entry) => {
+  if (!ENQUIRY_SHEET_WEB_APP_URL) {
+    console.warn("Google Sheet web app URL is missing in script.js.");
+    return;
+  }
+
+  await fetch(ENQUIRY_SHEET_WEB_APP_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8",
+    },
+    body: JSON.stringify(entry),
+  });
+};
 
 if (document.body) {
   const registerLink = document.createElement("a");
@@ -579,9 +617,7 @@ if (document.body) {
 
   const whatsappLink = document.createElement("a");
   whatsappLink.className = "floating-whatsapp";
-  whatsappLink.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
-  whatsappLink.target = "_blank";
-  whatsappLink.rel = "noopener noreferrer";
+  whatsappLink.href = "#whatsapp-enquiry";
   whatsappLink.setAttribute("aria-label", "Chat with Job Matrix on WhatsApp");
   whatsappLink.innerHTML = `
     <span class="floating-whatsapp-icon" aria-hidden="true">
@@ -593,6 +629,122 @@ if (document.body) {
     <span class="floating-whatsapp-text">WhatsApp Us</span>
   `;
   document.body.appendChild(whatsappLink);
+
+  const enquiryModal = document.createElement("div");
+  enquiryModal.className = "whatsapp-enquiry-modal";
+  enquiryModal.setAttribute("hidden", "");
+  enquiryModal.innerHTML = `
+    <div class="whatsapp-enquiry-backdrop" data-enquiry-close></div>
+    <div class="whatsapp-enquiry-dialog" role="dialog" aria-modal="true" aria-labelledby="whatsappEnquiryTitle">
+      <button type="button" class="whatsapp-enquiry-close" aria-label="Close enquiry form" data-enquiry-close>&times;</button>
+      <div class="whatsapp-enquiry-head">
+        <span>Quick Enquiry</span>
+        <h2 id="whatsappEnquiryTitle">Share your details</h2>
+        <p>Submit your details first, then your enquiry will open on WhatsApp.</p>
+      </div>
+      <form class="whatsapp-enquiry-form" id="whatsappEnquiryForm">
+        <label>
+          Name
+          <input type="text" id="whatsappEnquiryName" name="name" autocomplete="name" required />
+        </label>
+        <label>
+          Email
+          <input type="email" id="whatsappEnquiryEmail" name="email" autocomplete="email" required />
+        </label>
+        <label>
+          Phone Number
+          <input type="tel" id="whatsappEnquiryPhone" name="phone" autocomplete="tel" required />
+        </label>
+        <p class="whatsapp-enquiry-message" id="whatsappEnquiryMessage"></p>
+        <button type="submit" class="whatsapp-enquiry-submit" id="whatsappEnquirySubmit">Submit & Open WhatsApp</button>
+      </form>
+    </div>
+  `;
+  document.body.appendChild(enquiryModal);
+
+  const enquiryForm = document.getElementById("whatsappEnquiryForm");
+  const enquirySubmit = document.getElementById("whatsappEnquirySubmit");
+  const enquiryMessage = document.getElementById("whatsappEnquiryMessage");
+  const enquiryName = document.getElementById("whatsappEnquiryName");
+  const enquiryEmail = document.getElementById("whatsappEnquiryEmail");
+  const enquiryPhone = document.getElementById("whatsappEnquiryPhone");
+
+  const openEnquiryModal = () => {
+    enquiryModal.removeAttribute("hidden");
+    document.body.classList.add("whatsapp-enquiry-open");
+    setTimeout(() => enquiryName?.focus(), 30);
+  };
+
+  const closeEnquiryModal = () => {
+    enquiryModal.setAttribute("hidden", "");
+    document.body.classList.remove("whatsapp-enquiry-open");
+    if (enquiryMessage) enquiryMessage.textContent = "";
+  };
+
+  whatsappLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    openEnquiryModal();
+  });
+
+  enquiryModal.querySelectorAll("[data-enquiry-close]").forEach((closeEl) => {
+    closeEl.addEventListener("click", closeEnquiryModal);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !enquiryModal.hasAttribute("hidden")) {
+      closeEnquiryModal();
+    }
+  });
+
+  if (enquiryForm) {
+    enquiryForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const entry = {
+        name: enquiryName?.value.trim() || "",
+        email: enquiryEmail?.value.trim() || "",
+        phone: enquiryPhone?.value.trim() || "",
+        page: window.location.href,
+        createdAt: new Date().toISOString(),
+      };
+
+      if (!entry.name || !entry.email || !entry.phone) {
+        if (enquiryMessage) enquiryMessage.textContent = "Please fill all fields.";
+        return;
+      }
+
+      if (enquirySubmit) {
+        enquirySubmit.disabled = true;
+        enquirySubmit.textContent = "Submitting...";
+      }
+      if (enquiryMessage) enquiryMessage.textContent = "Submitting your details...";
+
+      saveEnquiryBackup(entry);
+      const whatsappWindow = window.open("about:blank", "_blank");
+      if (whatsappWindow) whatsappWindow.opener = null;
+
+      try {
+        await sendEnquiryToSheet(entry);
+      } catch (error) {
+        console.error("Google Sheet enquiry submit error:", error);
+      }
+
+      if (enquiryMessage) enquiryMessage.textContent = "Opening WhatsApp...";
+      const whatsappUrl = buildWhatsappEnquiryUrl(entry);
+      if (whatsappWindow) {
+        whatsappWindow.location.href = whatsappUrl;
+      } else {
+        window.location.href = whatsappUrl;
+      }
+      enquiryForm.reset();
+      closeEnquiryModal();
+
+      if (enquirySubmit) {
+        enquirySubmit.disabled = false;
+        enquirySubmit.textContent = "Submit & Open WhatsApp";
+      }
+    });
+  }
 }
 
 const revealSelector = [
