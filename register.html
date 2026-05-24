@@ -71,11 +71,11 @@
             </label>
             <label>
               Contact No
-              <input id="registerPhone" type="tel" placeholder="+91..." autocomplete="tel" required />
+              <input id="registerPhone" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="9111979622" autocomplete="tel" required />
             </label>
             <label>
               Email ID
-              <input id="registerEmail" type="email" placeholder="you@example.com" autocomplete="email" required />
+              <input id="registerEmail" type="email" pattern="^[^@\s]+@gmail\.com$" placeholder="you@gmail.com" autocomplete="email" required />
             </label>
             <label>
               City/State

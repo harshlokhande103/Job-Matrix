@@ -5,24 +5,71 @@ const NAME_FIELD_IDS = new Set([
   "fullName",
   "whatsappEnquiryName",
 ]);
-const NAME_FIELD_ERROR = "Please enter a valid name. Numbers are not allowed.";
-const NAME_VALUE_PATTERN = /^[\p{L}][\p{L}\s.'-]*$/u;
+const PHONE_FIELD_IDS = new Set([
+  "registerPhone",
+  "contactPhone",
+  "contactNumber",
+  "whatsappNumber",
+  "alternativeNumber",
+  "whatsappEnquiryPhone",
+]);
+const GMAIL_FIELD_IDS = new Set([
+  "registerEmail",
+  "contactEmail",
+  "emailId",
+  "whatsappEnquiryEmail",
+]);
+const NAME_FIELD_ERROR = "Please enter letters only. Numbers are not allowed.";
+const PHONE_FIELD_ERROR = "Please enter numbers only.";
+const GMAIL_FIELD_ERROR = "Please enter a valid Gmail address ending with @gmail.com.";
+const NAME_VALUE_PATTERN = /^[\p{L}]+(?:\s+[\p{L}]+)*$/u;
+const PHONE_VALUE_PATTERN = /^\d+$/;
+const GMAIL_VALUE_PATTERN = /^[^\s@]+@gmail\.com$/i;
 
 const isValidatedNameField = (field) =>
   field instanceof HTMLInputElement && NAME_FIELD_IDS.has(field.id);
+
+const isValidatedPhoneField = (field) =>
+  field instanceof HTMLInputElement && PHONE_FIELD_IDS.has(field.id);
+
+const isValidatedGmailField = (field) =>
+  field instanceof HTMLInputElement && GMAIL_FIELD_IDS.has(field.id);
 
 const validateNameField = (field) => {
   if (!isValidatedNameField(field)) return true;
 
   const value = field.value.trim();
-  const isValid = !value || (NAME_VALUE_PATTERN.test(value) && !/\d/.test(value));
+  const isValid = !value || NAME_VALUE_PATTERN.test(value);
   field.setCustomValidity(isValid ? "" : NAME_FIELD_ERROR);
-  field.classList.toggle("name-field-invalid", !isValid);
+  field.classList.toggle("field-invalid", !isValid);
   return isValid;
 };
 
+const validatePhoneField = (field) => {
+  if (!isValidatedPhoneField(field)) return true;
+
+  const value = field.value.trim();
+  const isValid = !value || PHONE_VALUE_PATTERN.test(value);
+  field.setCustomValidity(isValid ? "" : PHONE_FIELD_ERROR);
+  field.classList.toggle("field-invalid", !isValid);
+  return isValid;
+};
+
+const validateGmailField = (field) => {
+  if (!isValidatedGmailField(field)) return true;
+
+  const value = field.value.trim();
+  const isValid = !value || GMAIL_VALUE_PATTERN.test(value);
+  field.setCustomValidity(isValid ? "" : GMAIL_FIELD_ERROR);
+  field.classList.toggle("field-invalid", !isValid);
+  return isValid;
+};
+
+const validateControlledField = (field) =>
+  validateNameField(field) && validatePhoneField(field) && validateGmailField(field);
+
 document.addEventListener("input", (event) => {
-  validateNameField(event.target);
+  validateControlledField(event.target);
 });
 
 document.addEventListener(
@@ -31,8 +78,11 @@ document.addEventListener(
     const form = event.target;
     if (!(form instanceof HTMLFormElement)) return;
 
-    const nameFields = Array.from(form.querySelectorAll("input")).filter(isValidatedNameField);
-    const invalidField = nameFields.find((field) => !validateNameField(field));
+    const controlledFields = Array.from(form.querySelectorAll("input")).filter(
+      (field) =>
+        isValidatedNameField(field) || isValidatedPhoneField(field) || isValidatedGmailField(field)
+    );
+    const invalidField = controlledFields.find((field) => !validateControlledField(field));
 
     if (invalidField) {
       event.preventDefault();
