@@ -5447,6 +5447,19 @@ h1 .gradient {
   font-size: 14px;
 }
 
+.auth-page .auth-free-note {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 12px;
+  padding: 9px 12px;
+  border: 1px solid rgba(27, 155, 86, 0.24);
+  border-radius: 10px;
+  background: #eefaf3;
+  color: #147346;
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .auth-page .auth-form {
   margin-top: 16px;
   display: grid;
@@ -5500,6 +5513,13 @@ h1 .gradient {
 .auth-page .auth-checkbox-row a {
   color: #2f67dd;
   text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-page .auth-form-note {
+  margin: 0;
+  color: #147346;
+  font-size: 12px;
   font-weight: 600;
 }
 
@@ -7556,6 +7576,18 @@ button.reveal-on-scroll.is-visible,
 }
 
 @media (max-width: 760px) {
+  .header-topbar {
+    padding: 2px 0;
+  }
+
+  .header-topbar-wrap {
+    min-height: auto;
+  }
+
+  .header-contact-strip {
+    gap: 5px 14px;
+  }
+
   .nav-wrap {
     min-height: 72px;
     gap: 8px;
