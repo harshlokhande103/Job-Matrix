@@ -1222,7 +1222,8 @@ h1 .gradient {
   font-size: 66px;
   line-height: 0.98;
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
+  word-spacing: 0.12em;
 }
 
 .free-jobs-copy h2 span {
