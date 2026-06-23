@@ -26,6 +26,24 @@ function doPost(e) {
 
 function handleRegistration_(data) {
   const sheet = getOrCreateRegistrationSheet_();
+  const job = data.jobAppliedFor || {};
+  const appliedJob =
+    data.appliedJob ||
+    [data.appliedJobTitle || job.title, data.appliedJobCompany || job.company, data.appliedJobLocation || job.location]
+      .filter(Boolean)
+      .join(" - ");
+  const appliedJobDetails =
+    data.appliedJobDetails ||
+    [
+      `Title: ${data.appliedJobTitle || job.title || ""}`,
+      `Company: ${data.appliedJobCompany || job.company || ""}`,
+      `Location: ${data.appliedJobLocation || job.location || ""}`,
+      `Salary: ${data.appliedJobSalary || job.salary || ""}`,
+      `Type: ${data.appliedJobType || job.type || ""}`,
+      `Date: ${data.appliedJobDate || job.date || ""}`,
+      `Description: ${data.appliedJobDescription || job.description || ""}`,
+      `Source: ${data.appliedJobSource || job.source || ""}`,
+    ].join("\n");
 
   sheet.appendRow([
     new Date(),
@@ -35,6 +53,16 @@ function handleRegistration_(data) {
     data.cityState || "",
     data.bpoKpoExperience || "",
     data.experience || "",
+    appliedJob || "",
+    appliedJobDetails || "",
+    data.appliedJobTitle || job.title || "",
+    data.appliedJobCompany || job.company || "",
+    data.appliedJobLocation || job.location || "",
+    data.appliedJobSalary || job.salary || "",
+    data.appliedJobType || job.type || "",
+    data.appliedJobDate || job.date || "",
+    data.appliedJobSource || job.source || "",
+    data.appliedJobDescription || job.description || "",
     data.page || "",
     data.createdAt || "",
   ]);
@@ -67,18 +95,32 @@ function getOrCreateRegistrationSheet_() {
     sheet = spreadsheet.insertSheet(REGISTRATION_SHEET_NAME);
   }
 
+  const headers = [
+    "Received At",
+    "Name",
+    "Contact No",
+    "Email ID",
+    "City/State",
+    "BPO/KPO Experience",
+    "Experience",
+    "Applied Job",
+    "Applied Job Details",
+    "Applied Job Title",
+    "Applied Job Company",
+    "Applied Job Location",
+    "Applied Job Salary",
+    "Applied Job Type",
+    "Applied Job Date",
+    "Applied From",
+    "Applied Job Description",
+    "Page",
+    "Created At",
+  ];
+
   if (sheet.getLastRow() === 0) {
-    sheet.appendRow([
-      "Received At",
-      "Name",
-      "Contact No",
-      "Email ID",
-      "City/State",
-      "BPO/KPO Experience",
-      "Experience",
-      "Page",
-      "Created At",
-    ]);
+    sheet.appendRow(headers);
+  } else {
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
   }
 
   return sheet;

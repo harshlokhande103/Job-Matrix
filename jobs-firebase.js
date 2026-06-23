@@ -18,6 +18,7 @@ import { firebaseConfig } from "./firebase-config.js";
 
 const PENDING_JOB_APPLICATION_KEY = "jm_pending_job_application";
 const POST_LOGIN_REDIRECT_KEY = "jm_post_login_redirect";
+const REGISTER_SELECTED_JOB_KEY = "jm_register_selected_job";
 
 const defaultJobsData = [
   {
@@ -129,6 +130,24 @@ const clearPendingApplication = () => {
   sessionStorage.removeItem(PENDING_JOB_APPLICATION_KEY);
 };
 
+const openRegisterForJob = (job, source) => {
+  sessionStorage.setItem(
+    REGISTER_SELECTED_JOB_KEY,
+    JSON.stringify({
+      id: job.id || "",
+      title: job.title || "",
+      company: job.company || "",
+      location: job.location || "",
+      salary: job.salary || "",
+      type: normalizeJobType(job.type),
+      date: job.date || "",
+      description: job.description || "",
+      source,
+    })
+  );
+  window.location.href = "register.html?job=1";
+};
+
 const mapSourceLabel = (value) => {
   if (value === "dashboard") return "Dashboard";
   if (value === "jobs-page") return "Jobs Page";
@@ -236,21 +255,7 @@ const setupJobsPage = (db, auth) => {
     const selectedJob = currentJobs.find((job) => String(job.id) === String(jobId));
     if (!selectedJob) return;
 
-    button.disabled = true;
-    const originalText = button.textContent;
-    button.textContent = "Applying...";
-
-    try {
-      const result = await applyForJob(db, auth, selectedJob, "jobs-page");
-      if (result.redirected) return;
-      alert("Your application was submitted successfully.");
-    } catch (error) {
-      console.error("Jobs page apply error:", error);
-      alert("The application could not be submitted. Please check your Firestore rules.");
-    } finally {
-      button.disabled = false;
-      button.textContent = originalText;
-    }
+    openRegisterForJob(selectedJob, "jobs-page");
   });
 
   onAuthStateChanged(auth, async (user) => {

@@ -11,6 +11,7 @@ import {
 import { firebaseConfig } from "./firebase-config.js";
 
 const POST_LOGIN_REDIRECT_KEY = "jm_post_login_redirect";
+const REGISTER_SELECTED_JOB_KEY = "jm_register_selected_job";
 const REGISTER_SHEET_WEB_APP_URL =
   "https://script.google.com/macros/s/AKfycbyEZspOpe2oAbRuLIPcrZbXPKGnX28mV7uCkH6gfqmaoZtzfYloI87LZx2WB7r_5S0I/exec";
 const REGISTER_STORAGE_KEY = "jm_register_submissions_v1";
@@ -79,6 +80,37 @@ const sendRegisterToSheet = async (entry) => {
   });
 };
 
+const readSelectedRegisterJob = () => {
+  const hasJobParam = new URLSearchParams(window.location.search).get("job") === "1";
+  if (!hasJobParam) return null;
+
+  try {
+    const raw = sessionStorage.getItem(REGISTER_SELECTED_JOB_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+};
+
+const setRegisterJobText = (id, value) => {
+  const node = document.getElementById(id);
+  if (node) node.textContent = value || "";
+};
+
+const renderSelectedRegisterJob = (job) => {
+  const summary = document.getElementById("registerJobSummary");
+  if (!summary || !job) return;
+
+  setRegisterJobText("registerJobType", job.type || "Job");
+  setRegisterJobText("registerJobDate", job.date || "");
+  setRegisterJobText("registerJobTitle", job.title || "Selected Job");
+  setRegisterJobText("registerJobCompany", job.company ? `Company: ${job.company}` : "");
+  setRegisterJobText("registerJobLocation", job.location ? `Location: ${job.location}` : "");
+  setRegisterJobText("registerJobSalary", job.salary ? `Salary: ${job.salary}` : "");
+  setRegisterJobText("registerJobDescription", job.description || "");
+  summary.hidden = false;
+};
+
 if (!hasValidFirebaseConfig()) {
   const loginMessage = document.getElementById("loginMessage");
   const registerMessage = document.getElementById("registerMessage");
@@ -100,6 +132,9 @@ if (!hasValidFirebaseConfig()) {
     const message = document.getElementById("registerMessage");
     const submitBtn = document.getElementById("registerSubmitBtn");
     const termsCheckbox = document.getElementById("registerTermsAccepted");
+    const selectedRegisterJob = readSelectedRegisterJob();
+
+    renderSelectedRegisterJob(selectedRegisterJob);
 
     if (submitBtn && termsCheckbox) {
       submitBtn.disabled = !termsCheckbox.checked;
@@ -132,6 +167,29 @@ if (!hasValidFirebaseConfig()) {
       submitBtn.disabled = true;
       setMessage(message, "Submitting your registration...");
 
+      const appliedJob = selectedRegisterJob
+        ? [selectedRegisterJob.title, selectedRegisterJob.company, selectedRegisterJob.location]
+            .filter(Boolean)
+            .join(" - ")
+        : "";
+      const appliedJobDetails = selectedRegisterJob
+        ? [
+            `Title: ${selectedRegisterJob.title || ""}`,
+            `Company: ${selectedRegisterJob.company || ""}`,
+            `Location: ${selectedRegisterJob.location || ""}`,
+            `Salary: ${selectedRegisterJob.salary || ""}`,
+            `Type: ${selectedRegisterJob.type || ""}`,
+            `Date: ${selectedRegisterJob.date || ""}`,
+            `Description: ${selectedRegisterJob.description || ""}`,
+            `Source: ${selectedRegisterJob.source || ""}`,
+          ].join("\n")
+        : "";
+      const pageWithJobDetails = selectedRegisterJob
+        ? [window.location.href, "", `Applied Job: ${appliedJob}`, appliedJobDetails]
+            .filter(Boolean)
+            .join("\n")
+        : window.location.href;
+
       const registerEntry = {
         formType: "register",
         name,
@@ -140,7 +198,31 @@ if (!hasValidFirebaseConfig()) {
         cityState,
         bpoKpoExperience,
         experience: experience || "Not provided",
-        page: window.location.href,
+        appliedJob,
+        appliedJobDetails,
+        appliedJobId: selectedRegisterJob?.id || "",
+        appliedJobTitle: selectedRegisterJob?.title || "",
+        appliedJobCompany: selectedRegisterJob?.company || "",
+        appliedJobLocation: selectedRegisterJob?.location || "",
+        appliedJobSalary: selectedRegisterJob?.salary || "",
+        appliedJobType: selectedRegisterJob?.type || "",
+        appliedJobDate: selectedRegisterJob?.date || "",
+        appliedJobSource: selectedRegisterJob?.source || "",
+        appliedJobDescription: selectedRegisterJob?.description || "",
+        jobAppliedFor: selectedRegisterJob
+          ? {
+              id: selectedRegisterJob.id || "",
+              title: selectedRegisterJob.title || "",
+              company: selectedRegisterJob.company || "",
+              location: selectedRegisterJob.location || "",
+              salary: selectedRegisterJob.salary || "",
+              type: selectedRegisterJob.type || "",
+              date: selectedRegisterJob.date || "",
+              description: selectedRegisterJob.description || "",
+              source: selectedRegisterJob.source || "",
+            }
+          : null,
+        page: pageWithJobDetails,
         createdAt: new Date().toISOString(),
       };
 
@@ -151,6 +233,7 @@ if (!hasValidFirebaseConfig()) {
         alert("Registration submitted successfully.");
         setMessage(message, "Registration submitted successfully. Our team will contact you soon.", "success");
         registerForm.reset();
+        sessionStorage.removeItem(REGISTER_SELECTED_JOB_KEY);
       } catch (error) {
         console.error("Register error:", error);
         setMessage(
@@ -159,7 +242,7 @@ if (!hasValidFirebaseConfig()) {
           "error"
         );
       } finally {
-        submitBtn.disabled = false;
+        submitBtn.disabled = termsCheckbox ? !termsCheckbox.checked : false;
       }
     });
   }

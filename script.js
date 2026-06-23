@@ -614,6 +614,26 @@ const normalizeJobType = (value) => {
   return type;
 };
 
+const REGISTER_SELECTED_JOB_KEY = "jm_register_selected_job";
+
+const openRegisterForJob = (job, source = "website") => {
+  sessionStorage.setItem(
+    REGISTER_SELECTED_JOB_KEY,
+    JSON.stringify({
+      id: job.id || "",
+      title: job.title || "",
+      company: job.company || "",
+      location: job.location || "",
+      salary: job.salary || "",
+      type: normalizeJobType(job.type),
+      date: job.date || "",
+      description: job.description || "",
+      source,
+    })
+  );
+  window.location.href = "register.html?job=1";
+};
+
 const createJobCardMarkup = (job) => {
   const safeType = escapeHtml(normalizeJobType(job.type));
   const safeDate = escapeHtml(job.date || "");
@@ -637,10 +657,22 @@ const createJobCardMarkup = (job) => {
         <li>&#8377; ${safeSalary}</li>
       </ul>
       <p>${safeDescription}</p>
-      <button class="job-apply-btn">Apply Now</button>
+      <button class="job-apply-btn" type="button" data-home-apply-job-id="${escapeHtml(job.id)}">Apply Now</button>
     </article>
   `;
 };
+
+document.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-home-apply-job-id]");
+  if (!button) return;
+
+  const jobId = button.getAttribute("data-home-apply-job-id");
+  const selectedJob = defaultJobsData.find((job) => String(job.id) === String(jobId));
+  if (!selectedJob) return;
+
+  event.preventDefault();
+  openRegisterForJob(selectedJob, "home");
+});
 
 const aboutHeroMore = document.getElementById("aboutHeroMore");
 const aboutHeroPreviewMore = document.getElementById("aboutHeroPreviewMore");

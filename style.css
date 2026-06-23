@@ -5460,6 +5460,79 @@ h1 .gradient {
   font-weight: 700;
 }
 
+.auth-page .register-job-summary {
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid #d7e0ef;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 10px 18px rgba(22, 43, 84, 0.07);
+}
+
+.auth-page .register-job-summary[hidden] {
+  display: none;
+}
+
+.auth-page .register-job-summary-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.auth-page .register-job-summary-head span:first-child {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 4px 12px;
+  border: 2px solid #213a60;
+  border-radius: 10px;
+  color: #0f193b;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.auth-page .register-job-summary-head span:last-child {
+  color: #7891b8;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.auth-page .register-job-summary h2 {
+  margin: 0;
+  color: #0f193b;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.auth-page .register-job-summary ul {
+  display: grid;
+  gap: 5px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  color: #355076;
+  font-size: 14px;
+}
+
+.auth-page .register-job-summary li:empty {
+  display: none;
+}
+
+.auth-page .register-job-summary p {
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid #e1e8f3;
+  color: #4a5f80;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.auth-page .register-job-summary p:empty {
+  display: none;
+}
+
 .auth-page .auth-form {
   margin-top: 16px;
   display: grid;
